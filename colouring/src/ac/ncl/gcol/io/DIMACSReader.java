@@ -1,11 +1,10 @@
 package ac.ncl.gcol.io;
 
+import ac.ncl.gcol.algs.Greedy;
 import ac.ncl.gcol.graph.Edge;
-import ac.ncl.gcol.graph.GraphData;
+import ac.ncl.gcol.graph.Graph;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -13,7 +12,7 @@ import java.util.LinkedList;
 public class DIMACSReader {
     public DIMACSReader () {}
 
-    public GraphData readGraph(String inputFile)
+    public Graph readGraph(String inputFile)
     {
         // Array to store whether a vertex has been seen for any disconnected nodes
         boolean[] seenV = null;
@@ -24,10 +23,11 @@ public class DIMACSReader {
         // Array to store the degrees of each node
         int[] degrees = null;
         // Object to store all the read in graph data
-        GraphData graph;
+        Graph graph;
 
         try{
-            FileReader fr = new FileReader(inputFile);
+            String filePath = new File(inputFile).getAbsolutePath();
+            FileReader fr = new FileReader(filePath);
             BufferedReader br = new BufferedReader(fr);
 
             String line;
@@ -38,9 +38,6 @@ public class DIMACSReader {
                     String[] graphInfo = line.split(" ");
                     V = Integer.parseInt(graphInfo[2]);
                     E = Integer.parseInt(graphInfo[3]);
-
-                    System.out.println(STR."Vertices: \{V}");
-                    System.out.println(STR."Edges: \{E}");
                 }
                 break; // start reading in edges
             }
@@ -81,7 +78,14 @@ public class DIMACSReader {
             if(surplus != null) System.out.println("Warning: there appears to be surplus data in your file... please check number of edges.");
 
 
-        } catch (IOException ex) {
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("Problem finding file");
+            System.exit(1);
+        }
+        catch (IOException ex)
+        {
 //            System.out.println("Problem reading in file... must be DIMACS format.");
             System.exit(1);
         }
@@ -103,21 +107,29 @@ public class DIMACSReader {
             }
         }
 
-        graph = new GraphData(V, E, edges, degrees, maxDeg, maxNode);
+        graph = new Graph(V, E, edges, degrees, maxDeg, maxNode);
 
         return graph;
     }
 
     public static void main(String[] args) {
         DIMACSReader r = new DIMACSReader();
-        GraphData g = r.readGraph("/Users/harryhainsworth-staples/masters/CSC8099/Final_Project/project/graph-colouring/marco10.col");
-
+        Graph g = r.readGraph("colouring/src/ac/ncl/gcol/data/marco10.col");
+        Graph g1 = r.readGraph("colouring/src/ac/ncl/gcol/data/marco10.col");
         int[][] AM = g.toAdjMatrix();
-        for (int i = 0; i < g.getV(); i++) {
-            System.out.println(Arrays.toString(AM[i]));
-        }
-
         LinkedList<Integer>[] AL = g.toAdjList();
-        System.out.println(Arrays.toString(AL));
+
+        int[][] AM1 = g1.toAdjMatrix();
+        LinkedList<Integer>[] AL1 = g1.toAdjList();
+
+        Greedy greedy = new Greedy(AM, AL, g.getV());
+        int[] sol = greedy.colour(true);
+//        for(int i = 0; i < g.getV(); i++) System.out.println("v: " + (i + 1) + ", Colour: " + sol[i]);
+
+        Greedy greedy1 = new Greedy(AM1, AL1, g1.getV());
+        int[] sol1 = greedy1.colour(false);
+//        for(int i = 0; i < g.getV(); i++) System.out.println("v: " + (i + 1) + ", Colour: " + sol1[i]);
+        System.out.println("RandomValid?: " + greedy.checkValid() + ", InOrderValid?: " + greedy1.checkValid());
+        System.out.println("RandomK: " + greedy.getK() + ", InOrderK: " + greedy1.getK());
     }
 }

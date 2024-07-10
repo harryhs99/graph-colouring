@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  * A class to store the data of a graph read in from a file
  */
-public class GraphData {
+public class Graph {
     // number of vertices and edges
     private final int V, E;
     // array containing edges
@@ -15,7 +15,7 @@ public class GraphData {
     // highest degree as number and index of node with the highest deg
     private final int maxDeg, maxNode;
 
-    public GraphData (int V, int E, Edge[] edges, int[] degrees, int maxDeg, int maxNode )
+    public Graph(int V, int E, Edge[] edges, int[] degrees, int maxDeg, int maxNode )
     {
         this.V = V;
         this.E = E;

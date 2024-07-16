@@ -1,25 +1,28 @@
 package ac.ncl.gcol.io;
 
+import ac.ncl.gcol.algs.GraphColouring;
 import ac.ncl.gcol.algs.Greedy;
-import ac.ncl.gcol.graph.Edge;
-import ac.ncl.gcol.graph.Graph;
+import ac.ncl.gcol.exceptions.SolutionNotFoundException;
+import ac.ncl.gcol.graph.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.Collections;
 
 public class DIMACSReader {
     public DIMACSReader () {}
 
-    public Graph readGraph(String inputFile)
+    public AdjListGraph readGraphToAdjList(String inputFile)
     {
         // Array to store whether a vertex has been seen for any disconnected nodes
         boolean[] seenV = null;
         // V is number of vertices and E is the number of Edges
         int V = -1, E = -1;
         // Array to contain the edges of the graph
-        Edge[] edges = null;
+        ArrayList<Edge> edges;
+        // Array to contain all the vertices of the graph
+        ArrayList<Vertex> vertices;
         // Array to store the degrees of each node
         int[] degrees = null;
         // Object to store all the read in graph data
@@ -42,35 +45,34 @@ public class DIMACSReader {
                 break; // start reading in edges
             }
 
-            if(V == -1 || E == -1) throw new IOException("Problem reading in file > Must be in DIMACS format. ");
+            if(V == -1 || E == -1) throw new IOException();
 
             degrees = new int[V]; Arrays.fill(degrees, 0);
-            edges = new Edge[E];
+            edges = new ArrayList<>();
+            vertices = new ArrayList<>();
             seenV = new boolean[V + 1];
-            ArrayList<Edge> seenE = new ArrayList<>();
 
             int counter = 0;
             while((line = br.readLine()) != null)
             {
                 String[] edge = line.split(" ");
 
-                Edge e = new Edge((Integer.parseInt(edge[1]) - 1),
-                        (Integer.parseInt(edge[2]) - 1));
+                Vertex u = new Vertex(Integer.parseInt(edge[1]));
+                Vertex v = new Vertex(Integer.parseInt(edge[2]));
 
-                // check if seen edge before
-                if(seenE.contains(e)) continue;
+                if(!vertices.contains(u)) vertices.add(u);
+                if(!vertices.contains(v)) vertices.add(v);
 
-                // if not seen before add to seen and to edges array
-                seenE.add(e);
-                edges[counter++] = e;
+                Edge e = new Edge(u, v);
+
+                edges.add(e);
 
                 // increase the degree of each node as an edge is added
-                degrees[e.getU()]++;
-                degrees[e.getV()]++;
+                degrees[e.getSrc().getName() - 1]++;
 
                 // add both nodes to the seen vertex array
-                seenV[e.getU() + 1] = true;
-                seenV[e.getV() + 1] = true;
+                seenV[u.getName()] = true;
+                seenV[v.getName()] = true;
 
             }
 
@@ -78,23 +80,28 @@ public class DIMACSReader {
             if(surplus != null) System.out.println("Warning: there appears to be surplus data in your file... please check number of edges.");
 
 
-        }
-        catch (FileNotFoundException e)
+        } catch (FileNotFoundException e)
         {
-            System.out.println("Problem finding file");
-            System.exit(1);
-        }
-        catch (IOException ex)
-        {
-//            System.out.println("Problem reading in file... must be DIMACS format.");
-            System.exit(1);
+            System.out.println("File not found: please check input file.");
+            return null;
+        } catch (IOException e) {
+            System.out.println("Problem reading in file: Must be in DIMACS format.");
+            return null;
         }
 
         // check for any disconnected nodes
         for(int j = 1; j <= V; j++)
         {
-            if(!seenV[j]) System.out.println(STR."Warning: vertex \{j} did not appear on an edge it will be considered a disconnected vertex.");
+
+            if(!seenV[j]) {
+                System.out.println(STR."Warning: vertex \{j} did not appear on an edge it will be considered a disconnected vertex.");
+                Vertex v = new Vertex(j);
+                vertices.add(v);
+            }
         }
+
+        // sort to be in order
+        Collections.sort(vertices);
 
         int maxDeg = 0;
         int maxNode = 0;
@@ -103,33 +110,39 @@ public class DIMACSReader {
         {
             if(degrees[k] > maxDeg) {
                 maxDeg = degrees[k];
-                maxNode = k;
+                maxNode = k + 1;
             }
         }
 
-        graph = new Graph(V, E, edges, degrees, maxDeg, maxNode);
+        graph = new AdjListGraph(V, E, edges, vertices,  degrees, maxDeg, maxNode);
 
-        return graph;
+        return (AdjListGraph) graph;
+
     }
+
+
 
     public static void main(String[] args) {
         DIMACSReader r = new DIMACSReader();
-        Graph g = r.readGraph("colouring/src/ac/ncl/gcol/data/marco10.col");
-        Graph g1 = r.readGraph("colouring/src/ac/ncl/gcol/data/marco10.col");
-        int[][] AM = g.toAdjMatrix();
-        LinkedList<Integer>[] AL = g.toAdjList();
+        AdjListGraph g = r.readGraphToAdjList("colouring/src/ac/ncl/gcol/data/graph.txt");
+       g.printGraph();
+//        System.out.println(Arrays.toString(g.getDegrees()));
+//        System.out.println(g.getMaxNode());
+//        System.out.println(g.getMaxDeg());
 
-        int[][] AM1 = g1.toAdjMatrix();
-        LinkedList<Integer>[] AL1 = g1.toAdjList();
+        GraphColouring greedy = new Greedy(true);
+        int k = 0;
+         k = greedy.colour(g);
 
-        Greedy greedy = new Greedy(AM, AL, g.getV());
-        int[] sol = greedy.colour(true);
-//        for(int i = 0; i < g.getV(); i++) System.out.println("v: " + (i + 1) + ", Colour: " + sol[i]);
+        try {
+            g.printSolution();
+            System.out.println(g.validSolution());
+        } catch (SolutionNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Graph is " + k + "-colourable");
 
-        Greedy greedy1 = new Greedy(AM1, AL1, g1.getV());
-        int[] sol1 = greedy1.colour(false);
-//        for(int i = 0; i < g.getV(); i++) System.out.println("v: " + (i + 1) + ", Colour: " + sol1[i]);
-        System.out.println("RandomValid?: " + greedy.checkValid() + ", InOrderValid?: " + greedy1.checkValid());
-        System.out.println("RandomK: " + greedy.getK() + ", InOrderK: " + greedy1.getK());
+
+
     }
 }

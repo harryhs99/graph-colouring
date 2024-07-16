@@ -1,21 +1,21 @@
 package ac.ncl.gcol.graph;
 
 public class Edge {
-    private final int u;
-    private final int v;
+    private final Vertex src;
+    private final Vertex dest;
 
-    public Edge(int u, int v)
+    public Edge(Vertex u, Vertex v)
     {
-        this.u = u;
-        this.v = v;
+        this.src = u;
+        this.dest = v;
     }
 
-    public int getU() {
-        return u;
+    public Vertex getSrc() {
+        return src;
     }
 
-    public int getV() {
-        return v;
+    public Vertex getDest() {
+        return dest;
     }
 
     @Override
@@ -23,7 +23,8 @@ public class Edge {
     {
         if(this == rhs) return true;
         if(!(rhs instanceof Edge e)) return false;
-        return (this.u == e.u && this.v == e.v) || (this.v == e.u && this.u == e.v);
+        return (this.src.getName() == e.src.getName() && this.dest.getName() == e.dest.getName()) ||
+                (this.src.getName() == e.dest.getName() && this.dest.getName() == e.src.getName());
     }
 
     @Override
@@ -31,14 +32,14 @@ public class Edge {
     {
         int hc = 17;
         int multiplier = 37;
-        hc = multiplier * hc + u;
-        hc = multiplier * hc + v;
+        hc = multiplier * hc + src.getName();
+        hc = multiplier * hc + dest.getName();
         return hc;
     }
 
     @Override
     public String toString()
     {
-        return this.u + " <--> " + this.v;
+        return this.src + " <--> " + this.dest;
     }
 }

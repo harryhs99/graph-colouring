@@ -1,20 +1,14 @@
 package ac.ncl.gcol.io;
 
-import ac.ncl.gcol.algs.GraphColouring;
-import ac.ncl.gcol.algs.Greedy;
-import ac.ncl.gcol.exceptions.SolutionNotFoundException;
 import ac.ncl.gcol.graph.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
-public class DIMACSReader {
-    public DIMACSReader () {}
+public class DIMACSReadWriter {
+    public DIMACSReadWriter() {}
 
-    public AdjListGraph readGraphToAdjList(String inputFile)
-    {
+    private Graph readGraph(String inputFile, boolean asAdjList) throws IOException {
         // Array to store whether a vertex has been seen for any disconnected nodes
         boolean[] seenV = null;
         // V is number of vertices and E is the number of Edges
@@ -82,11 +76,10 @@ public class DIMACSReader {
 
         } catch (FileNotFoundException e)
         {
-            System.out.println("File not found: please check input file.");
-            return null;
-        } catch (IOException e) {
-            System.out.println("Problem reading in file: Must be in DIMACS format.");
-            return null;
+            throw new FileNotFoundException("File not found: please check input file.");
+        } catch (IOException e)
+        {
+            throw new IOException("Problem reading in file: Must be in DIMACS format.");
         }
 
         // check for any disconnected nodes
@@ -114,35 +107,26 @@ public class DIMACSReader {
             }
         }
 
-        graph = new AdjListGraph(V, E, edges, vertices,  degrees, maxDeg, maxNode);
-
-        return (AdjListGraph) graph;
+        if(asAdjList)
+            graph = new AdjListGraph(V, E, edges, vertices,  degrees, maxDeg, maxNode);
+        else
+            graph = new AdjMatrixGraph(V, E, edges, vertices,  degrees, maxDeg, maxNode);
+        return graph;
+    }
+    public AdjListGraph readGraphToAdjList(String inputFile) throws IOException {
+        Graph g = readGraph(inputFile, true);
+        return (AdjListGraph) g;
 
     }
 
+    public AdjMatrixGraph readGraphToAdjMatrix(String inputFile) throws IOException {
+        Graph g = readGraph(inputFile, false);
+        return (AdjMatrixGraph) g;
+    }
 
-
-    public static void main(String[] args) {
-        DIMACSReader r = new DIMACSReader();
-        AdjListGraph g = r.readGraphToAdjList("colouring/src/ac/ncl/gcol/data/graph.txt");
-       g.printGraph();
-//        System.out.println(Arrays.toString(g.getDegrees()));
-//        System.out.println(g.getMaxNode());
-//        System.out.println(g.getMaxDeg());
-
-        GraphColouring greedy = new Greedy(true);
-        int k = 0;
-         k = greedy.colour(g);
-
-        try {
-            g.printSolution();
-            System.out.println(g.validSolution());
-        } catch (SolutionNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("Graph is " + k + "-colourable");
-
-
+    public void printSolution(Graph g, HashMap<Integer, HashSet<Vertex>> solution)
+    {
 
     }
+
 }

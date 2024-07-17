@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class AdjListGraph extends AbstractGraph {
     public HashMap<Vertex, ArrayList<Vertex>> adjList = new HashMap<>();
-    private boolean hasSolution = false;
 
     public AdjListGraph(int order, int size, ArrayList<Edge> edges, ArrayList<Vertex> vertices, int[] degrees, int maxDeg, int maxNode)
     {
@@ -18,7 +17,7 @@ public class AdjListGraph extends AbstractGraph {
         this.vertices = vertices;
         this.degrees = degrees;
         this.maxDeg = maxDeg;
-        this.maxIdx = maxNode;
+        this.maxNode = maxNode;
         this.convertToAdjList();
     }
 
@@ -47,15 +46,7 @@ public class AdjListGraph extends AbstractGraph {
         System.out.println(adjList);
     }
 
-    public void printSolution() throws SolutionNotFoundException {
-        for(Vertex v: this.vertices)
-        {
-            if(v.getColour() == -1) throw new SolutionNotFoundException("Must first run an algorithm to find a solution");
-            System.out.println(v.getName() + " -> " + v.getColour());
-        }
-        hasSolution = true;
-    }
-
+    @Override
     public boolean validSolution() throws SolutionNotFoundException {
         if(!hasSolution) throw new SolutionNotFoundException("Must first run an algorithm to find a solution");
         boolean valid = true;

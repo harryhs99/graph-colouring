@@ -20,10 +20,10 @@ public abstract class AbstractGraphColouring implements GraphColouring{
         int n = vertices.size();
         Random rn = new Random();
         while(n > 1){
-            Vertex x = vertices.get(n-1);
-            int ind = rn.nextInt(n-1);
-            vertices.set(n-1, vertices.get(ind));
-            vertices.set(ind, x);
+            Vertex v = vertices.get(n-1);
+            int idx = rn.nextInt(n-1);
+            vertices.set(n-1, vertices.get(idx));
+            vertices.set(idx, v);
             n--;
         }
         return vertices;

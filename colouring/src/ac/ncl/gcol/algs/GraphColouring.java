@@ -11,6 +11,5 @@ import java.util.Set;
 
 public interface GraphColouring {
     public HashMap<Integer, HashSet<Vertex>> colour(Graph g);
-    public ArrayList<Vertex> shuffleVertices(ArrayList<Vertex> v);
-    public boolean isSafe(ArrayList<Edge> e);
+    public long getNumChecks();
 }

@@ -70,6 +70,7 @@ public abstract class AbstractGraph implements Graph{
         return maxNode;
     }
 
+
     @Override
     public abstract void printGraph();
 
@@ -83,6 +84,16 @@ public abstract class AbstractGraph implements Graph{
             }
         }
     }
+
+    protected void assignDegrees()
+    {
+        int idx = 0;
+        for(Vertex v: vertices)
+        {
+            v.setDegree(degrees[idx++]);
+        }
+    }
+
 
     @Override
     public void printSolution() throws SolutionNotFoundException {

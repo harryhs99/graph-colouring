@@ -4,19 +4,24 @@ import ac.ncl.gcol.graph.Edge;
 import ac.ncl.gcol.graph.Graph;
 import ac.ncl.gcol.graph.Vertex;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Random;
+import java.util.*;
 
 public abstract class AbstractGraphColouring implements GraphColouring{
+    protected boolean sorted = false;
     protected boolean shuffle = false;
     protected HashMap<Integer, HashSet<Vertex>> solution;
+    protected long numChecks;
     @Override
     public abstract HashMap<Integer, HashSet<Vertex>> colour(Graph g);
 
     @Override
-    public ArrayList<Vertex> shuffleVertices(ArrayList<Vertex> vertices) {
+    public long getNumChecks()
+    {
+        return this.numChecks;
+    }
+
+
+    protected ArrayList<Vertex> shuffleVertices(ArrayList<Vertex> vertices) {
         int n = vertices.size();
         Random rn = new Random();
         while(n > 1){
@@ -26,12 +31,20 @@ public abstract class AbstractGraphColouring implements GraphColouring{
             vertices.set(idx, v);
             n--;
         }
+        this.numChecks += vertices.size();
         return vertices;
     }
 
 
-    @Override
-    public boolean isSafe(ArrayList<Edge> edges) {
+    protected ArrayList<Vertex> sortByDegree(ArrayList<Vertex> v) {
+        Collections.sort(v);
+        this.numChecks += (long) (v.size() * Math.log(v.size()));
+        return v;
+    }
+
+
+
+    protected boolean isSafe(ArrayList<Edge> edges) {
         for(Edge e: edges)
         {
             if(e.getSrc().getColour() == e.getDest().getColour())
@@ -39,4 +52,7 @@ public abstract class AbstractGraphColouring implements GraphColouring{
         }
         return true;
     }
+
+
+
 }

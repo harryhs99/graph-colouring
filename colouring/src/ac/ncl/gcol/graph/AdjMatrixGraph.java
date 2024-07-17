@@ -19,6 +19,7 @@ public class AdjMatrixGraph extends AbstractGraph {
         this.maxNode = maxNode;
         this.adjMatrix = new int[order][order];
         this.convertToAdjMatrix();
+        assignDegrees();
     }
     private void convertToAdjMatrix()
     {

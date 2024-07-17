@@ -19,6 +19,7 @@ public class AdjListGraph extends AbstractGraph {
         this.maxDeg = maxDeg;
         this.maxNode = maxNode;
         this.convertToAdjList();
+        assignDegrees();
     }
 
     private void convertToAdjList()

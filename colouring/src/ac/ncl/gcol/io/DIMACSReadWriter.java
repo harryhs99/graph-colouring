@@ -63,6 +63,7 @@ public class DIMACSReadWriter {
 
                 // increase the degree of each node as an edge is added
                 degrees[e.getSrc().getName() - 1]++;
+                degrees[e.getDest().getName() - 1]++;
 
                 // add both nodes to the seen vertex array
                 seenV[u.getName()] = true;

@@ -48,10 +48,6 @@ public class Vertex implements Comparable<Vertex> {
         this.colour = c;
     }
 
-    public void incDegree()
-    {
-        this.degree++;
-    }
 
     public boolean equals(Object rhs)
     {
@@ -73,7 +69,8 @@ public class Vertex implements Comparable<Vertex> {
     public int compareTo(Vertex v)
     {
         if(this == v) return 0;
-        return this.name != v.name ? this.name - v.name : this.degree - v.degree;
+        // return this.name != v.name ? this.name - v.name : this.degree - v.degree;
+        return v.degree != this.degree ? v.degree - this.degree : this.name - v.name;
     }
 
     @Override

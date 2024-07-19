@@ -41,6 +41,17 @@ public class GreedyGraphColouring extends AbstractGraphColouring {
         return this.greedyType;
     }
 
+    private ArrayList<Vertex> selectOrdering(ArrayList<Vertex> vertices)
+    {
+        // If desired, shuffle the vertices in a random order
+        if(this.shuffle)
+            return this.shuffleVertices(vertices);
+        else if (this.sorted)
+            return this.sortByDegree(vertices);
+        else
+            return vertices;
+    }
+
     private HashMap<Integer, HashSet<Vertex>> colourAdjList(AdjListGraph g) {
         this.numChecks = 0;
 
@@ -48,15 +59,9 @@ public class GreedyGraphColouring extends AbstractGraphColouring {
         solution = new HashMap<>();
 
         var adjList = g.getAdjList();
-        ArrayList<Vertex> vertices;
 
-        // If desired, shuffle the vertices in a random order
-        if(this.shuffle)
-            vertices = this.shuffleVertices(g.getVertices());
-        else if (this.sorted)
-            vertices = this.sortByDegree(g.getVertices());
-        else
-            vertices = g.getVertices();
+        ArrayList<Vertex> vertices = selectOrdering(g.getVertices());
+
 
         // Iterate through each vertex in the order specified above
         for(Vertex v: vertices)

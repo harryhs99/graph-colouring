@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AdjListGraph extends AbstractGraph {
-    public HashMap<Vertex, ArrayList<Vertex>> adjList = new HashMap<>();
+    private final HashMap<Vertex, ArrayList<Vertex>> adjList = new HashMap<>();
 
     public AdjListGraph(int order, int size, ArrayList<Edge> edges, ArrayList<Vertex> vertices, int[] degrees, int maxDeg, int maxNode)
     {
@@ -47,6 +47,7 @@ public class AdjListGraph extends AbstractGraph {
         System.out.println(adjList);
     }
 
+    /*
     @Override
     public boolean validSolution() throws SolutionNotFoundException {
         if(!hasSolution) throw new SolutionNotFoundException("Must first run an algorithm to find a solution");
@@ -66,5 +67,7 @@ public class AdjListGraph extends AbstractGraph {
         }
         return valid;
     }
+
+     */
 
 }

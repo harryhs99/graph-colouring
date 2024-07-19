@@ -1,0 +1,12 @@
+c Simple bipartite graph with 8 nodes and 9 edges
+c
+p edge 8 9
+e 1 2
+e 6 7
+e 6 7
+e 1 4
+e 1 6
+e 6 7
+e 3 4
+e 4 5
+e 5 8

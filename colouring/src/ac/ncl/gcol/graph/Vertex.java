@@ -38,10 +38,12 @@ public class Vertex implements Comparable<Vertex> {
         this.degree = d;
     }
 
-    public void setSaturation(int s)
+    public void incSaturation()
     {
-        this.saturation = s;
+        this.saturation++;
     }
+
+    public void setSaturation(int sat) { this.saturation = sat; }
 
     public void setColour(int c)
     {
@@ -53,7 +55,7 @@ public class Vertex implements Comparable<Vertex> {
     {
         if(this == rhs) return true;
         if(!(rhs instanceof Vertex v)) return false;
-        return this.getName() == v.getName();
+        return (this.getName() == v.getName());
     }
 
     @Override
@@ -61,22 +63,35 @@ public class Vertex implements Comparable<Vertex> {
     {
         int hc = 17;
         int multiplier = 37;
-        hc = multiplier * hc + this.getName();
+        hc += multiplier * hc + this.getName();
         return hc;
     }
+
 
     @Override
     public int compareTo(Vertex v)
     {
-        if(this == v) return 0;
-        // return this.name != v.name ? this.name - v.name : this.degree - v.degree;
-        return v.degree != this.degree ? v.degree - this.degree : this.name - v.name;
+        int result = Integer.compare(v.saturation, this.saturation);
+        if(result == 0)
+        {
+            result = Integer.compare(v.degree, this.degree);
+            if(result == 0)
+            {
+                result = Integer.compare(this.name, v.name);
+            }
+        }
+        return result;
+//        if(this == v) return 0;
+//        if (this.saturation != v.saturation) return v.saturation - this.saturation;
+//        if (this.degree != v.degree) return v.degree - this.degree;
+//        return this.name - v.name;
     }
 
     @Override
     public String toString()
     {
         return String.valueOf(this.name);
+        // return "[vertex:" + this.name + ", Sat: " + this.saturation + ", Deg: " + this.degree + "]";
     }
 
 }

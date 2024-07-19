@@ -1,5 +1,6 @@
 package ac.ncl.gcol.algs;
 
+import ac.ncl.gcol.graph.AdjMatrixGraph;
 import ac.ncl.gcol.graph.Edge;
 import ac.ncl.gcol.graph.Graph;
 import ac.ncl.gcol.graph.Vertex;
@@ -44,12 +45,37 @@ public abstract class AbstractGraphColouring implements GraphColouring{
 
 
 
-    protected boolean isSafe(ArrayList<Edge> edges) {
-        for(Edge e: edges)
+    protected boolean isSafe(ArrayList<Vertex> neighbours, int col) {
+        long checks = 0;
+        for(Vertex n: neighbours)
         {
-            if(e.getSrc().getColour() == e.getDest().getColour())
+            if(n.getColour() == col)
+            {
+                this.numChecks += checks;
                 return false;
+            }
+            checks++;
         }
+        this.numChecks += checks;
+        return true;
+    }
+
+    protected boolean isSafe(ArrayList<Vertex> vertices, int[] neighbours, int col)
+    {
+        long checks = 0;
+        for(int i = 0; i < neighbours.length; i++)
+        {
+            if(neighbours[i] == 1)
+            {
+                if(vertices.get(i).getColour() == col)
+                {
+                    this.numChecks += checks;
+                    return false;
+                }
+            }
+            checks++;
+        }
+        this.numChecks += checks;
         return true;
     }
 

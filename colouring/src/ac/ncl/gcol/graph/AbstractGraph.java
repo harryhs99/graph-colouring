@@ -47,17 +47,17 @@ public abstract class AbstractGraph implements Graph{
 
     @Override
     public ArrayList<Edge> getEdges() {
-        return this.edges;
+        return new ArrayList<>(this.edges);
     }
 
     @Override
     public ArrayList<Vertex> getVertices() {
-        return this.vertices;
+        return new ArrayList<>(this.vertices);
     }
 
     @Override
     public int[] getDegrees() {
-        return this.degrees;
+        return this.degrees.clone();
     }
 
     @Override
@@ -104,5 +104,20 @@ public abstract class AbstractGraph implements Graph{
         }
     }
     @Override
-    public abstract boolean validSolution() throws SolutionNotFoundException;
+    public boolean validSolution() throws SolutionNotFoundException
+    {
+        if(!hasSolution) throw new SolutionNotFoundException("Must first run an algorithm to find a solution");
+        boolean valid = true;
+        for(Edge e: edges)
+        {
+            if(e.getSrc().getColour() == e.getDest().getColour())
+            {
+                Vertex u = e.getSrc();
+                Vertex v = e.getDest();
+                System.out.println("Clash between " + u + " and " + v);
+                valid = false;
+            }
+        }
+        return valid;
+    };
 }

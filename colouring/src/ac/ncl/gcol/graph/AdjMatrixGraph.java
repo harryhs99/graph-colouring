@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class AdjMatrixGraph extends AbstractGraph {
-    private int[][] adjMatrix;
+    private final int[][] adjMatrix;
 
     public AdjMatrixGraph(int order, int size, ArrayList<Edge> edges, ArrayList<Vertex> vertices, int[] degrees, int maxDeg, int maxNode)
     {
@@ -43,6 +43,7 @@ public class AdjMatrixGraph extends AbstractGraph {
         }
     }
 
+    /*
     @Override
     public boolean validSolution() throws SolutionNotFoundException {
         if(!hasSolution) throw new SolutionNotFoundException("Must first run an algorithm to find a solution");
@@ -64,4 +65,6 @@ public class AdjMatrixGraph extends AbstractGraph {
         }
         return true;
     }
+    */
+
 }

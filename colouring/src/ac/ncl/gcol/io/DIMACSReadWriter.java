@@ -13,6 +13,8 @@ public class DIMACSReadWriter {
         boolean[] seenV = null;
         // V is number of vertices and E is the number of Edges
         int V = -1, E = -1;
+        // HM to store graph info
+        HashMap<Integer, Vertex> seen = new HashMap<>();
         // Array to contain the edges of the graph
         ArrayList<Edge> edges;
         // Array to contain all the vertices of the graph
@@ -51,11 +53,22 @@ public class DIMACSReadWriter {
             {
                 String[] edge = line.split(" ");
 
-                Vertex u = new Vertex(Integer.parseInt(edge[1]));
-                Vertex v = new Vertex(Integer.parseInt(edge[2]));
+                Vertex a = new Vertex(Integer.parseInt(edge[1]));
+                Vertex b = new Vertex(Integer.parseInt(edge[2]));
 
-                if(!vertices.contains(u)) vertices.add(u);
-                if(!vertices.contains(v)) vertices.add(v);
+                if(!seen.containsKey(a.getName()))
+                {
+                    seen.put(a.getName(), a);
+                    vertices.add(a);
+                }
+                if(!seen.containsKey(b.getName()))
+                {
+                    seen.put(b.getName(), b);
+                    vertices.add(b);
+                }
+
+                Vertex u = seen.get(a.getName());
+                Vertex v = seen.get(b.getName());
 
                 Edge e = new Edge(u, v);
 

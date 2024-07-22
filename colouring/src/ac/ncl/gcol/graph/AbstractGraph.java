@@ -19,7 +19,7 @@ public abstract class AbstractGraph implements Graph{
     @Override
     public HashMap<Integer, HashSet<Vertex>> getColouring() throws SolutionNotFoundException {
         if(!hasSolution) throw new SolutionNotFoundException("Must first run an algorithm to find a solution");
-        return this.colouring;
+        return new HashMap<>(this.colouring);
     }
 
     @Override
@@ -92,6 +92,13 @@ public abstract class AbstractGraph implements Graph{
         {
             v.setDegree(degrees[idx++]);
         }
+    }
+
+
+    public void clearColouring()
+    {
+        this.colouring = new HashMap<>();
+        hasSolution = false;
     }
 
 

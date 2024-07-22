@@ -14,7 +14,7 @@ public class GreedyGraphColouring extends AbstractGraphColouring {
      * A constructor for a GreedyGraphColouring object that will colour the vertices in the order they are read.
      */
     public GreedyGraphColouring() {
-        this.greedyType = "Ordered by input.";
+        this.greedyType = "In Order";
     }
 
     /**
@@ -28,12 +28,12 @@ public class GreedyGraphColouring extends AbstractGraphColouring {
         if(sortShuffle)
         {
             this.sorted = true;
-            this.greedyType = "Sorted by vertex degree";
+            this.greedyType = "Sorted";
         }
         else
         {
             this.shuffle = true;
-            this.greedyType = "Shuffled order";
+            this.greedyType = "Shuffled";
         }
     }
 
@@ -58,10 +58,9 @@ public class GreedyGraphColouring extends AbstractGraphColouring {
         // Initialise store for the colouring solution
         solution = new HashMap<>();
 
+
         var adjList = g.getAdjList();
-
         ArrayList<Vertex> vertices = selectOrdering(g.getVertices());
-
 
         // Iterate through each vertex in the order specified above
         for(Vertex v: vertices)
@@ -144,5 +143,12 @@ public class GreedyGraphColouring extends AbstractGraphColouring {
         else solution = colourAdjMatrix((AdjMatrixGraph) g);
         g.setColouring(solution);
         return solution;
+    }
+
+    @Override
+    public String toString()
+    {
+
+        return "Greedy " + this.greedyType;
     }
 }

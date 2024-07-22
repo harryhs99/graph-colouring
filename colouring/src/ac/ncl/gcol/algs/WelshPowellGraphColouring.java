@@ -139,4 +139,10 @@ public class WelshPowellGraphColouring extends AbstractGraphColouring {
         return solution;
     }
 
+    @Override
+    public String toString()
+    {
+        return "WelshPowell";
+    }
+
 }

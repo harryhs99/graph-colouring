@@ -101,7 +101,7 @@ public class DIMACSReadWriter {
         {
 
             if(!seenV[j]) {
-                System.out.println(STR."Warning: vertex \{j} did not appear on an edge it will be considered a disconnected vertex.");
+             //   System.out.println(STR."Warning: vertex \{j} did not appear on an edge it will be considered a disconnected vertex.");
                 Vertex v = new Vertex(j);
                 vertices.add(v);
             }

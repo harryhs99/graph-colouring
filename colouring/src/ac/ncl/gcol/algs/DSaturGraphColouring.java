@@ -110,4 +110,9 @@ public class DSaturGraphColouring extends AbstractGraphColouring {
         g.setColouring(solution);
         return solution;
     }
+
+    @Override
+    public String toString() {
+        return "DSatur";
+    }
 }

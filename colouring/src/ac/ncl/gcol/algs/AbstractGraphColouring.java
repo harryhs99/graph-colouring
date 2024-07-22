@@ -81,4 +81,5 @@ public abstract class AbstractGraphColouring implements GraphColouring{
 
 
 
+
 }

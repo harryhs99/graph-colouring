@@ -129,7 +129,7 @@ public class GreedyGraphColouring extends AbstractGraphColouring {
                     v.setColour(col);
                     break;
                 }
-                this.numChecks++;
+              //  this.numChecks++;
             }
             this.numChecks++;
         }

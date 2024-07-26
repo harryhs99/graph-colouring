@@ -13,18 +13,25 @@ public class DSaturGraphColouring extends AbstractGraphColouring {
         this.numChecks = 0;
         solution = new HashMap<>();
         var adjList = g.getAdjList();
-        ArrayList<Vertex> remainingVertices = g.getVertices();
-        Queue<Vertex> unassigned = new PriorityQueue<>(g.getOrder());
+        HashMap<Vertex, HashSet<Integer>> adjCol = new HashMap<>();
+        Queue<Vertex> unassigned = new PriorityQueue<>();
 
-        while(!remainingVertices.isEmpty()) {
-            unassigned.addAll(remainingVertices);
-            this.numChecks += remainingVertices.size();
+        int N = g.getOrder();
+        numChecks += N;
+        for(Vertex x: g.getVertices())
+        {
+            adjCol.put(x, new HashSet<>());
+            unassigned.add(x);
+            numChecks += (long) Math.log(N);
+        }
+
+        while(!unassigned.isEmpty()) {
             Vertex v = unassigned.poll();
-            this.numChecks++;
+            numChecks++;
             var neighbours = adjList.get(v);
-            this.numChecks++;
 
-            for(int col = 0; col < g.getOrder(); col++)
+            int col;
+            for(col = 0; col < g.getOrder(); col++)
             {
                 if(!solution.containsKey(col)) solution.put(col, new HashSet<>());
 
@@ -36,21 +43,27 @@ public class DSaturGraphColouring extends AbstractGraphColouring {
                     v.setColour(col);
                     break;
                 }
-                this.numChecks++;
+               numChecks++;
             }
 
+            numChecks += v.getDegree();
             for (Vertex n : neighbours)
             {
-                n.incSaturation();
-                this.numChecks++;
+                if(n.getColour() == -1)
+                {
+                    unassigned.remove(n);
+                    adjCol.get(n).add(col);
+                    n.setSaturation(adjCol.get(n).size());
+                    n.decDegree();
+                    unassigned.add(n);
+                    numChecks += (long) (2 * Math.log(unassigned.size()));
+                }
             }
-            this.numChecks += unassigned.size();
-            unassigned.clear();
-            this.numChecks += remainingVertices.size();
-            remainingVertices.remove(v);
+
         }
         return solution;
     }
+
 
     private HashMap<Integer, HashSet<Vertex>> colourAdjMatrix(AdjMatrixGraph g)
     {
@@ -63,7 +76,8 @@ public class DSaturGraphColouring extends AbstractGraphColouring {
 
         while(!remainingVertices.isEmpty()) {
             unassigned.addAll(remainingVertices);
-            this.numChecks += remainingVertices.size();
+            int z = remainingVertices.size();
+            this.numChecks += (long) (z * Math.log(z));
             Vertex v = unassigned.poll();
             this.numChecks++;
             int vIdx = v.getName() - 1;

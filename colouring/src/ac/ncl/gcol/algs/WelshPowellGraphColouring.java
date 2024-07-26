@@ -41,7 +41,6 @@ public class WelshPowellGraphColouring extends AbstractGraphColouring {
             {
                 if(u.getColour() != -1) continue;
                 if(!neighbours.contains(u)) notNeighbour.add(u);
-                checks += vertices.size();
             }
 
             for(Vertex u : notNeighbour)
@@ -53,7 +52,7 @@ public class WelshPowellGraphColouring extends AbstractGraphColouring {
                     colSet.add(u);
                     coloured.add(u);
                 }
-                checks += 3;
+                checks += 1;
             }
             this.numChecks += checks;
             colour++;
@@ -119,8 +118,9 @@ public class WelshPowellGraphColouring extends AbstractGraphColouring {
                         colSet.add(u);
                         coloured.add(u);
                     }
+                    checks++;
                 }
-                checks += 3;
+                checks++;
             }
             this.numChecks += checks;
             colour++;

@@ -39,7 +39,7 @@ public class AdjListGraph extends AbstractGraph {
 
     public Map<Vertex, ArrayList<Vertex>> getAdjList()
     {
-        return this.adjList;
+        return new HashMap<>(this.adjList);
     }
 
     @Override

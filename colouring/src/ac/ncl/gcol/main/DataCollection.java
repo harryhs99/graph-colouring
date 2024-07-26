@@ -7,6 +7,7 @@ import ac.ncl.gcol.io.DIMACSReadWriter;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Random;
 
 public class DataCollection {
 
@@ -18,34 +19,29 @@ public class DataCollection {
         GreedyGraphColouring greedySorted = new GreedyGraphColouring(true);
         DSaturGraphColouring dSatur = new DSaturGraphColouring();
         WelshPowellGraphColouring welshPowell = new WelshPowellGraphColouring();
+        RLFGraphColouring rlf = new RLFGraphColouring();
         HashMap<Integer, GraphColouring> algos = new HashMap<>();
         algos.put(0, greedy);
         algos.put(1, greedyShuffle);
         algos.put(2, greedySorted);
         algos.put(3, dSatur);
         algos.put(4, welshPowell);
+        algos.put(5, rlf);
 
-        for(int i = 0; i < 5; i++)
+        for(GraphInstances graph: GraphInstances.values())
         {
-            System.out.println("-------------------------- " + algos.get(i).toString() + " -----------------------------");
+            if(graph.chromaticNumber != -1)
+            {
+                System.out.println("%%%%%%%  GRAPH: " + graph.name + "  %%%%%%%");
 
-            for(GraphInstances graph: GraphInstances.values()) {
-                if(graph.chromaticNumber != -1) {
-
-
+                for(int i = 0; i < 6; i++) {
+                    var graphCopies = generateGraphCopies(graph, testRuns, readWriter);
                     long totalTime = 0;
                     int totalK = 0;
-                    System.out.println("%%%%%%%  GRAPH: " + graph.name + "  %%%%%%%");
-
-                   // String X = graph.chromaticNumber != -1 ? String.valueOf(graph.chromaticNumber) : "???";
-                    var graphCopies = generateGraphCopies(graph, testRuns, readWriter);
-
-
-                    // System.out.println("X(G), k, diff, operations, time(ns), time(ms), time(s)");
-
+                    long totalOperations = 0;
+                    System.out.println("-------- " + algos.get(i).toString() + " ----------");
                     for (int j = 0; j < testRuns; j++) {
                         long start, end, timeInNanos;
-                        float timeInMillis, timeInSeconds;
                         start = System.nanoTime();
                         var solution = algos.get(i).colour(graphCopies.get(j));
                         end = System.nanoTime();
@@ -53,15 +49,22 @@ public class DataCollection {
                         totalTime += timeInNanos;
                         int k = solution.size();
                         totalK += k;
+                        totalOperations += algos.get(i).getNumChecks();
                         // getInfo(graphCopies.get(j), algos.get(i), X);
                     }
-                    float avgTime = (float) totalTime / testRuns;
+                    float avgOperations = (float) totalOperations / testRuns;
+                    float avgTimeNanos = (float) totalTime / testRuns;
+                    float avgTimeMillis = avgTimeNanos / 1000000;
+                    float avgTimeSeconds = avgTimeMillis / 1000;
+
+
                     float avgK = (float) totalK / testRuns;
-                    System.out.println("X(G): " + graph.chromaticNumber + ", K (avg): " + avgK + ", Average time (ns): " + avgTime);
+                    System.out.println("X(G): " + graph.chromaticNumber + ", K (avg): " + avgK + ", Avg Ops: " + avgOperations +
+                            ", Avg ns: " + avgTimeNanos + ", Avg ms: " + avgTimeMillis + ", Avg s: " + avgTimeSeconds);
                 }
             }
-
         }
+
 
 
     }

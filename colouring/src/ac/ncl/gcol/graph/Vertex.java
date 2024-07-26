@@ -38,6 +38,10 @@ public class Vertex implements Comparable<Vertex> {
         this.degree = d;
     }
 
+    public void decDegree() {
+        this.degree--;
+    }
+
     public void incSaturation()
     {
         this.saturation++;

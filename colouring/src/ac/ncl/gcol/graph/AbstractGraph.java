@@ -3,7 +3,6 @@ package ac.ncl.gcol.graph;
 import ac.ncl.gcol.exceptions.SolutionNotFoundException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -94,14 +93,6 @@ public abstract class AbstractGraph implements Graph{
         }
     }
 
-
-    public void clearColouring()
-    {
-        this.colouring = new HashMap<>();
-        hasSolution = false;
-    }
-
-
     @Override
     public void printSolution() throws SolutionNotFoundException {
         for(Vertex v: this.vertices)
@@ -110,6 +101,7 @@ public abstract class AbstractGraph implements Graph{
             System.out.println(v.getName() + " -> " + v.getColour());
         }
     }
+
     @Override
     public boolean validSolution() throws SolutionNotFoundException
     {

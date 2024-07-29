@@ -1,6 +1,5 @@
 package ac.ncl.gcol.graph;
 
-import ac.ncl.gcol.exceptions.SolutionNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,29 +41,5 @@ public class AdjMatrixGraph extends AbstractGraph {
             System.out.println(Arrays.toString(adjMatrix[i]));
         }
     }
-
-    /*
-    @Override
-    public boolean validSolution() throws SolutionNotFoundException {
-        if(!hasSolution) throw new SolutionNotFoundException("Must first run an algorithm to find a solution");
-        for(Vertex v: vertices)
-        {
-            int vIdx = v.getName() - 1;
-            int col = v.getColour();
-            for(int uIdx = 0; uIdx < order; uIdx++)
-            {
-                if(adjMatrix[vIdx][uIdx] == 1)
-                {
-                    Vertex u = new Vertex(uIdx + 1);
-                    if(colouring.get(col).contains(u))
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-    */
 
 }

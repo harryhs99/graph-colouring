@@ -1,6 +1,5 @@
 package ac.ncl.gcol.graph;
 
-import ac.ncl.gcol.exceptions.SolutionNotFoundException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,28 +45,5 @@ public class AdjListGraph extends AbstractGraph {
     public void printGraph() {
         System.out.println(adjList);
     }
-
-    /*
-    @Override
-    public boolean validSolution() throws SolutionNotFoundException {
-        if(!hasSolution) throw new SolutionNotFoundException("Must first run an algorithm to find a solution");
-        boolean valid = true;
-        for(Vertex v : vertices)
-        {
-            var neighbours = adjList.get(v);
-            for(Vertex n : neighbours)
-            {
-                if(v.getColour() == n.getColour())
-                {
-                    System.out.println("Clash with: " + v + " and " + n);
-                    valid = false;
-                }
-            }
-
-        }
-        return valid;
-    }
-
-     */
 
 }

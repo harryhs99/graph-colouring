@@ -24,7 +24,6 @@ public class WelshPowellGraphColouring extends AbstractGraphColouring {
         {
             Vertex v = vertices.removeFirst();
             if(v.getColour() != -1) continue;
-            this.numChecks++;
 
             if(!solution.containsKey(colour)) solution.put(colour, new HashSet<>());
 
@@ -36,25 +35,27 @@ public class WelshPowellGraphColouring extends AbstractGraphColouring {
 
             ArrayList<Vertex> neighbours = adjList.get(v);
             ArrayList<Vertex> notNeighbour = new ArrayList<>();
-            long checks = 0;
+
+            numChecks += vertices.size();
             for(Vertex u : vertices)
             {
                 if(u.getColour() != -1) continue;
                 if(!neighbours.contains(u)) notNeighbour.add(u);
             }
 
+            numChecks += notNeighbour.size();
             for(Vertex u : notNeighbour)
             {
                 if(u.getColour() == -1)
                 {
-                    if(!isSafe(adjList.get(u), colour)) continue;
-                    u.setColour(colour);
-                    colSet.add(u);
-                    coloured.add(u);
+                    if(isSafe(adjList.get(u), colour))
+                    {
+                        u.setColour(colour);
+                        colSet.add(u);
+                        coloured.add(u);
+                    }
                 }
-                checks += 1;
             }
-            this.numChecks += checks;
             colour++;
             this.numChecks++;
         }

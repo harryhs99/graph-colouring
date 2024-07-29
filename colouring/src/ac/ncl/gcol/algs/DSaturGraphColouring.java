@@ -27,7 +27,6 @@ public class DSaturGraphColouring extends AbstractGraphColouring {
 
         while(!unassigned.isEmpty()) {
             Vertex v = unassigned.poll();
-            numChecks++;
             var neighbours = adjList.get(v);
 
             int col;
@@ -63,7 +62,6 @@ public class DSaturGraphColouring extends AbstractGraphColouring {
         }
         return solution;
     }
-
 
     private HashMap<Integer, HashSet<Vertex>> colourAdjMatrix(AdjMatrixGraph g)
     {

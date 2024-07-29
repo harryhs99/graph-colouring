@@ -1,0 +1,102 @@
+package ac.ncl.gcol.data;
+
+import ac.ncl.gcol.graph.Edge;
+import ac.ncl.gcol.graph.Vertex;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+
+public class RandomGraphGenerator {
+    public void generateRandomGraph(String name, int V, float p)
+    {
+        if(p < 0 || p > 1) throw new IllegalArgumentException("p must be between 0 and 1");
+
+        PrintWriter graphFile = null;
+
+        try
+        {
+            graphFile = new PrintWriter(new File("colouring/src/ac/ncl/gcol/data/gengraphs/" + name));
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        Random rand = new Random();
+        int[][] adjMat = new int[V][V];
+        int edges = 0, jStart = 0;
+        int[] degrees = new int[V];
+
+        for(int i = 0; i < V; i++)
+        {
+            for(int j = jStart; j < V; j++)
+            {
+                if(rand.nextFloat() < p && i != j)
+                {
+                   adjMat[i][j] = 1;
+                   adjMat[j][i] = 1;
+                   degrees[i]++;
+                   degrees[j]++;
+                   edges++;
+                }
+            }
+            jStart++;
+        }
+
+        long totalDegs = 0;
+        int maxDeg = 0;
+
+        for(int z = 0; z < V; z++) {
+            if (degrees[z] > maxDeg) maxDeg = degrees[z];
+            totalDegs += degrees[z];
+        }
+
+
+        float density = (float) (2 * edges)/(V * (V - 1));
+        float avgDegs = (float) totalDegs / V;
+
+        graphFile.println("c File: " + name);
+        graphFile.println("c ");
+        graphFile.println("c This is a randomly generated graph using: ");
+        graphFile.println("c number of vertices: " + V);
+        graphFile.println("c p value: " + p);
+        graphFile.println("c ");
+        graphFile.println("c Graph Properties: ");
+        graphFile.println("c Order: " + V);
+        graphFile.println("c Size: " + edges);
+        graphFile.println("c Density: " + density);
+        graphFile.println("c Maximum Degree: " + maxDeg);
+        graphFile.println("c Average Degree: " + avgDegs);
+        graphFile.println("c ");
+        graphFile.println("p edge " + V + " " + edges);
+
+        int vStart = 0;
+        for(int u = 0; u < V; u++)
+        {
+            for(int v = vStart; v < V; v++)
+            {
+                if(adjMat[u][v] == 1)
+                {
+                    graphFile.println("e " + (u + 1) + " " + (v + 1));
+                }
+            }
+            vStart++;
+        }
+
+
+
+       graphFile.close();
+
+    }
+
+    public static void main(String[] args) {
+        RandomGraphGenerator r = new RandomGraphGenerator();
+        r.generateRandomGraph("rg1000_0.5", 20, 0.5F);
+    }
+
+}

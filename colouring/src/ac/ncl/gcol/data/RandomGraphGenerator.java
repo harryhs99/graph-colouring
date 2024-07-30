@@ -11,15 +11,16 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class RandomGraphGenerator {
-    public void generateRandomGraph(String name, int V, float p)
+    public void generateRandomGraph(int V, float p, String filePath)
     {
         if(p < 0 || p > 1) throw new IllegalArgumentException("p must be between 0 and 1");
 
+        String graphName = "rg" + V + "_" + p + ".col";
         PrintWriter graphFile = null;
 
         try
         {
-            graphFile = new PrintWriter(new File("colouring/src/ac/ncl/gcol/data/gengraphs/" + name));
+            graphFile = new PrintWriter(new File(filePath + graphName));
         }
         catch (FileNotFoundException e)
         {
@@ -49,10 +50,11 @@ public class RandomGraphGenerator {
         }
 
         long totalDegs = 0;
-        int maxDeg = 0;
+        int maxDeg = 0, minDeg = Integer.MAX_VALUE;
 
         for(int z = 0; z < V; z++) {
             if (degrees[z] > maxDeg) maxDeg = degrees[z];
+            if (degrees[z] < minDeg) minDeg = degrees[z];
             totalDegs += degrees[z];
         }
 
@@ -60,17 +62,18 @@ public class RandomGraphGenerator {
         float density = (float) (2 * edges)/(V * (V - 1));
         float avgDegs = (float) totalDegs / V;
 
-        graphFile.println("c File: " + name);
+        graphFile.println("c File: " + graphName);
         graphFile.println("c ");
-        graphFile.println("c This is a randomly generated graph using: ");
-        graphFile.println("c number of vertices: " + V);
-        graphFile.println("c p value: " + p);
+        graphFile.println("c This is a randomly generated graph G(n, p) where: ");
+        graphFile.println("c n (num vertices): " + V);
+        graphFile.println("c p (edge probability): " + p);
         graphFile.println("c ");
         graphFile.println("c Graph Properties: ");
         graphFile.println("c Order: " + V);
         graphFile.println("c Size: " + edges);
         graphFile.println("c Density: " + density);
         graphFile.println("c Maximum Degree: " + maxDeg);
+        graphFile.println("c Minimum Degree: " + minDeg);
         graphFile.println("c Average Degree: " + avgDegs);
         graphFile.println("c ");
         graphFile.println("p edge " + V + " " + edges);
@@ -88,15 +91,55 @@ public class RandomGraphGenerator {
             vStart++;
         }
 
+        System.out.println("Graph " + graphName + " added to: " + filePath);
 
-
-       graphFile.close();
+        graphFile.close();
 
     }
 
     public static void main(String[] args) {
+        String filePath = "colouring/src/ac/ncl/gcol/data/gengraphs/pregen/";
         RandomGraphGenerator r = new RandomGraphGenerator();
-        r.generateRandomGraph("rg1000_0.5", 20, 0.5F);
+        // generate extreme sparse graphs
+        r.generateRandomGraph( 50, 0.1F, filePath);
+        r.generateRandomGraph(100, 0.1F, filePath);
+        r.generateRandomGraph(250, 0.1F, filePath);
+        r.generateRandomGraph(500, 0.1F, filePath);
+        r.generateRandomGraph(750, 0.1F, filePath);
+        r.generateRandomGraph(1000, 0.1F, filePath);
+        r.generateRandomGraph(1500, 0.1F, filePath);
+        // generate mid sparse graphs
+        r.generateRandomGraph( 50, 0.3F, filePath);
+        r.generateRandomGraph(100, 0.3F, filePath);
+        r.generateRandomGraph(250, 0.3F, filePath);
+        r.generateRandomGraph(500, 0.3F, filePath);
+        r.generateRandomGraph(750, 0.3F, filePath);
+        r.generateRandomGraph(1000, 0.3F, filePath);
+        r.generateRandomGraph(1500, 0.3F, filePath);
+        // generate mid density graphs
+        r.generateRandomGraph( 50, 0.5F, filePath);
+        r.generateRandomGraph(100, 0.5F, filePath);
+        r.generateRandomGraph(250, 0.5F, filePath);
+        r.generateRandomGraph(500, 0.5F, filePath);
+        r.generateRandomGraph(750, 0.5F, filePath);
+        r.generateRandomGraph(1000, 0.5F, filePath);
+        r.generateRandomGraph(1500, 0.5F, filePath);
+        // generate mid-high density graphs
+        r.generateRandomGraph( 50, 0.7F, filePath);
+        r.generateRandomGraph(100, 0.7F, filePath);
+        r.generateRandomGraph(250, 0.7F, filePath);
+        r.generateRandomGraph(500, 0.7F, filePath);
+        r.generateRandomGraph(750, 0.7F, filePath);
+        r.generateRandomGraph(1000, 0.7F, filePath);
+        r.generateRandomGraph(1500, 0.7F, filePath);
+        // generate high density graphs
+        r.generateRandomGraph( 50, 0.9F, filePath);
+        r.generateRandomGraph(100, 0.9F, filePath);
+        r.generateRandomGraph(250, 0.9F, filePath);
+        r.generateRandomGraph(500, 0.9F, filePath);
+        r.generateRandomGraph(750, 0.9F, filePath);
+        r.generateRandomGraph(1000, 0.9F, filePath);
+        r.generateRandomGraph(1500, 0.9F, filePath);
     }
 
 }

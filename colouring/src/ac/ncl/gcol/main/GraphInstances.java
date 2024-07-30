@@ -45,7 +45,7 @@ public enum GraphInstances {
     // UNKNOWN CHROMATIC NUMBER
     //Lewandowski graphs
     SCHOOL1("school1.col"),
-    SCHOOL1_NSH("school1.col"),
+    SCHOOL1_NSH("school1_nsh.col"),
     //Latin Square
     LATIN_SQUARE_10("latin_square_10.col");
 

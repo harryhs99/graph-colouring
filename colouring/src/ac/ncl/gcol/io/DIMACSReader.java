@@ -5,8 +5,8 @@ import ac.ncl.gcol.graph.*;
 import java.io.*;
 import java.util.*;
 
-public class DIMACSReadWriter {
-    public DIMACSReadWriter() {}
+public class DIMACSReader {
+    public DIMACSReader() {}
 
     private Graph readGraph(String inputFile, boolean asAdjList) throws IOException {
         // Array to store whether a vertex has been seen for any disconnected nodes

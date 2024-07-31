@@ -1,6 +1,6 @@
 package ac.ncl.gcol.main;
 
-public enum RandomGraphInstances {
+public enum RandomGraphInstance {
     // KNOWN CHROMATIC NUMBER
     // Leighton graphs
     LE450_5A("le450_5a.col", 5),
@@ -38,7 +38,7 @@ public enum RandomGraphInstances {
     final String name;
     final String fileName;
 
-    RandomGraphInstances(String name, float pValue)
+    RandomGraphInstance(String name, float pValue)
     {
         this.name = name;
         this.fileName = "colouring/src/ac/ncl/gcol/data/testgraphs/random/unknownX/" + name;
@@ -46,7 +46,7 @@ public enum RandomGraphInstances {
         this.chromaticNumber = -1;
     }
 
-    RandomGraphInstances(String name, int chromaticNumber)
+    RandomGraphInstance(String name, int chromaticNumber)
     {
         this.name = name;
         this.fileName = "colouring/src/ac/ncl/gcol/data/testgraphs/random/knownX/" + name;

@@ -5,18 +5,15 @@ import ac.ncl.gcol.data.RandomGraphGenerator;
 import ac.ncl.gcol.exceptions.SolutionNotFoundException;
 import ac.ncl.gcol.graph.Graph;
 import ac.ncl.gcol.io.DIMACSReader;
-import org.w3c.dom.ls.LSOutput;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Random;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class DataCollection {
 
@@ -49,9 +46,7 @@ public class DataCollection {
            if(showMenu) mainMenu();
 
            String input = sc.nextLine();
-           boolean back = false;
            String[] validInput = new String[]{"1", "2", "3", "4", "q"};
-
 
            switch (input) {
                default:
@@ -66,9 +61,10 @@ public class DataCollection {
                    generateResults(sc, algos, graphReader);
                    break;
                case "3":
-                   generateRandomGraph(sc);
+                   generatePTestResults(sc, algos, graphReader);
                    break;
                case "4":
+                   generateRandomGraph(sc);
                    break;
                case "q":
                    exit = true;
@@ -78,6 +74,8 @@ public class DataCollection {
     }
 
 
+
+
     private static void mainMenu()
     {
         System.out.println("------------------------------------------------");
@@ -85,8 +83,8 @@ public class DataCollection {
         System.out.println("------------------------------------------------");
         System.out.println("[1] Test algorithms on 1 graph");
         System.out.println("[2] Generate results");
-        System.out.println("[3] Generate random graph");
-        System.out.println("[4] More info");
+        System.out.println("[3] Test on varying p-value graphs");
+        System.out.println("[4] Generate random graph");
         System.out.println("[q] to exit");
         System.out.println("------------------------------------------------");
     }
@@ -204,12 +202,10 @@ public class DataCollection {
         }
     }
 
-    private static void generateResults(Scanner sc, HashMap<Integer, GraphColouring> algos,
-                                        DIMACSReader graphReader)
+    private static void generateResults(Scanner sc, HashMap<Integer, GraphColouring> algos, DIMACSReader graphReader)
     {
         String filePath = "colouring/src/ac/ncl/gcol/results/";
         boolean done = false;
-
 
         while(!done)
         {
@@ -219,7 +215,8 @@ public class DataCollection {
             switch (input)
             {
                 case "1":
-                    int testRuns = sc.nextInt();
+                    generateRandomGraphResults(filePath, sc, algos, graphReader);
+                    done = true;
                     break;
                 case "2":
                     generateDIMACSResults("KnownXDIMACSGraphResults.csv",
@@ -241,8 +238,38 @@ public class DataCollection {
                     break;
             }
         }
+    }
+
+    private static void generateRandomGraphResults(String filePath, Scanner sc, HashMap<Integer, GraphColouring> algos,
+                                                   DIMACSReader graphReader)
+    {
+        try {
+            PrintWriter pw = new PrintWriter(new File(filePath + "GeneratedRandomGraphResults.csv"));
+            System.out.print("Number of Test Runs? ");
+            int testRuns = sc.nextInt();
+            sc.nextLine();
+            int X = -1;
+
+            System.out.println("Running...");
+            printColumnNames(pw);
+
+            for(GeneratedGraphInstance graph : GeneratedGraphInstance.values())
+            {
+                String graphName = graph.name;
+                String graphFile = graph.fileName;
+
+                printGraphResults(graphName, graphFile, X, testRuns, pw, algos, graphReader);
+
+            }
+
+            pw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
+
 
     private static void generateDIMACSResults(String fileName1, String fileName2, boolean random,
                                               Scanner sc, HashMap<Integer, GraphColouring> algos,
@@ -268,6 +295,7 @@ public class DataCollection {
 
                     System.out.print("Number of Test Runs? ");
                     testRuns = sc.nextInt();
+                    sc.nextLine();
 
                     System.out.println("Running.....");
                     printColumnNames(pw);
@@ -304,11 +332,74 @@ public class DataCollection {
                 "rlfK, rlfOps, rlfTime");
     }
 
+    private static void generatePTestResults(Scanner sc, HashMap<Integer, GraphColouring> algos,
+                                             DIMACSReader graphReader)
+    {
+        RandomGraphGenerator rg = new RandomGraphGenerator();
+        System.out.print("Number of Random G(n,p) to generate per p-value? ");
+        int numGraphs = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter desired p-values as floats (in a comma separated list): ");
+        String values = sc.nextLine();
+        String[] pValues = values.split(",");
+        System.out.print("Enter number of nodes for graph: ");
+        int V = sc.nextInt();
+        sc.nextLine();
+
+        String filePath = "colouring/src/ac/ncl/gcol/data/gengraphs/ptest/";
+        String resultsPath = "colouring/src/ac/ncl/gcol/results/" + V + "_PValueTests.csv";
+
+        try {
+            PrintWriter pw = new PrintWriter(new File(resultsPath));
+
+            System.out.println("Running...");
+            printPTestColumnNames(pw);
+
+            for(int i = 0; i < pValues.length; i++)
+            {
+                float p = Float.parseFloat(pValues[i]);
+                for(int j = 0; j < numGraphs; j++)
+                {
+                    String fileName = "rg" + V + "_" + p + ".col";
+                    rg.generateRandomGraph(V, p, filePath);
+                    try {
+
+                        pw.print(p +", " + V + ", ");
+                        for(int z = 0; z < 6; z++)
+                        {
+                            Graph g = graphReader.readGraphToAdjList(filePath + fileName);
+                            var solution = algos.get(z).colour(g);
+                            int k = solution.size();
+                            if(z == 5) pw.println(k);
+                            else pw.print(k + ", ");
+                        }
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+            pw.close();
+
+            System.out.println("Exit program to see generated results in: " + resultsPath);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    private static void printPTestColumnNames(PrintWriter pw)
+    {
+        pw.println("p-value, V, greedyK, shuffGreedyK, sortGreedyK, welshPowellK, dSaturK, rlfK");
+    }
+
+
     private static void generateGraphInstanceResults(String input, int testRuns, PrintWriter pw,
                                                      HashMap<Integer, GraphColouring> algos,
                                                      DIMACSReader graphReader) throws IOException
     {
-        for(GraphInstances graph: GraphInstances.values())
+        for(GraphInstance graph: GraphInstance.values())
         {
             String graphName = graph.name;
             String graphFile = graph.fileName;
@@ -330,7 +421,7 @@ public class DataCollection {
                                                      HashMap<Integer, GraphColouring> algos,
                                                      DIMACSReader graphReader) throws IOException
     {
-        for(RandomGraphInstances graph: RandomGraphInstances.values())
+        for(RandomGraphInstance graph: RandomGraphInstance.values())
         {
             String graphName = graph.name;
             String graphFile = graph.fileName;
@@ -376,57 +467,21 @@ public class DataCollection {
 
     }
 
-
-    private static HashMap<Integer, Graph> generateGraphInstanceCopies(GraphInstances graph, int testRuns,
-                                                                       DIMACSReader readWriter)
-    {
-        String fileName = graph.fileName;
-        return generateCopies(fileName, testRuns, readWriter);
-    }
-
-    private static HashMap<Integer, Graph> generateRandomGraphInstanceCopies(RandomGraphInstances graph, int testRuns,
-                                                                             DIMACSReader readWriter)
-    {
-        String fileName = graph.fileName;
-        return generateCopies(fileName, testRuns, readWriter);
-    }
-
-    private static HashMap<Integer, Graph> generateCopies(String fileName, int testRuns, DIMACSReader readWriter)
-    {
-        HashMap<Integer, Graph> graphCopies = new HashMap<>();
-
-        try {
-            for(int i = 0; i < testRuns; i++) {
-                Graph g = readWriter.readGraphToAdjList(fileName);
-                graphCopies.put(i, g);
-            }
-        } catch (IOException e) {
-            System.out.println("File " + fileName + " not found please check the input file");
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        if (graphCopies.isEmpty()) {
-            System.out.println("Problem reading in graph");
-            System.exit(1);
-        }
-        return graphCopies;
-    }
-
-
     private static void generateRandomGraph(Scanner sc)
     {
         RandomGraphGenerator rgg = new RandomGraphGenerator();
 
         System.out.print("Number of Nodes: ");
         int V = sc.nextInt();
+        sc.nextLine();
         System.out.print("p-value: ");
         float p = sc.nextFloat();
+        sc.nextLine();
 
-        rgg.generateRandomGraph(V, p, "colouring/src/ac/ncl/gcol/data/gengraphs/postgen/");
+        String filePath = "colouring/src/ac/ncl/gcol/data/gengraphs/postgen/";
+        rgg.generateRandomGraph(V, p, filePath);
+
+       // System.out.println("Graph " + "rg" + V + "_" + p + ".col" + " added to: " + filePath);
     }
-
-
-
 
 }

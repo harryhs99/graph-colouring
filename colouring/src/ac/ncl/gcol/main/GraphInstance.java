@@ -1,6 +1,6 @@
 package ac.ncl.gcol.main;
 
-public enum GraphInstances {
+public enum GraphInstance {
     // KNOWN CHROMATIC NUMBER
     // Knuth graphs
     ANNA("anna.col", 11),
@@ -53,14 +53,14 @@ public enum GraphInstances {
     final String name;
     final String fileName;
 
-    GraphInstances(String name)
+    GraphInstance(String name)
     {
         this.name = name;
         this.fileName = "colouring/src/ac/ncl/gcol/data/testgraphs/instances/unknownX/" + name;
         this.chromaticNumber = -1;
     }
 
-    GraphInstances(String name, int chromaticNumber)
+    GraphInstance(String name, int chromaticNumber)
     {
         this.name = name;
         this.fileName = "colouring/src/ac/ncl/gcol/data/testgraphs/instances/knownX/" + name;

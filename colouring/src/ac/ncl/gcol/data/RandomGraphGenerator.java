@@ -91,8 +91,6 @@ public class RandomGraphGenerator {
             vStart++;
         }
 
-        System.out.println("Graph " + graphName + " added to: " + filePath);
-
         graphFile.close();
 
     }

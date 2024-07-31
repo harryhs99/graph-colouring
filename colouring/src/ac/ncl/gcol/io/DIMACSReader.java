@@ -8,7 +8,8 @@ import java.util.*;
 public class DIMACSReader {
     public DIMACSReader() {}
 
-    private Graph readGraph(String inputFile, boolean asAdjList) throws IOException {
+    private Graph readGraph(String inputFile, boolean asAdjList) throws IOException
+    {
         // Array to store whether a vertex has been seen for any disconnected nodes
         boolean[] seenV = null;
         // V is number of vertices and E is the number of Edges
@@ -127,20 +128,16 @@ public class DIMACSReader {
             graph = new AdjMatrixGraph(V, E, edges, vertices,  degrees, maxDeg, maxNode);
         return graph;
     }
-    public AdjListGraph readGraphToAdjList(String inputFile) throws IOException {
+
+    public AdjListGraph readGraphToAdjList(String inputFile) throws IOException
+    {
         Graph g = readGraph(inputFile, true);
         return (AdjListGraph) g;
-
     }
 
-    public AdjMatrixGraph readGraphToAdjMatrix(String inputFile) throws IOException {
+    public AdjMatrixGraph readGraphToAdjMatrix(String inputFile) throws IOException
+    {
         Graph g = readGraph(inputFile, false);
         return (AdjMatrixGraph) g;
     }
-
-    public void printSolution(Graph g, HashMap<Integer, HashSet<Vertex>> solution)
-    {
-
-    }
-
 }

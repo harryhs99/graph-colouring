@@ -15,8 +15,15 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * A class to represent the main program of the project for Data Collection.
+ */
 public class DataCollection {
 
+    /**
+     * Entry in to the main program.
+     * @param args
+     */
     public static void main(String[] args) {
 
         DIMACSReader graphReader = new DIMACSReader();
@@ -206,7 +213,7 @@ public class DataCollection {
 
     private static void generateResults(Scanner sc, HashMap<Integer, GraphColouring> algos, DIMACSReader graphReader)
     {
-        String filePath = "colouring/src/ac/ncl/gcol/results/";
+        String filePath = "GraphColouring/src/ac/ncl/gcol/results/";
         boolean done = false;
 
         while(!done)
@@ -348,8 +355,8 @@ public class DataCollection {
         int V = sc.nextInt();
         sc.nextLine();
 
-        String filePath = "colouring/src/ac/ncl/gcol/data/gengraphs/ptest/";
-        String resultsPath = "colouring/src/ac/ncl/gcol/results/" + V + "_PValueTests.csv";
+        String filePath = "GraphColouring/src/ac/ncl/gcol/data/gengraphs/ptest/";
+        String resultsPath = "GraphColouring/src/ac/ncl/gcol/results/" + V + "_PValueTests.csv";
 
         try {
             PrintWriter pw = new PrintWriter(new File(resultsPath));
@@ -395,11 +402,6 @@ public class DataCollection {
         }
 
 
-    }
-
-    private static void printPTestColumnNames(PrintWriter pw)
-    {
-        pw.println("p-value, V, greedyK, shuffGreedyK, sortGreedyK, welshPowellK, dSaturK, rlfK");
     }
 
 
@@ -489,7 +491,7 @@ public class DataCollection {
         float p = sc.nextFloat();
         sc.nextLine();
 
-        String filePath = "colouring/src/ac/ncl/gcol/data/gengraphs/postgen/";
+        String filePath = "GraphColouring/src/ac/ncl/gcol/data/gengraphs/postgen/";
         rgg.generateRandomGraph(V, p, filePath);
 
        // System.out.println("Graph " + "rg" + V + "_" + p + ".col" + " added to: " + filePath);

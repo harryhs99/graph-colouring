@@ -37,10 +37,19 @@ public class GreedyGraphColouring extends AbstractGraphColouring {
         }
     }
 
+    /**
+     * Returns the type of greedy implementation
+     * @return Type of greedy implementation
+     */
     public String getGreedyType() {
         return this.greedyType;
     }
 
+    /**
+     * Orders the vertices in the desired ordering.
+     * @param vertices List containing the vertices of the graph
+     * @return List of vertices in the desired ordering
+     */
     private ArrayList<Vertex> selectOrdering(ArrayList<Vertex> vertices)
     {
         // If desired, shuffle the vertices in a random order
@@ -52,6 +61,11 @@ public class GreedyGraphColouring extends AbstractGraphColouring {
             return vertices;
     }
 
+    /**
+     * Colours an AdjListGraph using GREEDY or its variations.
+     * @param g AdjListGraph
+     * @return GREEDY solution
+     */
     private HashMap<Integer, HashSet<Vertex>> colourAdjList(AdjListGraph g) {
         this.numChecks = 0;
 
@@ -91,6 +105,11 @@ public class GreedyGraphColouring extends AbstractGraphColouring {
         return solution;
     }
 
+    /**
+     * Colours an AdjMatrixGraph using GREEDY or its variations.
+     * @param g AdjMatrixGraph
+     * @return GREEDY solution
+     */
     private HashMap<Integer, HashSet<Vertex>> colourAdjMatrix(AdjMatrixGraph g)
     {
         // Initialise store for the colouring solution

@@ -4,6 +4,9 @@ package ac.ncl.gcol.graph;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * A class to represent a graph as an Adjacency Matrix in computer memory.
+ */
 public class AdjMatrixGraph extends AbstractGraph {
     private final int[][] adjMatrix;
 
@@ -30,6 +33,11 @@ public class AdjMatrixGraph extends AbstractGraph {
             adjMatrix[vIdx][uIdx] = 1;
         }
     }
+
+    /**
+     * Returns the Adjacency Matrix of the graph
+     * @return Adjacency Matrix of the graph
+     */
     public int[][] getAdjMatrix()
     {
         return adjMatrix;

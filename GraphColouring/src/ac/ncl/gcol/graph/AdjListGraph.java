@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class to represent a graph as an Adjacency List in computer memory.
+ */
 public class AdjListGraph extends AbstractGraph {
     private final HashMap<Vertex, ArrayList<Vertex>> adjList = new HashMap<>();
 
@@ -36,10 +39,15 @@ public class AdjListGraph extends AbstractGraph {
         }
     }
 
+    /**
+     * Retrieves the Adjacency List of the graph
+     * @return Adjacency List of the graph
+     */
     public Map<Vertex, ArrayList<Vertex>> getAdjList()
     {
         return new HashMap<>(this.adjList);
     }
+
 
     @Override
     public void printGraph() {

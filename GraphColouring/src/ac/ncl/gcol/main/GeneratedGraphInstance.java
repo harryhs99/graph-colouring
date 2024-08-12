@@ -49,6 +49,6 @@ public enum GeneratedGraphInstance {
     GeneratedGraphInstance(String name)
     {
         this.name = name;
-        this.fileName = "colouring/src/ac/ncl/gcol/data/gengraphs/pregen/" + name;
+        this.fileName = "GraphColouring/src/ac/ncl/gcol/data/gengraphs/pregen/" + name;
     }
 }

@@ -10,7 +10,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * A class to generate random G(n, p) graphs where n is the number of nodes and p is the edge probability
+ */
 public class RandomGraphGenerator {
+
+    /**
+     * Generates a random G(n, p) graph and outputs it to a file
+     * @param V number of vertices
+     * @param p edge probability
+     * @param filePath output file
+     */
     public void generateRandomGraph(int V, float p, String filePath)
     {
         if(p < 0 || p > 1) throw new IllegalArgumentException("p must be between 0 and 1");
@@ -20,7 +30,7 @@ public class RandomGraphGenerator {
 
         try
         {
-            graphFile = new PrintWriter(new File(filePath + graphName));
+            graphFile = new PrintWriter(new File(filePath + graphName).getAbsolutePath());
         }
         catch (FileNotFoundException e)
         {

@@ -7,8 +7,16 @@ import ac.ncl.gcol.graph.Vertex;
 
 import java.util.*;
 
+/**
+ * An implementation of the Welsh-Powell algorithm for finding solutions to the Graph Colouring Problem.
+ */
 public class WelshPowellGraphColouring extends AbstractGraphColouring {
 
+    /**
+     * Colours an AdjListGraph using WELSH-POWELL.
+     * @param g AdjListGraph
+     * @return WELSH-POWELL solution
+     */
     private HashMap<Integer, HashSet<Vertex>> colourAdjList(AdjListGraph g) {
         this.numChecks = 0;
         this.solution = new HashMap<>();
@@ -66,6 +74,11 @@ public class WelshPowellGraphColouring extends AbstractGraphColouring {
         return solution;
     }
 
+    /**
+     * Colours an AdjMatrixGraph using WELSH-POWELL.
+     * @param g AdjMatrixGraph
+     * @return WELSH-POWELL solution
+     */
     private HashMap<Integer, HashSet<Vertex>> colourAdjMatrix(AdjMatrixGraph g) {
         this.numChecks = 0;
         this.solution = new HashMap<>();

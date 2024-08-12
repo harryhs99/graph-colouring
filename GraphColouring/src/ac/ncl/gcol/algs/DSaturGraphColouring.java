@@ -7,8 +7,16 @@ import ac.ncl.gcol.graph.Vertex;
 
 import java.util.*;
 
+/**
+ * A class to represent the DSATUR algorithm
+ */
 public class DSaturGraphColouring extends AbstractGraphColouring {
 
+    /**
+     * Colours an AdjListGraph using DSATUR and returns the solution.
+     * @param g AdjListGraph
+     * @return DSATUR solution
+     */
     private HashMap<Integer, HashSet<Vertex>> colourAdjList(AdjListGraph g) {
         this.numChecks = 0;
         solution = new HashMap<>();
@@ -16,6 +24,7 @@ public class DSaturGraphColouring extends AbstractGraphColouring {
         HashMap<Vertex, HashSet<Integer>> adjCol = new HashMap<>();
         Queue<Vertex> unassigned = new PriorityQueue<>();
 
+        // put all the vertices in the queue
         int N = g.getOrder();
         numChecks += N;
         for(Vertex x: g.getVertices())
@@ -45,6 +54,7 @@ public class DSaturGraphColouring extends AbstractGraphColouring {
                numChecks++;
             }
 
+            // go through all the neighbours and update the degrees and saturation
             numChecks += v.getDegree();
             for (Vertex n : neighbours)
             {
@@ -63,7 +73,11 @@ public class DSaturGraphColouring extends AbstractGraphColouring {
         return solution;
     }
 
-
+    /**
+     * Colours an AdjMatrixGraph using DSATUR and returns the solution.
+     * @param g AdjMatrixGraph
+     * @return DSATUR solution
+     */
     private HashMap<Integer, HashSet<Vertex>> colourAdjMatrix(AdjMatrixGraph g)
     {
         this.numChecks = 0;
@@ -114,6 +128,7 @@ public class DSaturGraphColouring extends AbstractGraphColouring {
         }
         return solution;
     }
+
 
     @Override
     public HashMap<Integer, HashSet<Vertex>> colour(Graph g) {

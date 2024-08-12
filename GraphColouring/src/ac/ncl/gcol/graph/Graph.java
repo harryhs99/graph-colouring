@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 /**
- * A class to store the data of a graph read in from a file
+ * An interface to represent a graph in computer memory.
  */
 public interface Graph {
     public HashMap<Integer, HashSet<Vertex>> getColouring() throws SolutionNotFoundException;

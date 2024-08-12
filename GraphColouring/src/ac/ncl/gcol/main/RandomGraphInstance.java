@@ -41,7 +41,7 @@ public enum RandomGraphInstance {
     RandomGraphInstance(String name, float pValue)
     {
         this.name = name;
-        this.fileName = "colouring/src/ac/ncl/gcol/data/testgraphs/random/unknownX/" + name;
+        this.fileName = "GraphColouring/src/ac/ncl/gcol/data/testgraphs/random/unknownX/" + name;
         this.pValue = pValue;
         this.chromaticNumber = -1;
     }
@@ -49,7 +49,7 @@ public enum RandomGraphInstance {
     RandomGraphInstance(String name, int chromaticNumber)
     {
         this.name = name;
-        this.fileName = "colouring/src/ac/ncl/gcol/data/testgraphs/random/knownX/" + name;
+        this.fileName = "GraphColouring/src/ac/ncl/gcol/data/testgraphs/random/knownX/" + name;
         this.pValue = 0;
         this.chromaticNumber = chromaticNumber;
     }

@@ -5,9 +5,19 @@ import ac.ncl.gcol.graph.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * A class to read in a DIMACS format graph file and store it in a Graph Object.
+ */
 public class DIMACSReader {
     public DIMACSReader() {}
 
+    /**
+     *
+     * @param inputFile the file to be read
+     * @param asAdjList true to store in Adjacency list, false to store in Adjacency Matrix
+     * @return Graph object
+     * @throws IOException if file not found, or if file not in DIMACS format
+     */
     private Graph readGraph(String inputFile, boolean asAdjList) throws IOException
     {
         // Array to store whether a vertex has been seen for any disconnected nodes
@@ -129,12 +139,24 @@ public class DIMACSReader {
         return graph;
     }
 
+    /**
+     * Reads a file in DIMACS format and stores it as an AdjListGraph.
+     * @param inputFile file to be read
+     * @return AdjListGraph Object
+     * @throws IOException if file not found, or if file not in DIMACS format
+     */
     public AdjListGraph readGraphToAdjList(String inputFile) throws IOException
     {
         Graph g = readGraph(inputFile, true);
         return (AdjListGraph) g;
     }
 
+    /**
+     * Reads a file in DIMACS format and stores it as an AdjMatrixGraph.
+     * @param inputFile file to be read
+     * @return AdjMatrixGraph Object
+     * @throws IOException if file not found, or if file not in DIMACS format
+     */
     public AdjMatrixGraph readGraphToAdjMatrix(String inputFile) throws IOException
     {
         Graph g = readGraph(inputFile, false);

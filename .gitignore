@@ -1,7 +1,7 @@
 out/
 .DS_Store
 .idea/
-colouring/colouring.iml
-colouring/src/ac/ncl/gcol/data/gengraphs/ptest
-colouring/src/ac/ncl/gcol/data/gengraphs/postgen
-colouring/src/ac/ncl/gcol/results/*
+GraphColouring/GraphColouring.iml
+GraphColouring/src/ac/ncl/gcol/data/gengraphs/ptest
+GraphColouring/src/ac/ncl/gcol/data/gengraphs/postgen
+GraphColouring/src/ac/ncl/gcol/results/*

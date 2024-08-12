@@ -12,9 +12,9 @@ public enum GraphInstance {
     MILES250("miles250.col", 8),
     MILES500("miles500.col", 20),
     MILES750("miles750.col", 31),
-    MILES1000("miles1000.col", 42),
     MILES1500("miles1500.col", 73),
     // Culberson graphs
+    MILES1000("miles1000.col", 42),
     FLAT300_26_0("flat300_26_0.col", 26),
     FLAT300_28_0("flat300_28_0.col", 28),
     FLAT1000_50_0("flat1000_50_0.col", 50),

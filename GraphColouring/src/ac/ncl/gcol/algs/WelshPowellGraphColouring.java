@@ -40,7 +40,10 @@ public class WelshPowellGraphColouring extends AbstractGraphColouring {
             for(Vertex u : vertices)
             {
                 if(u.getColour() != -1) continue;
-                if(!neighbours.contains(u)) notNeighbour.add(u);
+                if(!neighbours.contains(u)) {
+                    notNeighbour.add(u);
+                    numChecks += neighbours.size();
+                }
             }
 
             numChecks += notNeighbour.size();
@@ -143,7 +146,7 @@ public class WelshPowellGraphColouring extends AbstractGraphColouring {
     @Override
     public String toString()
     {
-        return "WelshPowell";
+        return "Welsh-Powell 2";
     }
 
 }

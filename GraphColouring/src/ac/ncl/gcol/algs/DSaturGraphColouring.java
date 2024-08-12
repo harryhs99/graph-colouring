@@ -63,6 +63,7 @@ public class DSaturGraphColouring extends AbstractGraphColouring {
         return solution;
     }
 
+
     private HashMap<Integer, HashSet<Vertex>> colourAdjMatrix(AdjMatrixGraph g)
     {
         this.numChecks = 0;

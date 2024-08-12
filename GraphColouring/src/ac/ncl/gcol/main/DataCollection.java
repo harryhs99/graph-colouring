@@ -82,7 +82,7 @@ public class DataCollection {
         System.out.println("                      MENU                      ");
         System.out.println("------------------------------------------------");
         System.out.println("[1] Test algorithms on 1 graph");
-        System.out.println("[2] Generate results");
+        System.out.println("[2] Test on included graphs");
         System.out.println("[3] Test on varying p-value graphs");
         System.out.println("[4] Generate random graph");
         System.out.println("[q] to exit");
@@ -96,8 +96,8 @@ public class DataCollection {
         System.out.println("------------------------------------------------");
         System.out.println("[0] Greedy");
         System.out.println("[1] Shuffled Greedy");
-        System.out.println("[2] Sorted Greedy");
-        System.out.println("[3] Welsh-Powell");
+        System.out.println("[2] Welsh-Powell 1 (Sorted Greedy)");
+        System.out.println("[3] Welsh-Powell 2");
         System.out.println("[4] DSatur");
         System.out.println("[5] RLF");
         System.out.println("[6] All of the above");
@@ -108,7 +108,7 @@ public class DataCollection {
     private static void resultsMenu()
     {
         System.out.println("------------------------------------------------");
-        System.out.println("         Results: Graph Type Selection          ");
+        System.out.println("               Graph Type Selection             ");
         System.out.println("------------------------------------------------");
         System.out.println("[1] Randomly generated graphs");
         System.out.println("[2] DIMACS test instances");
@@ -191,8 +191,10 @@ public class DataCollection {
         end = System.nanoTime();
         long timeInNanos = end - start;
         try{
+
             int k = solution.size();
             System.out.println("%%%%%% " + alg + " %%%%%%");
+            System.out.println("Solution: " + solution);
             System.out.print("Valid?: " + g.validSolution() + ", ");
             System.out.print("K: " + k + ", ");
             System.out.print("NumberOfChecks: " + alg.getNumChecks() + ", ");
@@ -323,7 +325,7 @@ public class DataCollection {
 
     private static void printColumnNames(PrintWriter pw)
     {
-        pw.println("graphName, X(G), " +
+        pw.println("graphName, X(G), V, " +
                 "greedyK, greedyOps, greedyTime, " +
                 "shuffGreedyK, shuffGreedyOps, shuffGreedyTime, " +
                 "sortGreedyK, sortGreedyOps, sortGreedyTime, " +
@@ -353,8 +355,9 @@ public class DataCollection {
             PrintWriter pw = new PrintWriter(new File(resultsPath));
 
             System.out.println("Running...");
-            printPTestColumnNames(pw);
+            printColumnNames(pw);
 
+            long start, end;
             for(int i = 0; i < pValues.length; i++)
             {
                 float p = Float.parseFloat(pValues[i]);
@@ -364,14 +367,19 @@ public class DataCollection {
                     rg.generateRandomGraph(V, p, filePath);
                     try {
 
-                        pw.print(p +", " + V + ", ");
+                        pw.print(p +", " + "-1, " + V + ", ");
                         for(int z = 0; z < 6; z++)
                         {
                             Graph g = graphReader.readGraphToAdjList(filePath + fileName);
-                            var solution = algos.get(z).colour(g);
+                            GraphColouring algo = algos.get(z);
+                            start = System.nanoTime();
+                            var solution = algo.colour(g);
+                            end = System.nanoTime();
+
+                            long time = end - start;
                             int k = solution.size();
-                            if(z == 5) pw.println(k);
-                            else pw.print(k + ", ");
+                            if(z == 5) pw.println(k + ", " + algo.getNumChecks() + ", " + time);
+                            else pw.print(k + ", " + algo.getNumChecks() + ", " + time + ", ");
                         }
 
                     } catch (IOException e) {
@@ -426,6 +434,7 @@ public class DataCollection {
             String graphName = graph.name;
             String graphFile = graph.fileName;
             int X = graph.chromaticNumber;
+
             if(input.equals("1"))
             {
                 if(graph.chromaticNumber != -1)
@@ -451,6 +460,7 @@ public class DataCollection {
             {
                 Graph g = graphReader.readGraphToAdjList(graphFile);
                 GraphColouring algo = algos.get(i);
+                int V = g.getOrder();
 
                 start = System.nanoTime();
                 var solution = algo.colour(g);
@@ -459,6 +469,7 @@ public class DataCollection {
                 long time = end - start;
                 int k = solution.size();
 
+                if(i == 0) pw.print(V + ", ");
                 if(i == 5) pw.print(k + ", " + algo.getNumChecks() + ", " + time);
                 else pw.print(k + ", " + algo.getNumChecks() + ", " + time + ", ");
             }

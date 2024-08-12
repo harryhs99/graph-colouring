@@ -28,7 +28,7 @@ public class GreedyGraphColouring extends AbstractGraphColouring {
         if(sortShuffle)
         {
             this.sorted = true;
-            this.greedyType = "Sorted";
+            this.greedyType = "Welsh-Powell 1";
         }
         else
         {

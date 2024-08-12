@@ -1,4 +1,4 @@
-# Graph Colouring Algorithms
+# Graph Colouring 
 This repo provides a small application that implements some constructive graph colouring algorithms. This was for my final project and dissertation for the award of MSc in Computer Science at Newcastle University in August 2024. 
 
 ## Abstract

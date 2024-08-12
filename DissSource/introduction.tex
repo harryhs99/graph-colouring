@@ -1,0 +1,74 @@
+\section{Introduction}
+The Graph Colouring Problem (GCP) is widely regarded as one of the most famous problems in the field of Graph Theory, with a history that dates back to 1852 with the problem of map colouring and the formulation of the Four-Colour Theorem (FTC) \cite{kubale2004}. The Four-Colour Problem (FCP) remained unsolved for over a hundred years, with one proof presented by A. B. Kempe \cite{Kempe4Color} later found to contain a mistake. A valid proof for the theorem was not formulated until 1976 by the work of K. Appel and W. Haken \cite{AppelHaken4Colour} which was, although controversially at the time, the first case of a computer assisted proof. This development made clear the power of computing as both an engine of searching the problem space and assisting in providing solutions to combinatorial optimisation problems \cite{kubale2004}. There are variations on graph colouring, including colouring the edges or the faces of a graph. However, this project will only be looking colouring the vertices of a graph. 
+\\\\
+In real-world contexts the GCP is often used as an abstraction for many different problems. One common example is timetabling, whereby it is important to use the minimal number of time periods whilst allowing students to take their desired classes \cite{DEWERRA1985151, Leighton1979AGC, LewisR.M.R2015AGtG, WelshPowell}. Another example is that of computer register allocation for improving the efficiency of compiling computer programs \cite{CHAITIN198147, LewisR.M.R2015AGtG}. The problem of scheduling is also often abstracted to that of graph colouring, with some examples being that of sports scheduling \cite{LEWIS2011190} and scheduling taxis \cite{LewisR.M.R2015AGtG}. In fact, any problem that involves reducing the input into a minimal number of distinct sets so that no conflicts within sets are created, can be thought of as a GCP. Perhaps the most common GCP that most people will have encountered is the game Sudoku.
+\\\\
+There are various different algorithms that can be used to provide solutions to the GCP. However, depending on the context, a particular algorithm may be better suited than another. For example, if efficiency is not a concern, the focus would be on using the most efficacious algorithm to find the solution. However, if efficiency is a concern, the algorithm providing the most efficacious solution may not necessarily be the most appropriate. Therefore, it is important for those facing GCP to understand to benefits and drawbacks of the various constructive colouring algorithms that could be used within their circumstances. 
+\\\\
+The current project is about implementing various constructive algorithms that provide solutions to the GCP and measuring their efficiency and efficacy in tackling the problem. The results of this project could provide indication of the most efficient and efficacious algorithms for certain contexts, which in turn could be implemented to provide solutions to the real-world problems identified above. 
+
+\subsection{Aim}
+The aim of this project is to study various constructive techniques developed to find solutions to the GCP. This project aims to implement four such algorithms namely: GREEDY, WELSH-POWELL, DSATUR and RLF (Recursive Largest First). The GREEDY algorithm will be implemented with two variations in vertex ordering heuristics attempting to colour them either: in the order they are read; or in a pseudo-randomly generated order (vertices are shuffled using a random number generator). The WELSH-POWELL algorithm will have two implementations with one building off the GREEDY approach, however initially ordering the vertices by their degree (number of neighbours). The second WELSH-POWELL implementation will also use the approach of sorting vertices by their degree, although there will be some extra bookkeeping involved in building up each colour set. 
+\\\\
+This project aims to test these various constructive colouring techniques on a range of problem instances. This will allow more general conclusions and understanding to be made about the performance metrics of each algorithm, rather than testing on a particular graph that may contain advantages for a particular heuristic. Therefore, each algorithm is aimed to be tested on a range of known graphs varying in order and size, taken from DIMACS’ second implementation challenge \cite{DIMACSChallenge2}, and also randomly generated graphs varying in order and p-value, where p is the probability that an edge will be created between two vertices. 
+\\\\
+The project will focus on two metrics to compare and study these constructive algorithms. Metric one is the algorithms efficacy in colouring a graph. Efficacy in this case being defined as the quality of colouring an algorithm produces on average over multiple runs. The quality is determined by how few colours an algorithm uses in colouring, or, in other words, how close to the optimal chromatic number of colours was used. For graphs where the chromatic number is unknown the efficacy of an algorithm will be determined by comparison with the other algorithms (i.e. one that produces a smaller $k$-colouring will be deemed more effective). The second metric is the algorithms efficiency in colouring. There are many ways to measure efficiency of a computer algorithm, perhaps most common would be to simply measure the time taken for a solution to be reached. As Lewis points out however, this is very hardware and language specific, two different computers may take vastly different times to run the same algorithm due to hardware constraints \cite{LewisR.M.R2015AGtG}. Similarly, an algorithm written in a very efficient language such as C++ would likely run a great deal faster than one written in a higher-level language such as Python. With all that being said, there is still some insight that can be gained from measuring time taken, providing that each of those variables are kept constant throughout the results gathering process. Therefore, accompanying the timing metric for efficiency, as suggested in the work of Lewis \cite{LewisR.M.R2015AGtG},  this project will also use  the number of operations performed by an algorithm during its execution as a measure of computational cost i.e. efficiency.
+\\\\
+The hypotheses of the project are as follows:
+\begin{enumerate}
+    \item The RLF algorithm will prove most effective in colouring, particularly for larger and more dense graphs.
+    \item The DSATUR algorithm will be the second most effective and may prove most effective for smaller, and sparser graphs.
+    \item The WELSH-POWELL algorithm will prove slightly more effective than both GREEDY approaches. However, they will all prove less effective than RLF and DSATUR.
+    \item RLF will be the least efficient due to the greater number of checks it must conduct in finding solutions. This will likely be followed by DSATUR, and then WELSH-POWELL, with GREEDY proving the most efficient. 
+\end{enumerate}
+
+\subsection{Objectives}
+The following objectives have been set out in order to complete the previously laid out project aims:
+\begin{itemize}
+    \item Conduct a literature review into graph colouring, the graph colouring problem and various constructive techniques employed in solving the graph colouring problem
+    \item Implement four constructive graph colouring algorithms being: GREEDY, DSATUR, WELSH-POWELL, and RLF
+    \item Implement a method of reading in graph instances for the algorithms to run on
+    \item Implement a way to generate random graphs for the algorithms to run on
+    \item Thoroughly test the software to ensure it is working as expected and the validity of the results being generated
+    \item Visualise and discuss the results generated from running the algorithms on multiple known and random graph instances
+\end{itemize}
+	
+\subsection{Project Scope}
+While the focus of this project is primarily an exploration into the mentioned constructive algorithms by measuring and comparing their respective efficacy in colouring and efficiency in performance, it also aims to produce a piece of software. It is therefore necessary to highlight and follow the steps of software development. This section, therefore, aims to define the scope of the resultant software produced to measure the graph colouring algorithms. The first section defines the functionality to be included. The final section defines functionality that could be considered given the purpose of the software but will not be included in this particular iteration of development. Although out of scope for this phase of development, they could be considered as possible future extensions and areas of further research.
+\subsubsection{In Scope}
+\begin{itemize}
+    \item Functionality to read in DIMACS graphs
+    \item Functionality to print results to a chosen destination file
+    \item Functionality to generate random graphs
+    \item Functionality to run a graph colouring algorithm on a given graph, algorithms to be implemented are as follows:
+    \begin{itemize}
+        \item GREEDY using the following vertex ordering heuristics:
+        \begin{itemize}
+            \item In order as read in from a DIMACS file
+            \item Randomly shuffled 
+        \end{itemize}
+        \item WELSH-POWELL (with the two mentioned variations)
+        \item DSATUR 
+        \item RLF (Recursive Largest First) 
+    \end{itemize}
+
+\end{itemize}
+\subsubsection{Out of Scope}
+\begin{itemize}
+    \item Any other graph colouring approaches such as backtracking or hybrid meta-heuristics
+    \item Auto result visualisations 
+    \item Implementation of a GUI
+\end{itemize}
+
+\subsection{Motivation}
+As alluded to within the introduction, the GCP is a very active area of research in both Mathematics and Computer Science alike. Its intractability and complexity, provide intrigue, while its applications prove immensely valuable. Indeed, as R. Beigel and D. Eppstein stated in their paper on 3-colouring: 
+\begin{quote}
+    \textit{"Unless P = NP, we know that no polynomial time algorithm for these problems can exist, but that does not obviate the need to solve them as efficiently as possible, indeed the fact that these problems are hard makes efficient algorithms for them especially important."}\cite{BEIGEL2005168}
+\end{quote}
+This dissertation seeks to understand and use the more easily comprehensible (and useful for finding upper bounds of the chromatic number) constructive colouring algorithms. This will allow for a better personal understanding of the field and provide a pathway to further research perhaps closer to the cutting edge of graph colouring research. 
+
+\subsection{Outline of Project}
+	
+This dissertation is comprised of six sections which provide coherence and a sense of logical development in the sense that each section will flow logically from another from understanding the problem, execution, visualisation of results, and finally understanding, analysing, and placing those results. 
+\\\\
+The current section provides context regarding the GCP and outlines the aims, objectives and scope of the project. Section two provides more in-depth background surrounding the GCP and the techniques and heuristics this project employs to find solutions. Furthermore, section two looks at some of the techniques used within the graph colouring field for measuring the performance and efficacy of particular algorithms. The third section presents the approach taken during the development of the graph colouring software, including software engineering techniques, such as design, implementation, and testing strategy where appropriate. Section four provides the results obtained from running the various implemented algorithms on both known test graphs from the second DIMACS implementation challenge \cite{DIMACSChallenge2}, and also randomly generated graphs. This section will finish by discussing the results obtained and reflecting as to whether they meet the expectations set out in the current section. It also considers how the results place and compare with other findings within the field. The fifth section will reflect on the project approach and method set out in section 3. This section will discuss how well the final product matched the requirements and objectives set out by the project. The final section looks to summarise and critique the project as a whole with consideration of areas for improvement and acknowledgement of successes. Finally, it will look retrospectively at what has been learned through this process and present possible areas for future follow-on research. 

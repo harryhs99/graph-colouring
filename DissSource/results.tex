@@ -1,0 +1,696 @@
+\section{Results}
+For the results section the decision was made to only include the first variation of the WELSH-POWELL algorithm. This is because both the WELSH-POWELL1 and WELSH-POWELL2 algorithms produced the same results in terms of colouring, only WELSH-POWELL2 was less efficient. Therefore, it seems unlikley for there to be a context in which WELSH-POWELL2 would be a more optimal choice than WELSH-POWELL1. 
+\\\\
+This section will firstly look at the efficacy of algorithms in colouring $G(n, p)$ graphs by measuring the number of colours they require to find solutions while varying values of $n$ and $p$. This section will then look out how efficient the algorithms are at finding solutions for $G(n, p)$ graphs. Finally, this section will look at DIMACS test instances taken from the implementation challenge \cite{DIMACSChallenge2}. This will include test instances with known chromatic numbers as well as Leighton graphs (also part of DIMACS test instances) that are randomly generated but have a known chromatic number \cite{Leighton1979AGC}. Efficacy will be measured in these cases by the difference in the number of colours used by the algorithm and the chromatic number of the test instance. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION 4.1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Colouring randomly generated  $G(n, p)$ graphs}
+
+
+The first section of testing was performed on randomly generated $G(n, p)$ graphs where $n$ is the number of vertices, and $p$ is the edge probability. The first few results show the efficacy of the algorithms as the value of $p$ increases for particular values of $n$. Each point is taken from the mean of generating of 20 $G(n,p)$ graphs and running each algorithm on them once. Due to the similarity in trends for each graph of $n$ it was decided to only show graphs for values of $n$ at 50, 500, 1500. However all the data gathered to generate these results can be found in Appendix A.1. 
+\\\\
+Figure \ref{fig:V50p} shows that, for a small graph, DSATUR proves slightly more efficacious than RLF over most values of $p$. It is particularly more effective when the graph is sparse (i.e. $p$ is small). This may be due to the nature of the RLF algorithm in building up colour sets in contrast to DSATUR that colours the optimal vertex per iteration. This may mean that, when the graph has fewer constrained nodes (i.e. the graph is sparse and there are fewer nodes overall), the approach of DSATUR to take the locally optimal decision means that it can assign the later nodes to smaller colour sets. On the other hand, RLF builds up colour sets one by one and therefore may assign vertices, that could have been assigned to earlier colour sets, later than necessary. As can be seen in Figure \ref{fig:V50p}, the difference is rather minimal i.e. differing in one or two colour sets per value $p$. In the middle, as was expected, is the WELSH-POWELL algorithm which provides an extra ordering technique that means the more constrained vertices (i.e. those with highest degree) are dealt with first. However, it cannot compete with the additional heuristics that DSATUR and RLF employ. Both GREEDY and SHUFFLED GREEDY proved to be very similar in efficacy. This is to be expected as randomising the ordering is just as likely to be less effective than a standard ordering as it is to be more effective. Therefore, over multiple runs the fact that they perform similarly seems logical. 
+\begin{figure}[H]
+    \centering
+     \begin{tikzpicture}
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$n = 50$},
+        xlabel= $p$,
+        ylabel= number of colours,
+        ymin=0, ymax=30,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north west
+        ]
+            \addplot table[x=p-value,y=gK]{./data/V50Ptest.txt};
+
+            \addplot table[x=p-value,y=shgK]{./data/V50Ptest.txt};
+
+            \addplot table[x=p-value, y=wpK]{./data/V50Ptest.txt};
+
+            \addplot table[x=p-value, y=dsK]{./data/V50Ptest.txt};
+
+            \addplot table[x=p-value, y=rlfK]{./data/V50Ptest.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur, RLF}
+        \end{axis}
+    \end{tikzpicture}
+
+    \caption{The average number of colours required for $n = 50$.}
+    \label{fig:V50p}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$n = 500$},
+        xlabel= $p$,
+        ylabel= number of colours,
+        ymin=0, ymax=190,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north west
+        ]
+            \addplot table[x=p-value,y=gK]{./data/V500Ptest.txt};
+
+            \addplot table[x=p-value,y=shgK]{./data/V500Ptest.txt};
+
+            \addplot table[x=p-value, y=wpK]{./data/V500Ptest.txt};
+
+            \addplot table[x=p-value, y=dsK]{./data/V500Ptest.txt};
+
+            \addplot table[x=p-value, y=rlfK]{./data/V500Ptest.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur, RLF}
+        \end{axis}
+
+        
+    \end{tikzpicture}
+    \caption{The average number of colours for $n = 500$.}
+    \label{fig:V500p}
+\end{figure}
+
+Figures \ref{fig:V500p} and \ref{fig:V1500p} show that, when $n$ has been increased, the RLF proves the most effective over the values of $p$. However, when the graph is sparse there are still similarities between RLF and DSATUR. Figures \ref{fig:V50p}, \ref{fig:V500p} and \ref{fig:V1500p} display the general trend of increasing $k$ (where $k$ is the number of colours required) when $p$ increases. This is also to be expected as increasing $p$ is essentially increasing the density of the graph. If $p = 1$ then it would generate a complete graph and the number of colours required would be $n$ or $\chi(G(n, 1)) = n$. Therefore as the value of $p$ approaches $1$ the value of $k$ will tend towards $n$.  
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$n = 1500$},
+        xlabel= $p$,
+        ylabel= number of colours,
+        ymin=0, ymax=470,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north west
+        ]
+            \addplot table[x=p-value,y=gK]{./data/V1500Ptest.txt};
+
+            \addplot table[x=p-value,y=shgK]{./data/V1500Ptest.txt};
+
+            \addplot table[x=p-value, y=wpK]{./data/V1500Ptest.txt};
+
+            \addplot table[x=p-value, y=dsK]{./data/V1500Ptest.txt};
+
+            \addplot table[x=p-value, y=rlfK]{./data/V1500Ptest.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur, RLF}
+        \end{axis}
+
+        
+    \end{tikzpicture}
+
+  \caption{The average number of colours for $n = 1500$.}
+    \label{fig:V1500p}
+\end{figure}   
+
+The next few graphs show how the average number of colours required by each algorithm changes as $n$ increases for fixed $p$-values. As can be seen in both Figures \ref{fig:p0.9} and \ref{fig:p0.5} the results are similar to the previous results, with RLF proving the most efficacious as $n$ increases. This is followed by DSATUR, then WELSH-POWELL, and finally GREEDY and SHUFFLED GREEDY. What is interesting, however, is that rather than showing an exponential curve as $n$ increases the graphs seem to show that the number of colours has a smaller increase per increase in $n$. This would lead one to believe that the number of colours required is tending towards some value, however this may be due to the testing values used. Perhaps more testing values are required to make general assumptions on this matter. 
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$p=0.9$},
+        xlabel= $n$,
+        ylabel= number of colours,
+        ymin=0, ymax=470,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north west
+        ]
+            \addplot table[x=V,y=gK]{./data/P0_9Vtest.txt};
+
+            \addplot table[x=V,y=shgK]{./data/P0_9Vtest.txt};
+
+            \addplot table[x=V, y=wpK]{./data/P0_9Vtest.txt};
+
+            \addplot table[x=V, y=dsK]{./data/P0_9Vtest.txt};
+
+            \addplot table[x=V, y=rlfK]{./data/P0_9Vtest.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur, RLF}
+        \end{axis}
+
+        
+    \end{tikzpicture}
+
+  \caption{The average number of colours for $p = 0.9$.}
+    \label{fig:p0.9}
+\end{figure}  
+
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$p=0.5$},
+        xlabel= $n$,
+        ylabel= number of colours,
+        ymin=0, ymax=200,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north west
+        ]
+            \addplot table[x=V,y=gK]{./data/P0_5Vtest.txt};
+
+            \addplot table[x=V,y=shgK]{./data/P0_5Vtest.txt};
+
+            \addplot table[x=V, y=wpK]{./data/P0_5Vtest.txt};
+
+            \addplot table[x=V, y=dsK]{./data/P0_5Vtest.txt};
+
+            \addplot table[x=V, y=rlfK]{./data/P0_5Vtest.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur, RLF}
+        \end{axis}
+
+        
+    \end{tikzpicture}
+
+  \caption{The average number of colours for $p = 0.5$.}
+    \label{fig:p0.5}
+\end{figure}  
+
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$p=0.1$},
+        xlabel= $n$,
+        ylabel= number of colours,
+        ymin=0, ymax=45,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north west
+        ]
+            \addplot table[x=V,y=gK]{./data/P0_1Vtest.txt};
+
+            \addplot table[x=V,y=shgK]{./data/P0_1Vtest.txt};
+
+            \addplot table[x=V, y=wpK]{./data/P0_1Vtest.txt};
+
+            \addplot table[x=V, y=dsK]{./data/P0_1Vtest.txt};
+
+            \addplot table[x=V, y=rlfK]{./data/P0_1Vtest.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur, RLF}
+        \end{axis}
+
+        
+    \end{tikzpicture}
+
+  \caption{The average number of colours for $p = 0.1$.}
+    \label{fig:p0.1}
+\end{figure}  
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$p=0.1$},
+        xlabel= $n$,
+        ylabel= number of colours,
+        ymin=4, ymax=16,
+        xmin=50, xmax=300,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north west
+        ]
+            \addplot table[x=V,y=gK]{./data/P0_1Vtest.txt};
+
+            \addplot table[x=V,y=shgK]{./data/P0_1Vtest.txt};
+
+            \addplot table[x=V, y=wpK]{./data/P0_1Vtest.txt};
+
+            \addplot table[x=V, y=dsK]{./data/P0_1Vtest.txt};
+
+            \addplot table[x=V, y=rlfK]{./data/P0_1Vtest.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur, RLF}
+        \end{axis}
+
+        
+    \end{tikzpicture}
+
+  \caption{Zoomed in version of Figure \ref{fig:p0.1}}
+    \label{fig:p0.1zoom}
+\end{figure}  
+
+Figures \ref{fig:p0.1} and \ref{fig:p0.1zoom} consolidate the point made earlier that for sparse graphs and for smaller values of $n$ DSATUR is the most efficacious algorithm. It can be seen in Figure \ref{fig:p0.1zoom} that for very small values of $n$ (i.e. between 50 and 100) the WELSH-POWELL algorithm beats out RLF. This is likely due to similar reasons mentioned previously for DSATUR beating RLF. However it is important to state that these differences are very small, with just a few colours difference in each case. Figure \ref{fig:p0.1} also shows that as $n$ gets larger the RLF algorithm overtakes DSATUR even with sparse graphs. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION 4.2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Computational complexity of colouring randomly generated $G(n, p)$ graphs}
+
+As well as results pertaining to the efficacy of the algorithms, results regarding their efficiency were also compiled. The following graphs show how the computational complexity (measured by number of operations and time) of the algorithms increases as $p$ increases. The value for $n = 500$ was chosen to display the trend, however the trend holds over all values of $n$. All the results gathered regarding computational complexity of the algorithms can be found in Appendices A.2 and A.3. Once again for each graph the average operation, or average time is taken from running the algorithms once on 20 different graphs per value of $p$.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$n = 500$},
+        xlabel= $p$,
+        ylabel= number of operations $\times 10^5$,
+        ymin=0, ymax=1100,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north west
+        ]
+            \addplot table[x=p-value,y=gOps]{./data/V500PtestOps.txt};
+
+            \addplot table[x=p-value,y=shgOps]{./data/V500PtestOps.txt};
+
+            \addplot table[x=p-value, y=sogOps]{./data/V500PtestOps.txt};
+
+            \addplot table[x=p-value, y=dsOps]{./data/V500PtestOps.txt};
+
+            \addplot table[x=p-value, y=rlfOps]{./data/V500PtestOps.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur, RLF}
+        \end{axis}
+
+        
+    \end{tikzpicture}
+
+  \caption{The average number of operations for $n = 500$.}
+    \label{fig:V500Ops}
+\end{figure}  
+
+Figure \ref{fig:V500Ops} shows that, as expected, the least efficient algorithm for all values of $p$ is RLF. As mentioned in section 2, all the algorithms have worst case complexities of $O(n^2)$ except for RLF that is $O(n^3)$. This is clearly shown in Figure \ref{fig:V500Ops} as the computational effort expended for RLF far outweighs the others. 
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$n = 500$},
+        xlabel= $p$,
+        ylabel= number of operations $\times 10^5$,
+        ymin=0, ymax=80,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north west
+        ]
+            \addplot table[x=p-value,y=gOps]{./data/V500PtestOps.txt};
+
+            \addplot table[x=p-value,y=shgOps]{./data/V500PtestOps.txt};
+
+            \addplot table[x=p-value, y=sogOps]{./data/V500PtestOps.txt};
+
+            \addplot table[x=p-value, y=dsOps]{./data/V500PtestOps.txt};
+
+            %% \addplot table[x=p-value, y=rlfOps]{./data/V500PtestOps.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur}
+        \end{axis}
+
+        
+    \end{tikzpicture}
+
+  \caption{Figure \ref{fig:V500Ops} with RLF removed.}
+    \label{fig:ZoomV500Ops}
+\end{figure}  
+
+Figure \ref{fig:ZoomV500Ops}, with RLF removed, provides a clearer picture as to what is happening with the other algorithms. GREEDY, SHUFFLED GREEDY and WELSH-POWELL all perform the best, with only a slight deviation as $p$ gets bigger. This is due to the extra step required in re-ordering the vertices prior to beginning the colouring. In the case of WELSH-POWELL the extra step is sorting, and therefore has a worst case of $O(n \log n)$. For SHUFFLED GREEDY, the random shuffling step has a worst case of $O(n)$. As expected, the DSATUR algorithm proves slightly less efficient than the others as even though it has the same worst case complexity. However, practically speaking, DSATUR requires more operations in dealing with the saturation property of the vertices. 
+\\\\
+Figure \ref{fig:V500Time} shows a similar trend to Figure \ref{fig:V500Ops}, showing that there is a correlation between time taken and number of operations. Overall, it shows that complexity increases as $p$ increases which is to be expected as the greater number of edges means each vertex has more neighbours. This means that a greater number of checks is required to ensure a vertex is safe to colour while ensuring no conflicts. 
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$n = 500$},
+        xlabel= $p$,
+        ylabel= time \unit{\ms},
+        ymin=0, ymax=300,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north east
+        ]
+            \addplot table[x=p-value,y=gT]{./data/V500PtestTime.txt};
+
+            \addplot table[x=p-value,y=shgT]{./data/V500PtestTime.txt};
+
+            \addplot table[x=p-value, y=sogT]{./data/V500PtestTime.txt};
+
+            \addplot table[x=p-value, y=dsT]{./data/V500PtestTime.txt};
+
+            \addplot table[x=p-value, y=rlfT]{./data/V500PtestTime.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur, RLF}
+        \end{axis}
+
+        
+    \end{tikzpicture}
+
+  \caption{The average time taken find a solution for $n = 500$.}
+    \label{fig:V500Time}
+\end{figure}  
+
+The next graphs show how the complexity increases as the value of $n$ increases with a constant value of $p = 0.5$. The efficiency of the algorithms are shown to be the same as mentioned previously. This is to be expected, as whilst $n$ increases it also increases the number of checks that must be performed.
+
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$p = 0.5$},
+        xlabel= $n$,
+        ylabel= number of operations $\times 10^5$,
+        ymin=0, ymax=1200,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north east
+        ]
+            \addplot table[x=V,y=gOps]{./data/P0_5VtestOps.txt};
+
+            \addplot table[x=V,y=shgOps]{./data/P0_5VtestOps.txt};
+
+            \addplot table[x=V, y=wpOps]{./data/P0_5VtestOps.txt};
+
+            \addplot table[x=V, y=dsOps]{./data/P0_5VtestOps.txt};
+
+            \addplot table[x=V, y=rlfOps]{./data/P0_5VtestOps.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur, RLF}
+        \end{axis}
+
+        
+    \end{tikzpicture}
+
+  \caption{The average number of operations for $p = 0.5$.}
+    \label{fig:P0.5Ops}
+\end{figure}  
+
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+
+        \begin{axis} [
+        % load a color `cycle list' from the `colorbrewer' library
+            cycle list/Dark2,
+            % define fill color for the marker
+            mark list fill={.},
+            % create new `cycle list` from existing `cycle list's and an
+            cycle multiindex* list={
+                Dark2
+                    \nextlist
+                my marks
+                    \nextlist
+                [3 of]linestyles
+                    \nextlist
+                very thick
+                    \nextlist
+            },
+        title={$p = 0.5$},
+        xlabel= $n$,
+        ylabel= time \unit{\ms},
+        ymin=0, ymax=1200,
+        ymajorgrids = true,
+        grid style = dashed,
+        legend pos= north east
+        ]
+            \addplot table[x=V,y=gT]{./data/P0_5VtestTime.txt};
+
+            \addplot table[x=V,y=shgT]{./data/P0_5VtestTime.txt};
+
+            \addplot table[x=V, y=wpT]{./data/P0_5VtestTime.txt};
+
+            \addplot table[x=V, y=dsT]{./data/P0_5VtestTime.txt};
+
+            \addplot table[x=V, y=rlfT]{./data/P0_5VtestTime.txt};
+
+            \legend{Greedy, Shuffled, Welsh-Powell, DSatur, RLF}
+        \end{axis}
+
+        
+    \end{tikzpicture}
+
+  \caption{The average time for $p = 0.5$.}
+    \label{fig:P0.5Time}
+\end{figure}  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION 4.3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Colouring DIMACS graphs with known $\chi(G)$}
+
+The following section shows the results gathered from testing each algorithm on DIMACS test instances with known chromatic number ($\chi(G)$). For each test instance, the average number of colours used by each algorithm was measured from 20 test runs. Table \ref{tab:DIMACSResults} shows the results gathered along with the test instance name, $\chi(G)$ for each instance, and the average number of colours $k$ each algorithm used along with its difference from $\chi(G)$. In this case, the efficacy of each algorithm is determined by the one with smallest difference from $\chi(G)$.
+\\\\
+Table \ref{tab:DIMACSResults} shows that, for most test instances, WELSH-POWELL, DSATUR and RLF produce the optimal colouring. GREEDY, particularly SHUFFLED GREEDY, are less likely to produce an optimal colouring. As was expected SHUFFLED GREEDY is about as likely to be better than GREEDY than it is to be worse. Perhaps the most interesting results come from the tests on the "flat" series of test instances. Here it can be seen that RLF proves to be most efficacious, followed by DSATUR, WELSH-POWELL and then GREEDY and SHUFFLED GREEDY. This is to be expected as it has been shown earlier that RLF proves to be most effective on larger graphs, particularly denser graphs (which in this case is implied by the high chromatic number). 
+    
+\begin{longtable}{|>{\raggedright}p{2.3cm}|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+     & & \multicolumn{2}{c|}{\textbf{Greedy}} & \multicolumn{2}{c|}{\textbf{Shuffled}} & \multicolumn{2}{c|}{\textbf{Welsh-Powell}} & \multicolumn{2}{c|}{\textbf{Dsatur}} & \multicolumn{2}{c|}{\textbf{RLF}} \\
+     \textbf{Graph} & \textbf{$\chi(G)$} & \textbf{$k_{avg}$} & \textbf{diff} & \textbf{$k_{avg}$} & \textbf{diff} & \textbf{$k_{avg}$} & \textbf{diff} & \textbf{$k_{avg}$} & \textbf{diff} & \textbf{$k_{avg}$} & \textbf{diff} \\
+    \hline
+    anna & 11 & 12 & 1 & 11.2 & 0.2 & 11 & 0 & 11 & 0 & 11 & 0 \\
+    david & 11 & 12 & 1 & 11.75 & 0.75 & 11 & 0 & 11 & 0 & 11 & 0 \\
+    homer & 13 & 15 & 2 & 14.05 & 1.05 & 13 & 0 & 13 & 0 & 13 & 0 \\
+    huck & 11 & 11 & 0 & 11 & 0 & 11 & 0 & 11 & 0 & 11 & 0 \\
+    jean & 10 & 10 & 0 & 10.4 & 0.4 & 10 & 0 & 10 & 0 & 10 & 0 \\
+    games120 & 9 & 9 & 0 & 9.05 & 0.05 & 9 & 0 & 9 & 0 & 9 & 0 \\
+    miles250 & 8 & 9 & 1 & 9.15 & 1.15 & 8 & 0 & 8 & 0 & 9 & 1 \\
+    miles500 & 20 & 22 & 2 & 21.95 & 1.95 & 20 & 0 & 20 & 0 & 21 & 1 \\
+    miles750 & 31 & 34 & 3 & 33.65 & 2.65 & 32 & 1 & 31 & 0 & 32 & 1 \\
+    miles1000 & 42 & 44 & 2 & 45.15 & 3.15 & 43 & 1 & 42 & 0 & 43 & 1 \\
+    miles1500 & 73 & 76 & 3 & 74.35 & 1.35 & 73 & 0 & 73 & 0 & 73 & 0 \\
+    flat300\_26\_0 & 26 & 45 & 19 & 46.8 & 20.8 & 45 & 19 & 42 & 16 & 39 & 13 \\
+    flat300\_28\_0 & 28 & 46 & 18 & 46.8 & 18.8 & 45 & 17 & 41 & 13 & 40 & 12 \\
+    flat1000\_50\_0 & 50 & 126 & 76 & 124.4 & 74.4 & 123 & 73 & 113 & 63 & 108 & 58 \\
+    flat1000\_60\_0 & 60 & 125 & 65 & 124.45 & 64.45 & 121 & 61 & 112 & 52 & 108 & 48 \\
+    flat1000\_76\_0 & 76 & 122 & 46 & 125.25 & 49.25 & 123 & 47 & 115 & 39 & 109 & 33 \\
+    fpsol2.i.1 & 65 & 65 & 0 & 65 & 0 & 65 & 0 & 65 & 0 & 65 & 0 \\
+    fpsol2.i.2 & 30 & 30 & 0 & 30.45 & 0.45 & 30 & 0 & 30 & 0 & 30 & 0 \\
+    fpsol2.i.3 & 30 & 30 & 0 & 30.4 & 0.4 & 30 & 0 & 30 & 0 & 30 & 0 \\
+    inithx.i.1 & 54 & 54 & 0 & 54 & 0 & 54 & 0 & 54 & 0 & 54 & 0 \\
+    inithx.i.2 & 31 & 31 & 0 & 31.2 & 0.2 & 31 & 0 & 31 & 0 & 31 & 0 \\
+    inithx.i.3 & 31 & 31 & 0 & 31.1 & 0.1 & 31 & 0 & 31 & 0 & 32 & 1 \\
+    mulsol.i.1 & 49 & 49 & 0 & 49 & 0 & 49 & 0 & 49 & 0 & 49 & 0 \\
+    mulsol.i.2 & 31 & 31 & 0 & 31.15 & 0.15 & 31 & 0 & 31 & 0 & 31 & 0 \\
+    mulsol.i.3 & 31 & 31 & 0 & 31.2 & 0.2 & 31 & 0 & 31 & 0 & 31 & 0 \\
+    mulsol.i.4 & 31 & 31 & 0 & 31.05 & 0.05 & 31 & 0 & 31 & 0 & 31 & 0 \\
+    mulsol.i.5 & 31 & 31 & 0 & 31 & 0 & 31 & 0 & 31 & 0 & 31 & 0 \\
+    zeroin.i.1 & 49 & 49 & 0 & 49.2 & 0.2 & 49 & 0 & 49 & 0 & 49 & 0 \\
+    zeroin.i.2 & 30 & 30 & 0 & 30.3 & 0.3 & 30 & 0 & 30 & 0 & 30 & 0 \\
+    zeroin.i.3 & 30 & 30 & 0 & 30.45 & 0.45 & 30 & 0 & 30 & 0 & 30 & 0 \\
+    myciel3 & 4 & 4 & 0 & 4.1 & 0.1 & 4 & 0 & 4 & 0 & 4 & 0 \\
+    myciel4 & 5 & 5 & 0 & 5.1 & 0.1 & 5 & 0 & 5 & 0 & 5 & 0 \\
+    myciel5 & 6 & 6 & 0 & 6.2 & 0.2 & 6 & 0 & 6 & 0 & 6 & 0 \\
+    myciel6 & 7 & 7 & 0 & 7.3 & 0.3 & 7 & 0 & 7 & 0 & 7 & 0 \\
+    myciel7 & 8 & 8 & 0 & 8.4 & 0.4 & 8 & 0 & 8 & 0 & 8 & 0 \\
+    \hline
+  \caption{Average number of colours used by each algorithm on DIMACS testing instances with known $\chi(G)$. The average $k$ is shown over 20 test runs, along with the difference (excess colours used) from the $\chi(G)$.}
+\label{tab:DIMACSResults}
+\end{longtable}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION 4.4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Colouring Leighton random graphs with known $\chi(G)$}
+This section shows how the algorithms perform on Leighton graphs (a special category of DIMACS instances that are randomly generated but have a known chromatic number). Leighton proposed these graphs and how to generate them in his work in formulating the RLF algorithm \cite{Leighton1979AGC}. For each $\chi(G)$ shown in Table \ref{tab:LeightonGraphResults} there were four different graphs. For each of these graphs results were generated over 20 test runs.
+\\\\
+As can be seen in Table \ref{tab:LeightonGraphResults} rather unexpectedly DSATUR performs better than the RLF algorithm. This could perhaps be due to either the number of vertices in the graphs being tested or the sparseness of the graphs. As has been established in previous sections, DSATUR seems to have an edge in this context. The other results, however, follow the pattern as expected and laid out in previous sections. 
+
+\begin{table}[H]
+    \centering
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+         & \multicolumn{2}{c|}{\textbf{Greedy}} & \multicolumn{2}{c|}{\textbf{Shuffled}} & \multicolumn{2}{c|}{\textbf{Welsh-Powell}} & \multicolumn{2}{c|}{\textbf{Dsatur}} & \multicolumn{2}{c|}{\textbf{RLF}} \\
+         \textbf{$\chi(G)$} & \textbf{$k_{avg}$ $\pm$ SD} & \textbf{diff} & \textbf{$k_{avg}$ $\pm$ SD} & \textbf{diff} & \textbf{$k_{avg}$ $\pm$ SD} &  \textbf{diff} & \textbf{$k_{avg}$ $\pm$ SD} & \textbf{diff} & \textbf{$k_{avg}$ $\pm$ SD} & \textbf{diff} \\
+        \hline
+        5 & 15.5 $\pm$ 2.074 & 10.5 & 14.83 $\pm$ 1.885 & 9.83 & 12.25 $\pm$ 1.096 & 7.25 & 9.75 $\pm$ 1.649 & 4.75 & 10 $\pm$ 0.711 & 5 \\
+        15 & 26.25 $\pm$ 4.291 & 11.25 & 26.15 $\pm$ 4.567 & 11.15 & 22 $\pm$ 4.025 & 7 & 20.5 $\pm$ 3.522 & 5.5 & 20.5 $\pm$ 3.522 & 5.5 \\
+        25 & 31.75 $\pm$ 4.350 & 6.75 & 32 $\pm$ 4.109 & 7 & 27.5 $\pm$ 2.074 & 2.5 & 26.75 $\pm$ 1.796 & 1.75 & 27 $\pm$ 2.012 & 2 \\
+        \hline
+        \end{tabular}%
+        }
+    \caption{Average number of colours used by each algorithm on Leighton random graphs with known $\chi(G)$. The average $k$ is shown over 4 graphs per $\chi(G)$ and 20 test runs, along with the difference (excess colours used) from the $\chi(G)$.}
+    \label{tab:LeightonGraphResults}
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION 4.5 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Results Evaluation}
+
+Overall, the results have shown that, for most contexts, RLF is the most efficacious algorithm. This aligns with other studies of constructive colouring techniques that found RLF was best at using the minimal colours in most contexts \cite{LewisR.M.R2015AGtG, Leighton1979AGC, MuratNurdan}. In some contexts it has shown that DSATUR provided better colourings. However, this was only for very small and sparse graphs. The order of efficacy of the remaining algorithms also lines up with other studies, with WELSH-POWELL proving slightly better than both GREEDY variations \cite{MuratNurdan}.  
+\\\\
+In contrast, RLF proves to be the least efficient of the algorithms by a large margin. This lines up with findings by Lewis \cite{LewisR.M.R2015AGtG}, and was expected due to findings by Leighton that RLF has a worst case of $O(n^3)$ \cite{Leighton1979AGC}. In fact, the order of efficiency of the algorithms is inverse to the order of efficacy. GREEDY was found to be most efficient, followed closely by SHUFFLED GREEDY and then WELSH-POWELL. DSATUR is noticeably less efficient than the others. However, it is still markedly better than RLF in terms of efficiency. 
+\\\\
+In terms of practical application of these algorithms, if efficiency is not a concern then RLF is the clear choice for most applications. However, if efficiency is a concern or if the application is for small, sparse graphs then DSATUR may be the best choice. Most of these results align with the hypotheses lined out in the section 1 of this project, showing the results generated with this project fit within other results found within the field. There are, however, a few unexpected results that may require further research in order to understand. This includes the results gathered in section 4.4 that found DSATUR to be more effective on Leighton random graphs.  

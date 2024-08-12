@@ -1,0 +1,576 @@
+\section{Results Tables for tests on $G(p,n)$ graphs}
+
+\subsection{Average number of colours required to colour $G(p,n)$ graphs}
+
+This section provides the raw results tables gathered to produce the graphs for average colours used by each algorithm as the value of $p$ increases which can be found in section 4. For each table the value of $n$ (i.e. number of vertices or order) for each graph is provided in the top left. The average values for $k$ (i.e number of colours used) with the standard deviation are calculated from running the algorithms on 20 test graphs per value of $p$. The best performing algorithms per value of $p$ are highlighted. 
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 50$& \multicolumn{5}{c}{$k_{avg}$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 5.05 $\pm$ 0.5104 & 5.05 $\pm$ 0.5104 & 4.3 $\pm$ 0.4702 & \textbf{4 $\pm$ 0} & 4.65 $\pm$ 0.4894 \\
+        0.2 & 6.85 $\pm$ 0.5871 & 7.05 $\pm$ 0.3940 & 6.25 $\pm$ 0.5501 & \textbf{5.75 $\pm$ 0.5501} & 6.25 $\pm$ 0.5501 \\
+        0.3 & 9.1 $\pm$ 0.7881 & 9.05 $\pm$ 0.9987 & 8.25 $\pm$ 0.4443 & \textbf{7.35 $\pm$ 0.5871} & 7.6 $\pm$ 0.6806 \\
+        0.4 & 10.85 $\pm$ 0.5871 & 10.85 $\pm$ 0.8751 & 10.05 $\pm$ 0.7592 & \textbf{8.95 $\pm$ 0.6863} & 9.55 $\pm$ 0.6048 \\
+        0.5 & 13.05 $\pm$ 0.8870 & 12.75 $\pm$ 0.8507 & 12.15 $\pm$ 0.9881 & \textbf{10.95 $\pm$ 0.6048} & 11.05 $\pm$ 0.6048 \\
+        0.6 & 15.35 $\pm$ 0.9881 & 15.1 $\pm$ 0.8522 & 14.15 $\pm$ 0.9333 & \textbf{13.1 $\pm$ 0.7182} & 13.3 $\pm$ 0.6569 \\
+        0.7 & 18.05 $\pm$ 0.9445 & 18.6 $\pm$ 0.9403 & 16.85 $\pm$ 0.9333 & \textbf{15.7 $\pm$ 0.9234} & 15.9 $\pm$ 0.7182 \\
+        0.8 & 21.75 $\pm$ 1.410 & 21.9 $\pm$ 1.071 & 20.4 $\pm$ 1.142 & 19.15 $\pm$ 1.182 & \textbf{19 $\pm$ 0.8584} \\
+        0.9 & 26.55 $\pm$ 1.276 & 26.2 $\pm$ 1.673 & 24.45 $\pm$ 1.146 & \textbf{23.15 $\pm$ 1.309} & 24 $\pm$ 1.214 \\
+        \hline
+    \end{tabular}
+    \caption{Average number of colours used by each algorithm where $n = 50$.}
+    \label{tab:avgKforV50}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 100$& \multicolumn{5}{c}{$k_{avg}$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+         0.1 & 7.3 $\pm$ 0.5712 & 7.4 $\pm$ 0.6806  & 6.3 $\pm$ 0.4702 & \textbf{5.7 $\pm$ 0.4702} & 6.55 $\pm$ 0.5104 \\
+        0.2 & 10.7 $\pm$ 0.6569 & 11.1 $\pm$ 0.4472 & 9.9 $\pm$ 0.5525 & \textbf{8.65 $\pm$ 0.4894} & 9.2 $\pm$ 0.4104 \\
+        0.3 & 14.15 $\pm$ 0.8127 & 14.05 $\pm$ 0.6863 & 13.05 $\pm$ 0.6863 & \textbf{11.6 $\pm$ 0.5026} & 11.85 $\pm$ 0.5871 \\
+        0.4 & 17.45 $\pm$ 0.6863 & 17.3 $\pm$ 0.7327 & 16.4 $\pm$ 0.9403 & \textbf{14.8 $\pm$ 0.6156} & 14.85 $\pm$ 0.5871 \\
+        0.5 & 21.05 $\pm$ 0.8256 & 21.35 $\pm$ 0.8751 & 19.75 $\pm$ 1.070 & 18.35 $\pm$ 0.9333 & \textbf{18.1 $\pm$ 0.7881} \\
+        0.6 & 25.4 $\pm$ 0.9947 & 25.8 $\pm$ 1.105 & 23.7 $\pm$ 0.7327 & 22.2 $\pm$ 1.105 & \textbf{21.85 $\pm$ 0.8127} \\
+        0.7 & 30.25 $\pm$ 1.251 & 30.5 $\pm$ 1 & 28.15 $\pm$ 0.8751 & 26.85 $\pm$ 0.9881 & \textbf{26.1 $\pm$ 0.8522} \\
+        0.8 & 36.95 $\pm$ 1.276 & 36.75 $\pm$ 1.251 & 35.1 $\pm$ 1.373 & 32.85 $\pm$ 1.182 & \textbf{31.95 $\pm$ 1.356} \\
+        0.9 & 46.05 $\pm$ 1.731 & 46.1 $\pm$ 1.373 & 43.5 $\pm$ 1.504 & 42.05 $\pm$ 1.234 & \textbf{40.45 $\pm$ 1.050} \\
+        \hline
+    \end{tabular}
+    \caption{Average number of colours used by each algorithm where $n = 100$.}
+    \label{tab:avgKforV100}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 150$& \multicolumn{5}{c}{$k_{avg}$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 9.15 $\pm$ 0.6708 & 9.3 $\pm$ 0.4702 & 8.2 $\pm$ 0.5231 & \textbf{7 $\pm$ 0} & 7.85 $\pm$ 0.4894 \\
+        0.2 & 14 $\pm$ 0.6489 & 14 $\pm$ 0.7947 & 12.85 $\pm$ 0.4894 & \textbf{11.25 $\pm$ 0.5501} & 11.8 $\pm$ 0.6156 \\
+        0.3 & 18.6 $\pm$ 0.8208 & 18.7 $\pm$ 0.8013 & 17.1 $\pm$ 0.6407 & \textbf{15.25 $\pm$ 0.5501} & 15.8 $\pm$ 0.5231 \\
+        0.4 & 23.25 $\pm$ 0.9105 & 23.6 $\pm$ 0.8826 & 21.6 $\pm$ 0.8208 & 20.1 $\pm$ 0.8522 & \textbf{19.9 $\pm$ 0.7881} \\
+        0.5 & 28.7 $\pm$ 0.8645 & 28.75 $\pm$ 0.9105 & 26.8 $\pm$ 0.7678 & 25 $\pm$ 0.8584 & \textbf{24.15 $\pm$ 0.7452} \\
+        0.6 & 35.05 $\pm$ 1.317 & 35.05 $\pm$ 1.191 & 32.25 $\pm$ 0.9665 & 30.15 $\pm$ 0.8751 & \textbf{29.6 $\pm$ 0.6806} \\
+        0.7 & 41.4 $\pm$ 1.501 & 41.65 $\pm$ 1.461 & 39.7 $\pm$ 0.8013 & 37.15 $\pm$ 0.7452 & \textbf{35.6 $\pm$ 0.9947} \\
+        0.8 & 51 $\pm$ 1.257 & 51 $\pm$ 1.338 & 48.05 $\pm$ 1.538 & 45.55 $\pm$ 1.432 & \textbf{44.1 $\pm$ 1.021} \\
+        0.9 & 64.55 $\pm$ 1.669 & 64.8 $\pm$ 1.361 & 62.1 $\pm$ 1.294 & 59.35 $\pm$ 1.565 & \textbf{56.65 $\pm$ 1.531} \\
+        \hline
+    \end{tabular}
+    \caption{Average number of colours used by each algorithm where $n = 150$.}
+    \label{tab:avgKforV150}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 300$& \multicolumn{5}{c}{$k_{avg}$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 14 $\pm$ 0.5620 & 13.9 $\pm$ 0.4472 & 12.55 $\pm$ 0.6048 & \textbf{10.95 $\pm$ 0.3940} & 11.7 $\pm$ 0.4702 \\
+        0.2 & 22.35 $\pm$ 0.6708 & 22.35 $\pm$ 0.9333 & 20.5 $\pm$ 0.7609 & \textbf{18.15 $\pm$ 0.3663} & 18.4 $\pm$ 0.5026 \\
+        0.3 & 30.85 $\pm$ 0.8751 & 30.8 $\pm$ 0.6959 & 28.55 $\pm$ 0.5104 & 25.9 $\pm$ 0.6407 & \textbf{25.3 $\pm$ 0.5712} \\
+        0.4 & 39.15 $\pm$ 0.8751 & 39.2 $\pm$ 0.8944 & 36.9 $\pm$ 0.8522 & 34.45 $\pm$ 0.6863 & \textbf{32.7 $\pm$ 0.6569} \\
+        0.5 & 48.35 $\pm$ 0.9881 & 48.45 $\pm$ 1.0501 & 46.5 $\pm$ 0.8272 & 43.1 $\pm$ 0.7182 & \textbf{41 $\pm$ 0.5620} \\
+        0.6 & 59.3 $\pm$ 1.780 & 59.45 $\pm$ 0.8870 & 56.6 $\pm$ 1.046 & 53.3 $\pm$ 0.8013 & \textbf{50.25 $\pm$ 0.9105} \\
+        0.7 & 72.2 $\pm$ 1.473 & 72.8 $\pm$ 1.609 & 69.5 $\pm$ 1.469 & 64.85 $\pm$ 1.348 & \textbf{62.2 $\pm$ 0.8335} \\
+        0.8 & 88.6 $\pm$ 1.847 & 89.45 $\pm$ 1.432 & 85.9 $\pm$ 1.832 & 80.95 $\pm$ 1.820 & \textbf{77.1 $\pm$ 1.119} \\
+        0.9 & 115.15 $\pm$ 2.601 & 115.85 $\pm$ 2.134 & 111.35 $\pm$ 1.631 & 105.2 $\pm$ 2.093 & \textbf{100.55 $\pm$ 1.146} \\
+        \hline
+    \end{tabular}
+    \caption{Average number of colours used by each algorithm where $n = 300$.}
+    \label{tab:avgKforV300}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 500$& \multicolumn{5}{c}{$k_{avg}$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+         0.1 & 19.5 $\pm$ 0.6882 & 19.3 $\pm$ 0.5712 & 17.9 $\pm$ 0.4472 & \textbf{15.7 $\pm$ 0.4702} & 16.0 $\pm$ 0.4588 \\
+        0.2 & 31.85 $\pm$ 0.6708 & 32.2 $\pm$ 0.6156 & 30.2 $\pm$ 0.6959 & 27.15 $\pm$ 0.4894 & \textbf{26.6 $\pm$ 0.5982} \\
+        0.3 & 45.3 $\pm$ 0.8645 & 44.65 $\pm$ 0.9333 & 41.95 $\pm$ 0.7592 & 38.9 $\pm$ 0.7881 & \textbf{37.15 $\pm$ 0.4894} \\
+        0.4 & 57.9 $\pm$ 0.7881 & 58.3 $\pm$ 0.9234 & 55.4 $\pm$ 1.046 & 51.1 $\pm$ 0.6407 & \textbf{48.55 $\pm$ 0.7592} \\
+        0.5 & 72.15 $\pm$ 1.136 & 72.2 $\pm$ 1.240 & 69.9 $\pm$ 1.252 & 64.95 $\pm$ 0.9445 & \textbf{61.45 $\pm$ 0.7592} \\
+        0.6 & 89.1 $\pm$ 1.373 & 89.05 $\pm$ 1.538 & 85.6 $\pm$ 1.603 & 80.8 $\pm$ 0.8944 & \textbf{76.45 $\pm$ 0.8870} \\
+        0.7 & 109.2 $\pm$ 1.852 & 109.05 $\pm$ 0.9445 & 105.65 $\pm$ 1.137 & 99.55 $\pm$ 1.317 & \textbf{94.8 $\pm$ 1.005} \\
+        0.8 & 135.95 $\pm$ 1.638 & 136.55 $\pm$ 2.282 & 131.2 $\pm$ 2.067 & 124.65 $\pm$ 1.309 & \textbf{118.05 $\pm$ 1.356} \\
+        0.9 & 177.2 $\pm$ 2.726 & 177.05 $\pm$ 1.820 & 170.95 $\pm$ 2.481 & 162.8 $\pm$ 2.419 & \textbf{155.7 $\pm$ 1.809} \\
+        \hline
+    \end{tabular}
+    \caption{Average number of colours used by each algorithm where $n = 500$.}
+    \label{tab:avgKforV500}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 750$& \multicolumn{5}{c}{$k_{avg}$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+    0.1 & 25.5 $\pm$ 0.6070 & 25.85 $\pm$ 0.5871 & 24.05 $\pm$ 0.6048 & 21.1 $\pm$ 0.4472 & \textbf{20.95 $\pm$ 0.6048} \\
+        0.2 & 43.2 $\pm$ 0.6959 & 43.2 $\pm$ 0.5231 & 40.9 $\pm$ 0.9119 & 37.05 $\pm$ 0.5104 & \textbf{35.65 $\pm$ 0.4894} \\
+        0.3 & 60.75 $\pm$ 1.020 & 60.9 $\pm$ 0.7881 & 58.15 $\pm$ 0.7452 & 53.45 $\pm$ 0.7592 & \textbf{51.1 $\pm$ 0.6407} \\
+        0.4 & 79.7 $\pm$ 1.081 & 79.5 $\pm$ 1.395 & 76.3 $\pm$ 0.9234 & 70.75 $\pm$ 0.9665 & \textbf{67.5 $\pm$ 0.6882} \\
+        0.5 & 100.55 $\pm$ 1.191 & 100.4 $\pm$ 0.9403 & 96.7 $\pm$ 1.455 & 90.4 $\pm$ 1.095 & \textbf{85.65 $\pm$ 1.040} \\
+        0.6 & 124 $\pm$ 1.124 & 124.25 $\pm$ 1.446 & 119.95 $\pm$ 1.701 & 112.9 $\pm$ 1.210 & \textbf{107.2 $\pm$ 1.056} \\
+        0.7 & 153.55 $\pm$ 1.849 & 152.8 $\pm$ 2.191 & 148.3 $\pm$ 1.418 & 141 $\pm$ 1.487 & \textbf{132.9 $\pm$ 1.553} \\
+        0.8 & 190.45 $\pm$ 2.481 & 191.2 $\pm$ 2.042 & 185.1 $\pm$ 1.832 & 175.55 $\pm$ 1.877 & \textbf{167.75 $\pm$ 1.618} \\
+        0.9 & 249.5 $\pm$ 2.819 & 249.5 $\pm$ 2.259 & 242.4 $\pm$ 2.479 & 232.5 $\pm$ 2.013 & \textbf{222.35 $\pm$ 2.254} \\
+        \hline
+    \end{tabular}
+    \caption{Average number of colours used by each algorithm where $n = 750$.}
+    \label{tab:avgKforV750}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 1000$& \multicolumn{5}{c}{$k_{avg}$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+0.1 & 31.4 $\pm$ 0.6806 & 31.85 $\pm$ 0.6708 & 29.65 $\pm$ 0.5871 & 26.2 $\pm$ 0.4104 & \textbf{25.65 $\pm$ 0.4894} \\
+        0.2 & 53.8 $\pm$ 0.8944 & 53.75 $\pm$ 0.8507 & 51.55 $\pm$ 0.6863 & 46.65 $\pm$ 0.7452 & \textbf{44.5 $\pm$ 0.5130} \\
+        0.3 & 76.3 $\pm$ 0.9787 & 76.6 $\pm$ 1.095 & 73.5 $\pm$ 0.8272 & 68.1 $\pm$ 0.8522 & \textbf{64.2 $\pm$ 0.6959} \\
+        0.4 & 100 $\pm$ 0.9177 & 99.75 $\pm$ 0.9665 & 96.85 $\pm$ 1.226 & 90.05 $\pm$ 1.191 & \textbf{85.6 $\pm$ 0.5982} \\
+        0.5 & 126.45 $\pm$ 1.191 & 126.65 $\pm$ 1.348 & 123.1 $\pm$ 1.334 & 115.2 $\pm$ 1.196 & \textbf{109.6 $\pm$ 0.8826} \\
+        0.6 & 156.55 $\pm$ 1.905 & 157.85 $\pm$ 1.927 & 152.4 $\pm$ 1.569 & 144 $\pm$ 1.622 & \textbf{136.75 $\pm$ 1.482} \\
+        0.7 & 193.95 $\pm$ 2.911 & 195.35 $\pm$ 2.110 & 189.25 $\pm$ 1.916 & 179.45 $\pm$ 1.986 & \textbf{170.6 $\pm$ 1.314} \\
+        0.8 & 243.1 $\pm$ 2.614 & 243.15 $\pm$ 2.231 & 236.35 $\pm$ 1.755 & 226.1 $\pm$ 1.714 & \textbf{214.25 $\pm$ 1.517} \\
+        0.9 & 321 $\pm$ 3.162 & 320.2 $\pm$ 2.526 & 313.7 $\pm$ 2.886 & 300.15 $\pm$ 2.834 & \textbf{285 $\pm$ 2.317} \\
+        \hline
+    \end{tabular}
+    \caption{Average number of colours used by each algorithm where $n = 1000$.}
+    \label{tab:avgKforV1000}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 1500$& \multicolumn{5}{c}{$k_{avg}$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+0.1 & 42.1 $\pm$ 0.6407 & 42.25 $\pm$ 0.6387 & 39.9 $\pm$ 0.4472 & 36.1 $\pm$ 0.4472 & \textbf{34.5 $\pm$ 0.5130} \\
+        0.2 & 73.4 $\pm$ 0.8826 & 73.6 $\pm$ 0.7539 & 70.6 $\pm$ 0.7539 & 65.15 $\pm$ 0.7452 & \textbf{61.45 $\pm$ 0.5104} \\
+        0.3 & 104.7 $\pm$ 0.8013 & 105.1 $\pm$ 0.9679 & 101.25 $\pm$ 1.070 & 94.65 $\pm$ 0.8751 & \textbf{89.6 $\pm$ 0.7539} \\
+        0.4 & 138.65 $\pm$ 1.3089 & 139 $\pm$ 1.3377 & 134.85 $\pm$ 1.089 & 126.25 $\pm$ 0.9665 & \textbf{120 $\pm$ 0.9177} \\
+        0.5 & 177 $\pm$ 1.556 & 176.65 $\pm$ 1.424 & 171.4 $\pm$ 1.392 & 162.1 $\pm$ 1.165 & \textbf{153.95 $\pm$ 1.191} \\
+        0.6 & 219.9 $\pm$ 1.744 & 220.5 $\pm$ 1.638 & 215.15 $\pm$ 1.387 & 204.05 $\pm$ 1.146 & \textbf{193.25 $\pm$ 1.293} \\
+        0.7 & 273.35 $\pm$ 1.565 & 273.35 $\pm$ 3.117 & 267.3 $\pm$ 2.364 & 254.7 $\pm$ 2.105 & \textbf{241.8 $\pm$ 1.473} \\
+        0.8 & 343.9 $\pm$ 2.634 & 343.5 $\pm$ 2.743 & 336.95 $\pm$ 2.605 & 321.9 $\pm$ 2.100 & \textbf{306.65 $\pm$ 2.033} \\
+        0.9 & 454.6 $\pm$ 3.885 & 455.75 $\pm$ 2.936 & 445.8 $\pm$ 2.931 & 429.3 $\pm$ 4.612 & \textbf{407.4 $\pm$ 2.873} \\
+        \hline
+    \end{tabular}
+    \caption{Average number of colours used by each algorithm where $n = 1500$.}
+    \label{tab:avgKforV1500}
+\end{table}
+
+\subsection{Average number of operations to colour $G(p,n)$ graphs}
+
+This section provides the raw results tables gathered for average number of operations used by each algorithm as the value of $p$ increases. For each table the value of $n$ (i.e. number of vertices or order) for each graph is provided in the top left. The average number of operations with the standard deviation are calculated from running the algorithms on 20 test graphs per value of $p$.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 50$& \multicolumn{5}{c}{$Operations_{avg}\times10^4$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 0.040 $\pm$ 0.004 & 0.051 $\pm$ 0.004 & 0.063 $\pm$ 0.004 & 0.147 $\pm$ 0.012 & 0.369 $\pm$ 0.052 \\
+        0.2 & 0.085 $\pm$ 0.006 & 0.104 $\pm$ 0.006 & 0.115 $\pm$ 0.008 & 0.293 $\pm$ 0.019 & 1.217 $\pm$ 0.139 \\
+        0.3 & 0.139 $\pm$ 0.013 & 0.174 $\pm$ 0.015 & 0.175 $\pm$ 0.012 & 0.442 $\pm$ 0.024 & 2.281 $\pm$ 0.152 \\
+        0.4 & 0.205 $\pm$ 0.014 & 0.258 $\pm$ 0.026 & 0.271 $\pm$ 0.026 & 0.622 $\pm$ 0.035 & 3.454 $\pm$ 0.192 \\
+        0.5 & 0.282 $\pm$ 0.020 & 0.357 $\pm$ 0.034 & 0.368 $\pm$ 0.027 & 0.811 $\pm$ 0.038 & 4.676 $\pm$ 0.184 \\
+        0.6 & 0.385 $\pm$ 0.032 & 0.484 $\pm$ 0.045 & 0.504 $\pm$ 0.057 & 1.053 $\pm$ 0.053 & 6.027 $\pm$ 0.161 \\
+        0.7 & 0.499 $\pm$ 0.029 & 0.680 $\pm$ 0.067 & 0.661 $\pm$ 0.050 & 1.314 $\pm$ 0.074 & 7.559 $\pm$ 0.182 \\
+        0.8 & 0.674 $\pm$ 0.047 & 0.921 $\pm$ 0.078 & 0.931 $\pm$ 0.094 & 1.654 $\pm$ 0.109 & 9.122 $\pm$ 0.168 \\
+        0.9 & 0.928 $\pm$ 0.068 & 1.244 $\pm$ 0.143 & 1.282 $\pm$ 0.157 & 2.121 $\pm$ 0.176 & 10.749 $\pm$ 0.149 \\
+        \hline
+    \end{tabular}
+    \caption{Average number of operations for each algorithm where $n = 50$.}
+    \label{tab:avgOpsforV50}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 100$& \multicolumn{5}{c}{$Operations_{avg}\times10^4$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 0.174 $\pm$ 0.010 & 0.212 $\pm$ 0.012 & 0.240 $\pm$ 0.014 & 0.676 $\pm$ 0.028 & 3.356 $\pm$ 0.269 \\
+        0.2 & 0.399 $\pm$ 0.016 & 0.494 $\pm$ 0.029 & 0.510 $\pm$ 0.027 & 1.388 $\pm$ 0.036 & 10.928 $\pm$ 0.408 \\
+        0.3 & 0.691 $\pm$ 0.027 & 0.850 $\pm$ 0.043 & 0.878 $\pm$ 0.048 & 2.180 $\pm$ 0.070 & 18.942 $\pm$ 0.543 \\
+        0.4 & 1.052 $\pm$ 0.052 & 1.306 $\pm$ 0.122 & 1.356 $\pm$ 0.087 & 3.148 $\pm$ 0.106 & 27.662 $\pm$ 0.641 \\
+        0.5 & 1.528 $\pm$ 0.074 & 1.956 $\pm$ 0.093 & 1.943 $\pm$ 0.121 & 4.172 $\pm$ 0.091 & 37.247 $\pm$ 0.649 \\
+        0.6 & 2.168 $\pm$ 0.099 & 2.715 $\pm$ 0.247 & 2.676 $\pm$ 0.180 & 5.416 $\pm$ 0.193 & 48.041 $\pm$ 0.790 \\
+        0.7 & 2.904 $\pm$ 0.134 & 3.736 $\pm$ 0.215 & 3.600 $\pm$ 0.206 & 6.852 $\pm$ 0.289 & 59.309 $\pm$ 0.846 \\
+        0.8 & 4.003 $\pm$ 0.256 & 5.295 $\pm$ 0.395 & 5.085 $\pm$ 0.356 & 8.785 $\pm$ 0.454 & 72.182 $\pm$ 0.821 \\
+        0.9 & 5.636 $\pm$ 0.363 & 7.786 $\pm$ 0.578 & 7.630 $\pm$ 0.556 & 12.147 $\pm$ 0.562 & 85.352 $\pm$ 0.505 \\
+        \hline
+    \end{tabular}
+    \caption{Average number of operations for each algorithm where $n = 100$.}
+    \label{tab:avgOpsforV100}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 150$& \multicolumn{5}{c}{$Operations_{avg}\times10^4$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 0.412 $\pm$ 0.016 & 0.509 $\pm$ 0.022 & 0.554 $\pm$ 0.024 & 1.621 $\pm$ 0.037 & 12.423 $\pm$ 0.549 \\
+        0.2 & 1.015 $\pm$ 0.040 & 1.246 $\pm$ 0.049 & 1.262 $\pm$ 0.063 & 3.424 $\pm$ 0.112 & 37.869 $\pm$ 1.180 \\
+        0.3 & 1.829 $\pm$ 0.110 & 2.232 $\pm$ 0.119 & 2.263 $\pm$ 0.139 & 5.495 $\pm$ 0.185 & 64.039 $\pm$ 1.797 \\
+        0.4 & 2.938 $\pm$ 0.146 & 3.549 $\pm$ 0.192 & 3.586 $\pm$ 0.217 & 7.982 $\pm$ 0.206 & 93.896 $\pm$ 1.092 \\
+        0.5 & 4.311 $\pm$ 0.163 & 5.227 $\pm$ 0.271 & 5.298 $\pm$ 0.279 & 10.970 $\pm$ 0.355 & 126.109 $\pm$ 1.713 \\
+        0.6 & 6.203 $\pm$ 0.374 & 7.666 $\pm$ 0.431 & 7.526 $\pm$ 0.540 & 14.191 $\pm$ 0.444 & 161.198 $\pm$ 1.467 \\
+        0.7 & 8.403 $\pm$ 0.448 & 10.510 $\pm$ 0.852 & 10.473 $\pm$ 0.626 & 18.389 $\pm$ 0.747 & 200.327 $\pm$ 2.082 \\
+        0.8 & 11.927 $\pm$ 0.695 & 14.989 $\pm$ 0.751 & 15.300 $\pm$ 1.146 & 24.636 $\pm$ 1.179 & 242.444 $\pm$ 1.350 \\
+        0.9 & 17.278 $\pm$ 0.912 & 22.771 $\pm$ 1.130 & 22.950 $\pm$ 1.021 & 33.387 $\pm$ 1.582 & 288.394 $\pm$ 1.200 \\
+        \hline
+    \end{tabular}
+    \caption{Average number of operations for each algorithm where $n = 150$.}
+    \label{tab:avgOpsforV150}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 300$& \multicolumn{5}{c}{$Operations_{avg}\times10^4$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 1.970 $\pm$ 0.077 & 2.404 $\pm$ 0.083 & 2.487 $\pm$ 0.123 & 7.464 $\pm$ 0.191 & 119.780 $\pm$ 3.695 \\
+        0.2 & 5.478 $\pm$ 0.140 & 6.456 $\pm$ 0.274 & 6.525 $\pm$ 0.192 & 16.559 $\pm$ 0.246 & 311.059 $\pm$ 4.088 \\
+        0.3 & 10.679 $\pm$ 0.366 & 12.254 $\pm$ 0.602 & 12.491 $\pm$ 0.372 & 27.772 $\pm$ 0.564 & 516.245 $\pm$ 5.282 \\
+        0.4 & 17.411 $\pm$ 0.633 & 19.857 $\pm$ 0.765 & 20.014 $\pm$ 0.919 & 40.863 $\pm$ 0.809 & 747.249 $\pm$ 5.002 \\
+        0.5 & 26.690 $\pm$ 0.829 & 31.004 $\pm$ 1.748 & 30.964 $\pm$ 1.702 & 57.357 $\pm$ 1.611 & 1006.045 $\pm$ 8.192 \\
+        0.6 & 39.576 $\pm$ 1.214 & 44.740 $\pm$ 2.414 & 43.854 $\pm$ 1.952 & 77.929 $\pm$ 2.648 & 1284.876 $\pm$ 5.170 \\
+        0.7 & 55.915 $\pm$ 1.844 & 64.083 $\pm$ 1.984 & 63.501 $\pm$ 2.564 & 101.920 $\pm$ 4.266 & 1599.367 $\pm$ 7.328 \\
+        0.8 & 79.291 $\pm$ 2.798 & 93.037 $\pm$ 5.278 & 93.228 $\pm$ 3.997 & 137.883 $\pm$ 5.495 & 1933.996 $\pm$ 7.698 \\
+        0.9 & 117.879 $\pm$ 4.601 & 142.998 $\pm$ 5.172 & 147.932 $\pm$ 7.828 & 199.653 $\pm$ 7.248 & 2303.741 $\pm$ 6.319 \\
+        \hline
+    \end{tabular}
+    \caption{Average number of operations for each algorithm where $n = 300$.}
+    \label{tab:avgOpsforV300}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 500$& \multicolumn{5}{c}{$Operations_{avg}\times10^5$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 0.674 $\pm$ 0.019 & 0.805 $\pm$ 0.022 & 0.815 $\pm$ 0.018 & 2.350 $\pm$ 0.036 & 60.956 $\pm$ 0.882 \\
+        0.2 & 2.007 $\pm$ 0.038 & 2.287 $\pm$ 0.053 & 2.274 $\pm$ 0.063 & 5.406 $\pm$ 0.069 & 145.963 $\pm$ 0.859 \\
+        0.3 & 4.078 $\pm$ 0.095 & 4.514 $\pm$ 0.159 & 4.439 $\pm$ 0.162 & 9.187 $\pm$ 0.209 & 240.031 $\pm$ 1.166 \\
+        0.4 & 6.933 $\pm$ 0.210 & 7.380 $\pm$ 0.218 & 7.397 $\pm$ 0.263 & 13.878 $\pm$ 0.286 & 346.334 $\pm$ 1.771 \\
+        0.5 & 10.837 $\pm$ 0.309 & 11.277 $\pm$ 0.419 & 11.385 $\pm$ 0.467 & 19.742 $\pm$ 0.482 & 463.429 $\pm$ 1.681 \\
+        0.6 & 16.218 $\pm$ 0.471 & 16.894 $\pm$ 0.491 & 16.682 $\pm$ 0.565 & 27.372 $\pm$ 0.787 & 595.368 $\pm$ 2.141 \\
+        0.7 & 23.212 $\pm$ 0.784 & 24.507 $\pm$ 0.724 & 24.401 $\pm$ 0.881 & 37.032 $\pm$ 1.275 & 738.832 $\pm$ 1.759 \\
+        0.8 & 33.599 $\pm$ 0.997 & 36.571 $\pm$ 1.387 & 35.981 $\pm$ 1.630 & 50.654 $\pm$ 1.350 & 895.327 $\pm$ 2.242 \\
+        0.9 & 50.060 $\pm$ 1.473 & 57.252 $\pm$ 2.609 & 57.869 $\pm$ 2.682 & 76.098 $\pm$ 2.980 & 1066.502 $\pm$ 1.672 \\ 
+        \hline
+    \end{tabular}
+    \caption{Average number of operations for each algorithm where $n = 500$.}
+    \label{tab:avgOpsforV500}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 750$& \multicolumn{5}{c}{$Operations_{avg}\times10^5$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 1.855 $\pm$ 0.043 & 2.182 $\pm$ 0.066 & 2.179 $\pm$ 0.055 & 5.857 $\pm$ 0.053 & 215.638 $\pm$ 1.454 \\
+        0.2 & 5.804 $\pm$ 0.103 & 6.307 $\pm$ 0.203 & 6.279 $\pm$ 0.210 & 13.854 $\pm$ 0.153 & 496.039 $\pm$ 1.731 \\
+        0.3 & 12.079 $\pm$ 0.340 & 12.672 $\pm$ 0.326 & 12.463 $\pm$ 0.316 & 24.027 $\pm$ 0.361 & 811.825 $\pm$ 2.978 \\
+        0.4 & 21.131 $\pm$ 0.449 & 21.318 $\pm$ 0.729 & 21.026 $\pm$ 0.559 & 36.883 $\pm$ 0.616 & 1169.613 $\pm$ 2.874 \\
+        0.5 & 33.885 $\pm$ 0.638 & 32.749 $\pm$ 0.847 & 33.028 $\pm$ 1.259 & 53.448 $\pm$ 1.028 & 1569.267 $\pm$ 3.804 \\
+        0.6 & 50.305 $\pm$ 0.937 & 49.557 $\pm$ 1.819 & 48.571 $\pm$ 2.080 & 74.704 $\pm$ 1.494 & 2011.145 $\pm$ 4.589 \\
+        0.7 & 73.863 $\pm$ 1.206 & 73.723 $\pm$ 3.283 & 73.202 $\pm$ 3.785 & 103.664 $\pm$ 2.245 & 2496.823 $\pm$ 4.473 \\
+        0.8 & 106.125 $\pm$ 2.603 & 109.728 $\pm$ 4.093 & 108.532 $\pm$ 4.347 & 146.386 $\pm$ 4.058 & 3025.254 $\pm$ 3.535 \\
+        0.9 & 160.188 $\pm$ 3.225 & 176.166 $\pm$ 5.529 & 173.617 $\pm$ 7.492 & 218.136 $\pm$ 5.812 & 3598.172 $\pm$ 3.092 \\
+        \hline
+    \end{tabular}
+    \caption{Average number of operations for each algorithm where $n = 750$.}
+    \label{tab:avgOpsforV750}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 1000$& \multicolumn{5}{c}{$Operations_{avg}\times10^6$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 0.388 $\pm$ 0.007 & 0.443 $\pm$ 0.008 & 0.438 $\pm$ 0.009 & 1.125 $\pm$ 0.011 & 52.152 $\pm$ 0.294 \\
+        0.2 & 1.261 $\pm$ 0.019 & 1.319 $\pm$ 0.025 & 1.302 $\pm$ 0.020 & 2.708 $\pm$ 0.036 & 117.747 $\pm$ 0.451 \\
+        0.3 & 2.670 $\pm$ 0.047 & 2.663 $\pm$ 0.067 & 2.610 $\pm$ 0.084 & 4.813 $\pm$ 0.079 & 192.450 $\pm$ 0.547 \\
+        0.4 & 4.686 $\pm$ 0.079 & 4.448 $\pm$ 0.109 & 4.454 $\pm$ 0.151 & 7.437 $\pm$ 0.118 & 277.262 $\pm$ 0.500 \\
+        0.5 & 7.485 $\pm$ 0.113 & 7.033 $\pm$ 0.167 & 7.166 $\pm$ 0.183 & 10.999 $\pm$ 0.196 & 372.012 $\pm$ 0.746 \\
+        0.6 & 11.372 $\pm$ 0.210 & 10.685 $\pm$ 0.408 & 10.514 $\pm$ 0.387 & 15.524 $\pm$ 0.409 & 476.676 $\pm$ 0.903 \\
+        0.7 & 16.600 $\pm$ 0.442 & 15.759 $\pm$ 0.457 & 15.840 $\pm$ 0.484 & 21.538 $\pm$ 0.524 & 591.620 $\pm$ 0.899 \\
+        0.8 & 24.129 $\pm$ 0.413 & 23.988 $\pm$ 0.844 & 23.465 $\pm$ 0.790 & 30.991 $\pm$ 0.846 & 717.237 $\pm$ 0.992 \\
+        0.9 & 36.822 $\pm$ 0.657 & 38.150 $\pm$ 0.847 & 38.437 $\pm$ 1.006 & 47.322 $\pm$ 1.022 & 852.783 $\pm$ 0.608 \\
+        \hline
+    \end{tabular}
+    \caption{Average number of operations for each algorithm where $n = 1000$.}
+    \label{tab:avgOpsforV1000}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 1500$& \multicolumn{5}{c}{$Operations_{avg}\times10^6$ $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+           0.1 & 1.127 $\pm$ 0.015 & 1.211 $\pm$ 0.019 & 1.204 $\pm$ 0.019 & 2.868 $\pm$ 0.025 & 178.899 $\pm$ 0.618 \\
+        0.2 & 3.843 $\pm$ 0.059 & 3.734 $\pm$ 0.081 & 3.676 $\pm$ 0.059 & 7.187 $\pm$ 0.082 & 399.317 $\pm$ 0.716 \\
+        0.3 & 8.263 $\pm$ 0.106 & 7.567 $\pm$ 0.145 & 7.548 $\pm$ 0.143 & 13.021 $\pm$ 0.147 & 651.182 $\pm$ 1.560 \\
+        0.4 & 14.762 $\pm$ 0.234 & 13.159 $\pm$ 0.216 & 12.941 $\pm$ 0.381 & 20.456 $\pm$ 0.424 & 937.030 $\pm$ 1.337 \\
+        0.5 & 23.861 $\pm$ 0.355 & 20.795 $\pm$ 0.465 & 20.589 $\pm$ 0.537 & 30.489 $\pm$ 0.766 & 1256.827 $\pm$ 1.550 \\
+        0.6 & 36.131 $\pm$ 0.330 & 31.902 $\pm$ 0.834 & 31.620 $\pm$ 0.590 & 43.556 $\pm$ 1.224 & 1610.239 $\pm$ 1.839 \\
+        0.7 & 53.023 $\pm$ 0.718 & 47.415 $\pm$ 1.223 & 47.637 $\pm$ 1.255 & 61.854 $\pm$ 1.506 & 1998.667 $\pm$ 1.664 \\
+        0.8 & 77.708 $\pm$ 0.938 & 72.220 $\pm$ 1.946 & 72.127 $\pm$ 1.876 & 90.245 $\pm$ 2.358 & 2422.108 $\pm$ 1.349 \\
+        0.9 & 118.099 $\pm$ 2.044 & 119.853 $\pm$ 3.215 & 118.618 $\pm$ 2.886 & 141.031 $\pm$ 4.453 & 2880.024 $\pm$ 1.358 \\
+        \hline
+    \end{tabular}
+    \caption{Average number of operations for each algorithm where $n = 1500$.}
+    \label{tab:avgOpsforV1500}
+\end{table}
+
+\subsection{Average time to colour $G(p,n)$ graphs}
+
+This section provides the raw results tables gathered for average running time $t$ of each algorithm as the value of $p$ increases. For each table the value of $n$ (i.e. number of vertices or order) for each graph is provided in the top left. The average time $t$ with the standard deviation are calculated from running the algorithms on 20 test graphs per value of $p$.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 50$& \multicolumn{5}{c}{$t$ (\unit{ms}) $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+          0.1 & 0.0359 $\pm$ 0.0057 & 0.0526 $\pm$ 0.0274 & 0.0544 $\pm$ 0.0241 & 0.1602 $\pm$ 0.1374 & 0.2392 $\pm$ 0.2106 \\
+        0.2 & 0.0257 $\pm$ 0.0108 & 0.0295 $\pm$ 0.0087 & 0.0297 $\pm$ 0.0083 & 0.1339 $\pm$ 0.0109 & 0.4599 $\pm$ 0.8326 \\
+        0.3 & 0.0122 $\pm$ 0.0015 & 0.0186 $\pm$ 0.0029 & 0.0167 $\pm$ 0.0033 & 0.1704 $\pm$ 0.0106 & 0.4509 $\pm$ 0.0470 \\
+        0.4 & 0.0124 $\pm$ 0.0035 & 0.0182 $\pm$ 0.0020 & 0.0171 $\pm$ 0.0033 & 0.1937 $\pm$ 0.0404 & 0.6538 $\pm$ 0.0792 \\
+        0.5 & 0.0139 $\pm$ 0.0015 & 0.0202 $\pm$ 0.0016 & 0.0187 $\pm$ 0.0033 & 0.0908 $\pm$ 0.0056 & 0.9118 $\pm$ 0.0781 \\
+        0.6 & 0.0168 $\pm$ 0.0035 & 0.0247 $\pm$ 0.0049 & 0.0194 $\pm$ 0.0013 & 0.1071 $\pm$ 0.0055 & 0.7695 $\pm$ 0.3461 \\
+        0.7 & 0.0196 $\pm$ 0.0045 & 0.0247 $\pm$ 0.0086 & 0.0234 $\pm$ 0.0049 & 0.1294 $\pm$ 0.0244 & 0.5540 $\pm$ 0.0254 \\
+        0.8 & 0.0189 $\pm$ 0.0093 & 0.0218 $\pm$ 0.0049 & 0.0218 $\pm$ 0.0040 & 0.1603 $\pm$ 0.0497 & 0.5818 $\pm$ 0.0211 \\
+        0.9 & 0.0162 $\pm$ 0.0011 & 0.0222 $\pm$ 0.0035 & 0.0224 $\pm$ 0.0034 & 0.1736 $\pm$ 0.0464 & 0.6412 $\pm$ 0.0208 \\   
+        \hline
+    \end{tabular}
+    \caption{Average time for each algorithm where $n = 50$.}
+    \label{tab:avgTimeforV50}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 100$& \multicolumn{5}{c}{$t$ (\unit{ms}) $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+         0.1 & 0.0653 $\pm$ 0.0091 & 0.0021 $\pm$ 0.0001 & 0.0842 $\pm$ 0.0165 & 0.3051 $\pm$ 0.0551 & 0.7312 $\pm$ 0.0720 \\
+        0.2 & 0.0540 $\pm$ 0.0183 & 0.0049 $\pm$ 0.0003 & 0.0608 $\pm$ 0.0196 & 0.3633 $\pm$ 0.1269 & 2.2339 $\pm$ 0.2294 \\
+        0.3 & 0.0303 $\pm$ 0.0054 & 0.0085 $\pm$ 0.0004 & 0.0376 $\pm$ 0.0060 & 0.2290 $\pm$ 0.0127 & 1.6685 $\pm$ 0.5310 \\
+        0.4 & 0.0324 $\pm$ 0.0019 & 0.0131 $\pm$ 0.0012 & 0.0424 $\pm$ 0.0103 & 0.3183 $\pm$ 0.0513 & 2.1326 $\pm$ 0.0658 \\
+        0.5 & 0.0322 $\pm$ 0.0075 & 0.0196 $\pm$ 0.0009 & 0.0372 $\pm$ 0.0061 & 0.3773 $\pm$ 0.0848 & 2.6967 $\pm$ 0.0733 \\
+        0.6 & 0.0309 $\pm$ 0.0022 & 0.0271 $\pm$ 0.0025 & 0.0377 $\pm$ 0.0024 & 0.3399 $\pm$ 0.0156 & 3.2131 $\pm$ 0.0555 \\
+        0.7 & 0.0334 $\pm$ 0.0025 & 0.0374 $\pm$ 0.0021 & 0.0429 $\pm$ 0.0025 & 0.3897 $\pm$ 0.0232 & 3.7727 $\pm$ 0.0895 \\
+        0.8 & 0.0409 $\pm$ 0.0037 & 0.0529 $\pm$ 0.0039 & 0.0531 $\pm$ 0.0036 & 0.4453 $\pm$ 0.0197 & 4.2619 $\pm$ 0.1112 \\
+        0.9 & 0.0496 $\pm$ 0.0043 & 0.0779 $\pm$ 0.0058 & 0.0803 $\pm$ 0.0504 & 0.5273 $\pm$ 0.0405 & 4.7457 $\pm$ 0.8604 \\ 
+        \hline
+    \end{tabular}
+    \caption{Average time for each algorithm where $n = 100$.}
+    \label{tab:avgTimeforV100}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 150$& \multicolumn{5}{c}{$t$ (\unit{ms}) $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 0.0364 $\pm$ 0.0650 & 0.0329 $\pm$ 0.0222 & 0.0325 $\pm$ 0.0076 & 0.2012 $\pm$ 0.0356 & 1.517 $\pm$ 0.4226 \\
+        0.2 & 0.0248 $\pm$ 0.0032 & 0.0280 $\pm$ 0.0018 & 0.0345 $\pm$ 0.0044 & 0.2905 $\pm$ 0.0123 & 2.918 $\pm$ 0.1191 \\
+        0.3 & 0.0293 $\pm$ 0.0026 & 0.0333 $\pm$ 0.0023 & 0.0380 $\pm$ 0.0015 & 0.4045 $\pm$ 0.0174 & 4.530 $\pm$ 0.1982 \\
+        0.4 & 0.0398 $\pm$ 0.0051 & 0.0439 $\pm$ 0.0015 & 0.0488 $\pm$ 0.0012 & 0.5404 $\pm$ 0.0089 & 6.453 $\pm$ 0.1151 \\
+        0.5 & 0.0476 $\pm$ 0.0029 & 0.0555 $\pm$ 0.0031 & 0.0608 $\pm$ 0.0037 & 0.6635 $\pm$ 0.0213 & 8.432 $\pm$ 0.1515 \\
+        0.6 & 0.0612 $\pm$ 0.0039 & 0.0710 $\pm$ 0.0038 & 0.0755 $\pm$ 0.0051 & 0.8018 $\pm$ 0.0202 & 10.35 $\pm$ 0.0835 \\
+        0.7 & 0.0738 $\pm$ 0.0034 & 0.0896 $\pm$ 0.0089 & 0.0916 $\pm$ 0.0064 & 0.9155 $\pm$ 0.0381 & 12.16 $\pm$ 0.1917 \\
+        0.8 & 0.0966 $\pm$ 0.0053 & 0.1182 $\pm$ 0.0057 & 0.1214 $\pm$ 0.0077 & 1.086 $\pm$ 0.0280 & 13.82 $\pm$ 0.3532 \\
+        0.9 & 0.1189 $\pm$ 0.0065 & 0.1579 $\pm$ 0.0124 & 0.1596 $\pm$ 0.0080 & 1.218 $\pm$ 0.0570 & 14.63 $\pm$ 0.2726 \\
+        \hline
+    \end{tabular}
+    \caption{Average time for each algorithm where $n = 150$.}
+    \label{tab:avgTimeforV150}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 300$& \multicolumn{5}{c}{$t$ (\unit{ms}) $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 0.0506 $\pm$ 0.0169 & 0.0607 $\pm$ 0.0188 & 0.0759 $\pm$ 0.0179 & 0.7501 $\pm$ 0.1742 & 9.801 $\pm$ 1.538 \\
+        0.2 & 0.0744 $\pm$ 0.0074 & 0.0844 $\pm$ 0.0131 & 0.0939 $\pm$ 0.0052 & 1.284 $\pm$ 0.0504 & 21.32 $\pm$ 0.3879 \\
+        0.3 & 0.1087 $\pm$ 0.0060 & 0.1164 $\pm$ 0.0053 & 0.1315 $\pm$ 0.0070 & 1.931 $\pm$ 0.0517 & 35.16 $\pm$ 0.4850 \\
+        0.4 & 0.1720 $\pm$ 0.1032 & 0.1620 $\pm$ 0.0102 & 0.1749 $\pm$ 0.0077 & 2.634 $\pm$ 0.0850 & 49.56 $\pm$ 0.7566 \\
+        0.5 & 0.2014 $\pm$ 0.0074 & 0.2240 $\pm$ 0.0095 & 0.2378 $\pm$ 0.0101 & 3.268 $\pm$ 0.0625 & 64.10 $\pm$ 0.6771 \\
+        0.6 & 0.2736 $\pm$ 0.0101 & 0.2992 $\pm$ 0.0108 & 0.3069 $\pm$ 0.0117 & 3.956 $\pm$ 0.1145 & 77.78 $\pm$ 1.101 \\
+        0.7 & 0.3609 $\pm$ 0.0111 & 0.4037 $\pm$ 0.0117 & 0.4088 $\pm$ 0.0147 & 4.678 $\pm$ 0.0683 & 91.22 $\pm$ 1.416 \\
+        0.8 & 0.4880 $\pm$ 0.0333 & 0.5513 $\pm$ 0.0204 & 0.5641 $\pm$ 0.0259 & 5.418 $\pm$ 0.0561 & 103.2 $\pm$ 1.062 \\
+        0.9 & 0.6548 $\pm$ 0.0275 & 0.7989 $\pm$ 0.0296 & 0.8399 $\pm$ 0.0417 & 6.359 $\pm$ 0.0878 & 111.7 $\pm$ 0.7509 \\
+    
+        \hline
+    \end{tabular}
+    \caption{Average time for each algorithm where $n = 300$.}
+    \label{tab:avgTimeforV300}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 500$& \multicolumn{5}{c}{$t$ (\unit{ms}) $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 0.1127 $\pm$ 0.02639 & 0.1216 $\pm$ 0.02296 & 0.1506 $\pm$ 0.02816 & 2.3717 $\pm$ 0.2432 & 44.26 $\pm$ 1.744 \\
+        0.2 & 0.1939 $\pm$ 0.0058 & 0.2182 $\pm$ 0.0209 & 0.2318 $\pm$ 0.0100 & 4.613 $\pm$ 0.1390 & 102.2 $\pm$ 2.412 \\
+        0.3 & 0.3148 $\pm$ 0.0101 & 0.3405 $\pm$ 0.0178 & 0.3578 $\pm$ 0.0087 & 6.898 $\pm$ 0.0646 & 162.3 $\pm$ 1.247 \\
+        0.4 & 0.4664 $\pm$ 0.0115 & 0.4935 $\pm$ 0.0144 & 0.5213 $\pm$ 0.0158 & 9.173 $\pm$ 0.0702 & 228.1 $\pm$ 1.407 \\
+        0.5 & 0.6680 $\pm$ 0.0165 & 0.7065 $\pm$ 0.0355 & 0.7226 $\pm$ 0.0224 & 11.51 $\pm$ 0.0636 & 296.8 $\pm$ 3.174 \\
+        0.6 & 0.9360 $\pm$ 0.0261 & 0.9754 $\pm$ 0.0266 & 1.0028 $\pm$ 0.0442 & 14.27 $\pm$ 1.7361 & 366.2 $\pm$ 2.311 \\
+        0.7 & 1.280 $\pm$ 0.0400 & 1.341 $\pm$ 0.0322 & 1.367 $\pm$ 0.0495 & 16.38 $\pm$ 0.0855 & 432.4 $\pm$ 5.099 \\
+        0.8 & 1.864 $\pm$ 0.1645 & 2.028 $\pm$ 0.1785 & 2.014 $\pm$ 0.1723 & 19.83 $\pm$ 1.8282 & 492.3 $\pm$ 10.98 \\
+        0.9 & 2.556 $\pm$ 0.0830 & 2.944 $\pm$ 0.1425 & 2.992 $\pm$ 0.1326 & 22.93 $\pm$ 1.0906 & 513.3 $\pm$ 13.28 \\
+
+        \hline
+    \end{tabular}
+    \caption{Average time for each algorithm where $n = 500$.}
+    \label{tab:avgTimeforV500}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 750$& \multicolumn{5}{c}{$t$ (\unit{ms}) $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+         0.1 & 0.2369 $\pm$ 0.0434 & 0.2601 $\pm$ 0.0306 & 0.2998 $\pm$ 0.0419 & 6.668 $\pm$ 0.2628 & 158.0 $\pm$ 2.035 \\
+        0.2 & 0.4690 $\pm$ 0.0186 & 0.5046 $\pm$ 0.0309 & 0.5313 $\pm$ 0.0137 & 13.06 $\pm$ 0.1120 & 347.5 $\pm$ 5.869 \\
+        0.3 & 0.8028 $\pm$ 0.0196 & 0.8438 $\pm$ 0.0222 & 0.8660 $\pm$ 0.0145 & 19.45 $\pm$ 0.1167 & 560.1 $\pm$ 6.306 \\
+        0.4 & 1.263 $\pm$ 0.0414 & 1.290 $\pm$ 0.0478 & 1.328 $\pm$ 0.0818 & 26.33 $\pm$ 0.5095 & 788.5 $\pm$ 15.03 \\
+        0.5 & 1.877 $\pm$ 0.0330 & 1.867 $\pm$ 0.0729 & 1.896 $\pm$ 0.0561 & 32.65 $\pm$ 0.3032 & 1026 $\pm$ 15.87 \\
+        0.6 & 2.648 $\pm$ 0.0501 & 2.642 $\pm$ 0.0744 & 2.642 $\pm$ 0.0957 & 39.70 $\pm$ 0.9382 & 1264 $\pm$ 13.99 \\
+        0.7 & 3.765 $\pm$ 0.0587 & 3.836 $\pm$ 0.2284 & 3.837 $\pm$ 0.2087 & 47.46 $\pm$ 1.7825 & 1508 $\pm$ 22.38 \\
+        0.8 & 5.271 $\pm$ 0.1348 & 5.484 $\pm$ 0.1822 & 5.524 $\pm$ 0.2795 & 54.99 $\pm$ 0.8385 & 1699 $\pm$ 32.47 \\
+        0.9 & 7.728 $\pm$ 0.1456 & 8.547 $\pm$ 0.2567 & 8.548 $\pm$ 0.3659 & 65.99 $\pm$ 2.2054 & 1793 $\pm$ 39.62 \\
+   
+        \hline
+    \end{tabular}
+    \caption{Average time for each algorithm where $n = 750$.}
+    \label{tab:avgTimeforV750}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 1000$& \multicolumn{5}{c}{$t$ (\unit{ms}) $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+        0.1 & 0.4082 $\pm$ 0.0391 & 0.4463 $\pm$ 0.0286 & 0.4885 $\pm$ 0.0165 & 14.12 $\pm$ 0.1995 & 392.6 $\pm$ 6.686 \\
+        0.2 & 0.8873 $\pm$ 0.0186 & 0.9432 $\pm$ 0.0412 & 0.9764 $\pm$ 0.0219 & 27.97 $\pm$ 0.2457 & 850.6 $\pm$ 18.63 \\
+        0.3 & 1.607 $\pm$ 0.0359 & 1.693 $\pm$ 0.2385 & 1.670 $\pm$ 0.0643 & 42.05 $\pm$ 0.3872 & 1342 $\pm$ 35.34 \\
+        0.4 & 2.582 $\pm$ 0.0490 & 2.523 $\pm$ 0.0920 & 2.559 $\pm$ 0.0681 & 56.29 $\pm$ 2.3060 & 1891 $\pm$ 56.66 \\
+        0.5 & 3.873 $\pm$ 0.0575 & 3.737 $\pm$ 0.0890 & 3.864 $\pm$ 0.1197 & 70.44 $\pm$ 1.1467 & 2446 $\pm$ 84.18 \\
+        0.6 & 5.661 $\pm$ 0.0910 & 5.463 $\pm$ 0.1870 & 5.439 $\pm$ 0.1510 & 85.06 $\pm$ 0.9042 & 3040 $\pm$ 104.9 \\
+        0.7 & 8.190 $\pm$ 0.2677 & 7.859 $\pm$ 0.2835 & 7.958 $\pm$ 0.3196 & 102.1 $\pm$ 3.2323 & 3652 $\pm$ 154.9 \\
+        0.8 & 11.82 $\pm$ 1.1856 & 12.00 $\pm$ 1.7053 & 11.43 $\pm$ 0.3529 & 119.6 $\pm$ 3.5488 & 4248 $\pm$ 179.1 \\
+        0.9 & 17.36 $\pm$ 0.3880 & 18.20 $\pm$ 0.4753 & 18.31 $\pm$ 0.5092 & 141.3 $\pm$ 3.7667 & 4459 $\pm$ 237.0 \\
+    
+        \hline
+    \end{tabular}
+    \caption{Average time for each algorithm where $n = 1000$.}
+    \label{tab:avgTimeforV1000}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        
+        $n = 1500$& \multicolumn{5}{c}{$t$ (\unit{ms}) $\pm$ SD} \\
+        \hline
+        $p$ & Greedy & Shuffled & Welsh-Powell & Dsatur & RLF \\
+        \hline
+         0.1 & 0.9331 $\pm$ 0.0413 & 0.9947 $\pm$ 0.0202 & 1.066 $\pm$ 0.0335 & 42.97 $\pm$ 0.7689 & 1416 $\pm$ 41.57 \\
+        0.2 & 2.368 $\pm$ 0.0545 & 2.406 $\pm$ 0.1423 & 2.422 $\pm$ 0.0972 & 86.45 $\pm$ 2.5950 & 3006 $\pm$ 162.9 \\
+        0.3 & 4.486 $\pm$ 0.1130 & 4.289 $\pm$ 0.1943 & 4.309 $\pm$ 0.0981 & 127.6 $\pm$ 2.8026 & 4734 $\pm$ 243.5 \\
+        0.4 & 7.488 $\pm$ 0.1830 & 6.936 $\pm$ 0.2511 & 6.912 $\pm$ 0.2538 & 170.2 $\pm$ 3.6909 & 6575 $\pm$ 368.4 \\
+        0.5 & 11.67 $\pm$ 0.2350 & 10.48 $\pm$ 0.3962 & 10.55 $\pm$ 0.4076 & 216.1 $\pm$ 6.3332 & 8899 $\pm$ 477.3 \\
+        0.6 & 18.39 $\pm$ 2.9578 & 15.46 $\pm$ 0.4644 & 16.15 $\pm$ 0.2443 & 257.3 $\pm$ 4.4214 & 11500 $\pm$ 128.0 \\
+        0.7 & 24.77 $\pm$ 0.5432 & 22.81 $\pm$ 0.7873 & 22.75 $\pm$ 0.8485 & 306.2 $\pm$ 3.9266 & 12542 $\pm$ 851.1 \\
+        0.8 & 35.73 $\pm$ 0.5787 & 33.82 $\pm$ 1.0886 & 33.65 $\pm$ 0.8986 & 358.9 $\pm$ 4.8163 & 14405 $\pm$ 572.4 \\
+        0.9 & 54.91 $\pm$ 2.5198 & 55.24 $\pm$ 1.7817 & 54.70 $\pm$ 1.4532 & 428.7 $\pm$ 7.6526 & 15315 $\pm$ 538.4 \\
+   
+        \hline
+    \end{tabular}
+    \caption{Average time for each algorithm where $n = 1500$.}
+    \label{tab:avgTimeforV1500}
+\end{table}

@@ -1,0 +1,119 @@
+\documentclass[11pt]{report} 
+
+%%%%%%%% Packages %%%%%%%%%%
+\usepackage{graphicx, amsmath, amsfonts, amssymb, amsthm, pgfplots, tikz, siunitx, float, array, longtable}
+\usepackage[top=2.5cm, left=3cm, right=3cm, bottom=3cm]{geometry} % Set margins
+\usepackage[ruled,linesnumbered,lined,boxed,commentsnumbered, nofillcomment]{algorithm2e}
+\usepackage{appendix}
+\usepackage[
+backend=biber,
+style=ieee,
+sorting=nyt
+]{biblatex}
+\addbibresource{sources.bib}
+
+% Graph colours
+ \usetikzlibrary{
+        pgfplots.colorbrewer,
+    }
+\pgfplotsset{width=11cm,compat=1.9}
+\pgfplotsset{
+        % define a `cycle list' for marker
+        cycle list/.define={my marks}{
+            every mark/.append style={solid,fill=\pgfkeysvalueof{/pgfplots/mark list fill}},mark=*\\
+            every mark/.append style={solid,fill=\pgfkeysvalueof{/pgfplots/mark list fill}},mark=square*\\
+            every mark/.append style={solid,fill=\pgfkeysvalueof{/pgfplots/mark list fill}},mark=triangle*\\
+            every mark/.append style={solid,fill=\pgfkeysvalueof{/pgfplots/mark list fill}},mark=diamond*\\
+        },
+    }
+
+
+\setlength{\parindent}{0pt}
+
+% Sections counters
+\renewcommand\thesection{\arabic{section}}
+\setcounter{secnumdepth}{3}
+
+
+\begin{document}
+
+%%%%%% Title Page %%%%%%%%%
+\begin{titlepage}
+    \begin{center}
+        % NCL LOGO
+        \includegraphics[scale=0.07]{Components/Newcastle-University-Logo.png}    
+
+        % TITLE
+        \LARGE
+        \textbf{The Graph Colouring Problem: Studying the efficiency and efficacy of constructive graph colouring algorithms}   
+        \vspace{1.5cm}
+
+        % AUTHOR
+        \Large 
+        \textbf{Harry Hainsworth-Staples \\ (190375508)}  \\ 
+        \vspace{0.5cm}
+        \textbf{Supervisor: Dr. Konrad Dabrowski}
+        
+            
+        \vfill
+        
+        % WC + Extra Info
+        \textbf{Word Count: [13,288]} 
+        \vspace{0.5cm}
+
+        For the award of Master of Science in Computer Science
+            
+        \vspace{0.5cm}
+        
+        School of Computing\\
+        Newcastle University\\
+        August 2024
+            
+    \end{center}
+\end{titlepage}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+
+%%%%%% Declaration %%%%%%%
+\section*{Declaration}
+This dissertation for the award of MSc in Computer Science is comprised solely of my own work, and has not been submitted, in part or in whole, for any other degree. Except where stated specifically otherwise, by reference or acknowledgement, this work is completely my own.
+
+%%% Acknowledgements %%%%%
+\section*{Acknowledgements}
+I would like to thank Dr. Konrad Dabrowski for all his help and support as my supervisor for this project. I would also like to thank my family and in particular my partner Hollie for her constant support throughout my MSc.
+\newpage
+%%%%%% Abstract %%%%%%%%%%
+\section*{Abstract}
+The Graph Colouring Problem (GCP) is one of the best known problems in the field of Graph Theory, with significant applications in scheduling, timetabling, and register allocation to name a few. This project investigates the efficiency and efficacy of several constructive algorithms designed to provide upper bound solutions to the GCP. The algorithms include: GREEDY, WELSH-POWELL, DSATUR and RLF (Recurscive Largest First). The GREEDY algorithm was implemented using two variations based on vertex ordering heuristics. 
+\\\\
+This study evaluates the performance of each of these algorithms through extensive testing on multiple different graph instances, including randomly generated $G(n, p)$ graphs and standard benchmarks such DIMACS test instances with known $\chi(G)$. The results find that no single algorithm outperforms all the others in all contexts. RLF proves to be most efficacious at colouring large and dense graphs, however it is by far the least efficient. DSATUR excels in colouring small and sparse graphs, however again it is the second least efficient. GREEDY and WELSH-POWELL prove to be the most efficient algorithms however they are also the least and second least efficacious respectively. 
+\\\\
+This research highlights the trade-offs between algorithmic efficiency and the quality of solution generated. This project also provides a computer program that users can interact with to test the included algorithms on test instances.
+
+%%%% Contents %%%%%%%%%%%%%
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+
+
+%%%%%% MAIN BODY %%%%%%%%%%
+\pagenumbering{arabic}
+
+\include{introduction}
+\include{background}
+\include{method}
+\include{results}
+\include{discussion}
+\include{conclusion}
+
+
+\printbibliography
+
+
+\renewcommand\thesection{\Alph{section}}
+\appendix
+\include{appendix}
+
+\end{document}

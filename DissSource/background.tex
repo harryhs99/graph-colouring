@@ -1,0 +1,112 @@
+\section{Background Research}
+The aim of this project is to implement several constructive graph colouring algorithms and compare them through the previously established metrics of efficacy and efficiency. This section will explore the Graph Colouring Problem (GCP) as a whole and introduce key concepts and notation. It will explore the complexity of the problem, as well as covering how to translate a graph into a format that a computer can understand and manipulate. Then, each algorithm to be implemented within this project will be explored. Particular focus will be paid to its origins, how it works, and its complexities. After that, this section will look at the graph testing instances that can be used to test these algorithms.
+
+
+\subsection{The Graph Colouring Problem}
+As outlined in section 1, the GCP has its history in map colouring and the FCP. The aim of the FCP is to colour each region of a map so that no two neighbouring regions share the same colour. The FCT postulated that for any map only four colours are required which, as mentioned previously, was then proven to be true \cite{AppelHaken4Colour}. 
+\\\\
+A map can be imagined as a planar graph with the central point of each region being a vertex and each neighbouring region being connected with an edge (a planar graph being one that can be drawn within the plane, i.e. there is a version of the graph that can be drawn on a two-dimensional plane whereby no two edges cross over). The aim being to colour each node so that no two neighbouring vertices (i.e. those connected by an edge) are assigned the same colour. An optimal solution (always being four for planar graphs) would be to use the minimal number of colours.
+\\ \\
+This leads nicely on to the GCP as whole, as an extension of the FCP, which includes non-planar graphs. The basic aim of the problem remains the same: to colour each vertex of the graph so that no connected vertices have the same colour all while minimising the number of colours being used. A valid colouring of a graph $G$ is one that follows the first aim of colouring by containing no conflicts between vertices. Colouring $G$ using $k$ colours means that $G$ is $k$-colourable. An optimal colouring of G is one that uses the minimum number of colours. This is referred to as the chromatic number and is notated by the Greek letter Chi. In other words, an optimal colouring of $G$ is one whereby $k = \chi(G)$.
+
+
+\subsection{Problem Complexity}
+There are many algorithmic approaches to finding solutions to the GCP, however none of these can claim to “solve” the GCP. As Lewis states, to solve the GCP would be to take any graph of any size or topology and return the optimal solution (i.e. a colouring whereby $k = \chi(G)$) in all cases \cite{LewisR.M.R2015AGtG}. Due to work by Stephen Cook on Complexity Theory and introducing ideas of NP-completeness and problem reductions, the GCP can be said to be NP-complete as it can be reduced from the Satisfiability Problem that Cook proved to be NP-complete \cite{Cook1971}. 
+\\\\
+The idea of P and NP stems from the field of Complexity Theory used to categorise problems into sets based upon their complexity. This theory states that there are two ways of looking at problems. The first way is to frame the problem as a searching problem in which the aim is to find a solution to a given instance. The second way would be to frame it as a decision problem to which the answer is either "yes" or "no" and the problem is looking if an instance has a certain property \cite{Goldreich_2010}. P is the set containing problems for which there are algorithms that can efficiently solve it, whereas NP contains the set of problems that have efficiently verifiable proofs for solutions that claim a "yes" answer \cite{Goldreich_2010, LewisR.M.R2015AGtG}. Posing a problem as a searching problem or a decision problem comes mainly down to how the problem is stated. For example, the GCP could be posed as a searching problem in the form: "Given a graph $G$ what is the minimum number of colours required to colour $G$?". On the other hand it could be posed as a decision problem, as Lewis proposes, in the form: “Can a graph $G$ be coloured feasibly using $k$ colours?” \cite{LewisR.M.R2015AGtG}. The GCP as a whole is said to be intractable because an algorithm that could answer either of those questions is not feasible within polynomial-time, however, when presented with a solution, it would be feasible to determine its correctness, providing it is claiming "yes" in the decision variation. 
+\\\\
+Previous work has suggested that constructing an algorithm that could claim to "solve" the GCP seems to be insoluble theoretically and practically \cite{WelshPowell}. However, there are several algorithms that can provide both upper and lower bound approximations of the chromatic number \cite{MaxClique, MaxClique2, CulbersonColoring, LEWISHillClimber}. With so many options out there that can provide solutions to the GCP, it is important to understand which is best. Therefore, it is important to establish solid metrics to compare how algorithms perform in contrast to others. In computing there are several notations that are used to characterise an algorithms performs in terms of efficiency. Perhaps the most commonly used is that of big $O$ notation. $O$-notation provides an upper bound to an algorithms asymptotic behaviour, or in other words it states that the computational complexity grows no faster than the highest order term of the function that defines it \cite{IntroAlgs}. For example an algorithm might be defined by a rate $4n^2 + 4n + 2$, where $n$ is the size of the input provided. However, as $n$ grows and tends towards infinity the only part of that equation with any consequence becomes $n^2$. Therefore, using $O$-notation the complexity of the algorithm is $O(n^2)$. There are also other notations that provide lower bounds, and tight bounds \cite{IntroAlgs}. However more generally, there is a greater interest in knowing the worst case scenarios. 
+\\\\
+While $O$-notation is very useful for providing theoretical insight into an algorithms performance, it remains just that: a theoretical upper bound or worst case. Practically speaking, testing on very large inputs becomes unfeasible due to the necessity of either immense computing power or impractical amounts of time. It is therefore useful to test algorithms on real-world problem instances to gauge how they perform. To achieve this, it is necessary to have some practical metric to measure the algorithms efficiency. Perhaps the most obvious measurement would be to simply measure the time taken for the algorithm to complete its execution \cite{Kronsjo, Leighton1979AGC}. However, it has been shown that timing using methods, such as the CPU clock, mean the result is very much hardware or programming language dependant \cite{Eiben, LewisR.M.R2015AGtG}. It has been stated that using a more hardware and implementation independent method for measuring algorithms, such as the number of atomic operations used by the algorithm to find a solution, might be more suitable \cite{Eiben, LewisR.M.R2015AGtG}.  
+
+\subsection{Representing Graphs}
+There are generally two standard ways of representing graphs: an Adjacency List, or an Adjacency Matrix \cite{LewisR.M.R2015AGtG, IntroAlgs}. An Adjacency List representation commonly uses an array structure to store lists of neighbouring vertices. For example, given a graph $G = (V, E)$ where $V$ is the set of vertices and $E$ is the set of edges. An array $Adj$ of length $|V|$ would be constructed so that for each vertex $v \in V$ the list $Adj[v]$ would contain a list of all the neighbouring vertices $u$ so that $(v, u) \in E$ \cite{IntroAlgs}. Therefore, if given an edge set $\{(v_{1}, v_{2}), (v_{1}, v_{3}), (v_{2}, v_{3}), (v_{3}, v_{4}), (v_{3}, v_{5})\}$ and Adjacency List representation would be:
+\begin{equation*}
+     \begin{bmatrix}
+    v_{1} \rightarrow \{v_{2}, v_{3}\}, \\
+    v_{2} \rightarrow \{v_{1}, v_{3}\}, \\
+    v_{3} \rightarrow \{v_{1}, v_{2}, v_{4}, v_{5}\}, \\
+    v_{4} \rightarrow \{v_{3}\}, \\
+    v_{5} \rightarrow \{v_{3}\}, \\
+    \end{bmatrix} 
+\end{equation*}
+An Adjacency List has the desirable property of being memory efficient as only existing edges are stored within memory and has a space complexity of $O(V + E)$ \cite{IntroAlgs}. This is particularly desirable for sparse graphs. Furthermore, iterating over neighbouring vertices is dependant on the degree of the vertex as each list only contains neighbouring vertices. This operation therefore has a time complexity of $O(deg(v))$.
+\\\\
+On the other hand, an Adjacency Matrix representation of $G$ uses a $|V| \times |V|$ matrix $A$ whereby for vertices $v$ and $u$, $A[v][u] = 1$ if and only if $(v, u) \in E$, otherwise it is 0 \cite{IntroAlgs}.  Therefore, an Adjacency Matrix of the edge set established earlier would look like:
+\begin{equation*}
+     \begin{bmatrix}
+     0 & 1 & 1 & 0 & 0 \\
+     1 & 0 & 1 & 0 & 0 \\
+     1 & 1 & 0 & 1 & 1 \\
+     0 & 0 & 1 & 0 & 0 \\
+     0 & 0 & 1 & 0 & 0 \\
+    \end{bmatrix} 
+\end{equation*}
+The space complexity of an Adjacency Matrix is less desirable than the Adjacency List as it is always $O(V^2)$ regardless of the number of edges \cite{IntroAlgs}. This is particularly wasteful for sparse graphs as it means storing redundant information. Furthermore, finding the neighbours of a vertex requires iterating over all the vertices to check if it is a neighbour or not (i.e. checking if it is 0 or 1). This operation therefore has a time complexity of $O(V)$.
+
+\subsection{The GREEDY algorithm}
+The GREEDY algorithm, sometimes referred to as FIRST-FIT algorithm, is one of the earliest heuristics developed in finding solutions to the GCP \cite{LEWIS20121933}. The GREEDY algorithm is perhaps one of the simplest algorithms for graph colouring, however it is also perhaps the most fundamental \cite{LewisR.M.R2015AGtG}. The algorithm works by taking in vertices in some order and assigning each vertex the first colour it can without creating any conflicts \cite{LewisR.M.R2015AGtG}. It can be thought of as:
+\begin{verbatim}
+    1. Given a Graph G with a vertex set V assign the first vertex v in 
+       V with a colour 0.
+    2. Take the next vertex in V and assign it the first colour that does 
+       not create any conflicts, creating new colours where necessary (add 
+       1 to previous colour).
+    3. Repeat step 2 until all vertices in V are assigned a colour.
+\end{verbatim}
+It has been shown that there is always an ordering of the vertices whereby the GREEDY algorithm can produce the optimal solution \cite{LewisR.M.R2015AGtG}. This is where the idea of the SHUFFLED GREEDY algorithm comes in. Prior to step 1 (shown above), the vertices are shuffled into a random order. Therefore, repeating the SHUFFLED GREEDY algorithm will eventually produce a solution that is optimal. However, as the graph becomes larger the chances of this happening become astronomical. This is because the number of ways the vertices can be ordered is calculated by $|V|!$, which quickly gets out of hand as the number of vertices grows. It therefore becomes extremely unlikely that the algorithm will stumble upon the optimal ordering. It has been shown that the worst case complexity of the GREEDY algorithm is $O(n^2)$ \cite{LewisR.M.R2015AGtG}.
+
+\subsection{The WELSH-POWELL algorithm}
+The WELSH-POWELL algorithm is one of the earliest heuristics proposed for the ordering of vertices building off of the GREEDY approach \cite{LEWIS20121933}. The work of Welsh and Powell suggests that vertices should be sorted according to their degrees, with the highest degree coming first \cite{WelshPowell}. Therefore, the WELSH-POWELL algorithm is simply the GREEDY algorithm with the extra step of sorting first. It has been shown that sorting has a complexity of $O(n \log n)$ (where $n$ in this case is the number of vertices) \cite{IntroAlgs}. This means that, in the worst case, WELSH-POWELL still has a complexity of $O(n^2)$. However, practically the extra step of sorting will make a slight impact in its efficiency comparable to GREEDY. 
+\\\\
+There is also a slight variation proposed of the WELSH-POWELL algorithm that aims to build colour sets rather than iteratively going through each vertex \cite{GFGWP}. This variation goes as follows:
+\begin{verbatim}
+    1. Sort the vertices in order of degree (highest first).
+    2. Colour the first vertex with colour 0.
+    3. Proceed to assign this colour to all uncolored vertices not 
+       connected to the vertex.
+    4. Increment the colour.
+    5. Assign the next vertex with highest degree with the new colour.
+    6. Repeat steps 3 - 5 untill all vertices have been coloured. 
+\end{verbatim}
+This variation will be used within the project to allow for comparisons to be made between the two variations. 
+
+\subsection{The DSATUR algorithm}
+The DSATUR algorithm was first proposed by Br\'{e}laz and gets its name from an abbreviation of degree of saturation \cite{BrelazDSatur}. In essence the GREEDY method and DSATUR are very similar in that they aim to assign each vertex with the minimum colour on each iteration. However, whereas GREEDY has a predetermined ordering, DSATUR decides heuristically which vertex to colour next based upon the most constrained vertices with highest saturation \cite{LewisR.M.R2015AGtG}. The degree of saturation of a vertex $v$ that has not yet been coloured is determined by the number of different colours assigned to neighbouring vertices of $v$ \cite{BrelazDSatur, LewisR.M.R2015AGtG}. The algorithm as set out by Br\'{e}laz \cite{BrelazDSatur} is as follows:
+\begin{verbatim}
+    1. Sort the vertices by order of degree (highest first).
+    2. Colour the vertex of maximal degree with the first colour.
+    3. Choose the next uncoloured vertex of maximal saturation degree. 
+       If there is a tie, choose any vertex of maximal degree.
+    4. Colour the chosen vertex with the minimal possible colour.
+    5. If all vertices are coloured stop, if not return to step 3.
+\end{verbatim}
+In the same work, Br\'{e}laz also showed that DSATUR is exact for bipartite graphs \cite{BrelazDSatur}. Bipartite graphs are a special topology of graph whereby the vertices are within two distinct sets, and no vertices within those sets share an edge. A bipartite graph can be defined as a graph that contains no cycles, and a bipartite graphs optimal colouring is always two (i.e. $\chi(G) = 2$) \cite{LewisR.M.R2015AGtG}. It has also been shown that DSATUR is exact for other fundamental graph topologies such as cycle and wheel graphs \cite{LewisR.M.R2015AGtG}. The worst case complexity of DSATUR, much like GREEDY, has been shown to be $O(n^2)$ \cite{LewisR.M.R2015AGtG}. However, in practice DSATUR is less performative than GREEDY due to the complexity added by the degree of saturation heuristic. 
+
+\subsection{The RLF algorithm}
+The RLF algorithm was designed by Leighton to solve large scheduling problems \cite{Leighton1979AGC}. Unlike previous algorithms that colour vertices one by one, RLF colours the graph one colour at a time \cite{LewisR.M.R2015AGtG}. Each iteration of the algorithm aims to build up an independent set of vertices that is then associated with a colour. Much like the approach of DSATUR, RLF also looks to tackle the most constrained vertices first. Similar to in DSATUR, the first vertex $v$ chosen for each colour set being constructed is that of the highest degree within the set of uncoloured vertices \cite{Leighton1979AGC, LewisR.M.R2015AGtG}. All neighbours of $v$ are then removed from consideration. Where RLF differs from DSATUR is in the choice of the next vertex to be coloured in the remaining sub-graph, induced by removing all the neighbours of $v$. The next vertex $u$ is chosen whereby $u$ is the one with the largest number of neighbours within the subgraph of the removed vertices of $v$ \cite{Leighton1979AGC}. The algorithm can be thought of as follows:
+\begin{verbatim}
+    1. Set the colour to 0.
+    2. Take an uncoloured vertex v whereby it is the vertex with maximal 
+       degree.
+    3. Assign it with the current colour and remove it from the graph.
+    4. Remove all the neighbours of v from the graph and for each vertex 
+       remaining count the number of neighbours it has within the vertices 
+       that have been removed.
+    5. Choose the next vertex u that has the most neighbours from step 3.
+    6. Assign it to the current color set and remove it from the graph.
+    7. Repeat steps 3 - 5 until there are no more vertices left in the 
+       graph.
+    8. If all vertices are coloured stop, if not restore all uncolored 
+       vertices to the graph increase the colour by 1 and go back to 
+       step 2. 
+\end{verbatim}
+Unlike all the previous algorithms which have a worst case complexity of $O(n^2)$, Leighton showed that RLF has a worst case complexity of $O(n^3)$. However, he also showed that RLF can behave like $O(n^2)$ for sparse graphs \cite{Leighton1979AGC}. It has also been shown that RLF, like DSATUR, provides the optimal solution for many fundamental graph topologies including bipartite, cycle and wheel graphs \cite{LewisR.M.R2015AGtG}. 
+\subsection{Test Instances}
+When new algorithms for the GCP are proposed, it stands to reason to compare them with other existing methods. It is therefore important to have standard testing instances so that the performance of the algorithms can be easily compared. A development in 1992 helped in this regard with the the second DIMACS implementation challenge. This culminated in a suite of graph colouring test instances being released to the public domain \cite{DIMACSChallenge2}. Since this time, many researchers within graph colouring have used this testing set to tune their algorithms to achieve better results \cite{LewisR.M.R2015AGtG}. Some testing instances, also contained within the DIMACS set, of particular note are those proposed by Leighton in his work on RLF. He noted that much of the graph colouring testing was performed on randomly generated graphs, however none of them provided the chromatic numbers of the test graphs used \cite{Leighton1979AGC}. Leighton therefore proposed a new method for generating random test graphs with a known chromatic number \cite{Leighton1979AGC}. 
+\\\\
+Testing the algorithms on DIMACS instances provides insights of their performance on a particular problem set. However, to gain more general insights of the algorithms performance on a particular type of graph, the algorithms must be tested on many variations of graphs of that type. One method proposed for this is that of using randomly generated $G(n, p)$ graphs \cite{LewisR.M.R2015AGtG}. A random graph $G(n, p)$ is one that comprises of $n$ vertices and each pair of vertices has $p$ probability of being adjacent \cite{LewisR.M.R2015AGtG}. This allows for testing to be done by tweaking the edge probability $p$ and altering the randomly generated graphs from being sparse to dense. 
+
+
+\subsection{Summary}
+To summarise, after a review of the literature, it was decided to implement all the constructive algorithms discussed previously within a computer program. The idea then being to compare and contrast the efficacy and efficiency of the algorithms using the metrics established in section 2.2. The algorithms were to be tested upon the randomly generated $G(n, p)$ graph instances and DIMACS testing instances with known chromatic number as discussed in section 2.8. Each graph should then have the ability to be stored within both an Adjacency List and Adjacency Matrix and then provide a colouring solution by inputting it into one of the algorithms. Conclusions could then be made as to the most efficient method for storing graphs within memory. This all culminated in the decision to design and construct a piece of software that has the ability to take test instances and generate results that will provide insights into the efficacy and efficiency of all the algorithms. This software is thoroughly discussed in the next section. 
